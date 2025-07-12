@@ -15,25 +15,37 @@
             padding-top: 50px;
         }
         .logo-placeholder {
+            position: absolute;
+            top: 10px;
+            left: 10px;
             width: 100px;
             height: 100px;
-            background-color: #333;
-            border: 2px dashed white;
-            margin: 20px auto;
         }
         nav {
-            padding: 10px 0;
+            position: absolute;
+            top: 10px;
+            right: 10px;
         }
         nav a {
             color: white;
             margin: 0 15px;
             text-decoration: none;
         }
+        footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+}
     </style>
 </head>
 <body>
 <div class="logo-placeholder">
-    <!-- Place your logo image here, e.g., <img src="resources/logo.png" alt="dekhte-hai logo"> -->
+    <a href="index.html">
+        <img src="resources/logo.png" alt="dekhte-hai logo">
+    </a>
 </div>
 <nav>
     <a href="index.html">Home</a>
@@ -43,5 +55,8 @@
 </nav>
 <h1>Products</h1>
 <p>Coming Soon</p>
+<footer>
+    <p>&copy; 2025 dekhte-hai.com. All rights reserved.</p>
+</footer>
 </body>
 </html>

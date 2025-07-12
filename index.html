@@ -4,54 +4,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>dekhte-hai.com</title>
+  <link rel="icon" type="image/png" href="resources/favicon.png">
   <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        nav {
-            padding: 10px 0;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-        }
-        .content {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 50px;
-        }
-        .text {
-            max-width: 50%;
-        }
-        .image-placeholder {
-            width: 50%;
-            height: 400px;
-        }
-        .logo-placeholder {
-            width: 100px;
-            height: 100px;
-            margin: 20px auto;
-        }
-    </style>
+      body {
+          background-color: black;
+          color: white;
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          text-align: center;
+      }
+      .logo-placeholder {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          width: 100px;
+          height: 100px;
+      }
+      nav {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+      }
+      nav a {
+          color: white;
+          margin: 0 15px;
+          text-decoration: none;
+      }
+      .centered-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+      }
+      .image-placeholder img {
+          max-width: 600px;
+          max-height: 600px;
+          width: auto;
+          height: auto;
+      }
+      footer {
+          position: absolute;
+          bottom: 10px;
+          width: 100%;
+          text-align: center;
+          color: white;
+          font-size: 14px;
+      }
+  </style>
 </head>
 <body>
 <div class="logo-placeholder">
-  <img src="resources/logo.png" alt="dekhte-hai logo">
+  <a href="index.html">
+    <img src="resources/logo.png" alt="dekhte-hai logo">
+  </a>
 </div>
 <nav>
-  <a href="#home">Home</a>
-  <a href="#gallery">Gallery</a>
-  <a href="#blogs">Blogs</a>
-  <a href="#products">Products</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="blogs.html">Blogs</a>
+  <a href="products.html">Products</a>
 </nav>
-<div class="content">
+<div class="centered-content">
   <div class="text">
     <h1>View the world through our lens</h1>
     <p>A visual journey through the iconic streets, landmarks and hidden gems of the world to create an immersive visual experience.</p>
@@ -60,5 +77,8 @@
     <img src="resources/Photo1.jpeg" alt="Travel Image">
   </div>
 </div>
+<footer>
+    <p>&copy; 2025 dekhte-hai.com. All rights reserved.</p>
+</footer>
 </body>
 </html>
