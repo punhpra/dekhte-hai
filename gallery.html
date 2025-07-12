@@ -1,155 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>dekhte-hai.com - Gallery</title>
     <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            padding-top: 50px;
-        }
-        .logo-placeholder {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 100px;
-            height: 100px;
-        }
-        nav {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-        }
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr); /* 5 images per row */
-            gap: 10px;
-            padding: 20px;
-        }
-        .gallery-container img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border: 2px solid white;
-            border-radius: 5px;
-            cursor: pointer;
-            position: relative;
-        }
-        .gallery-container img:hover::after {
-            content: attr(alt);
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 5px;
-            border-radius: 3px;
-            font-size: 12px;
-        }
-        footer {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            text-align: center;
-            color: white;
-            font-size: 14px;
-        }
-        @media (max-width: 768px) {
-            .gallery-container {
-                grid-template-columns: repeat(2, 1fr); /* 2 images per row on smaller screens */
-            }
-        }
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .modal img {
-            max-width: 90%;
-            max-height: 90%;
-        }
-        .modal:target {
-            display: flex;
-        }
-    </style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      padding-top: 50px;
+    }
+      .logo-placeholder {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          width: 100px;
+          height: 100px;}
+    nav {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      padding: 20px;
+    }
+    .gallery-item {
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border: 2px solid white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .caption {
+      margin-top: 5px;
+      font-size: 14px;
+    }
+    footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 14px;
+    }
+    @media (max-width: 768px) {
+      .gallery-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9);
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+    }
+    .close, .prev, .next {
+      position: absolute;
+      top: 50%;
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 16px;
+      user-select: none;
+    }
+    .close {
+      top: 20px;
+      right: 35px;
+      font-size: 40px;
+    }
+    .prev {
+      left: 0;
+    }
+    .next {
+      right: 0;
+    }
+  </style>
 </head>
 <body>
+
 <div class="logo-placeholder">
     <a href="index.html">
         <img src="resources/logo.png" alt="dekhte-hai logo">
     </a>
 </div>
+
 <nav>
     <a href="index.html">Home</a>
     <a href="gallery.html">Gallery</a>
     <a href="blogs.html">Blogs</a>
     <a href="products.html">Products</a>
 </nav>
+
 <h1>Gallery</h1>
-<div class="gallery-container">
-    <a href="#img1"><img src="resources/Photo1.jpeg" alt="Image 1"></a>
-    <a href="#img2"><img src="resources/Photo2.jpeg" alt="Image 2"></a>
-    <a href="#img3"><img src="resources/Photo3.jpeg" alt="Image 3"></a>
-    <a href="#img4"><img src="resources/Photo4.jpeg" alt="Image 4"></a>
-    <a href="#img5"><img src="resources/Photo5.jpeg" alt="Image 5"></a>
-    <a href="#img6"><img src="resources/Photo6.jpeg" alt="Image 6"></a>
-    <a href="#img7"><img src="resources/Photo8.jpeg" alt="Image 8"></a>
-    <a href="#img8"><img src="resources/Photo10.jpeg" alt="Image 10"></a>
-    <a href="#img9"><img src="resources/Photo7.jpeg" alt="Image 7"></a>
-    <a href="#img10"><img src="resources/Photo9.jpeg" alt="Image 9"></a>
+
+<div class="gallery-container" id="gallery">
+    <!-- Gallery items -->
 </div>
-<!-- Modal for images -->
-<div id="img1" class="modal">
-    <img src="resources/Photo1.jpeg" alt="Image 1">
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+    <img class="modal-content" id="modalImage">
+    <span class="next" onclick="changeSlide(1)">&#10095;</span>
 </div>
-<div id="img2" class="modal">
-    <img src="resources/Photo2.jpeg" alt="Image 2">
-</div>
-<div id="img3" class="modal">
-    <img src="resources/Photo3.jpeg" alt="Image 3">
-</div>
-<div id="img4" class="modal">
-    <img src="resources/Photo4.jpeg" alt="Image 4">
-</div>
-<div id="img5" class="modal">
-    <img src="resources/Photo5.jpeg" alt="Image 5">
-</div>
-<div id="img6" class="modal">
-    <img src="resources/Photo6.jpeg" alt="Image 6">
-</div>
-<div id="img7" class="modal">
-    <img src="resources/Photo8.jpeg" alt="Image 8">
-</div>
-<div id="img8" class="modal">
-    <img src="resources/Photo10.jpeg" alt="Image 10">
-</div>
-<div id="img9" class="modal">
-    <img src="resources/Photo7.jpeg" alt="Image 7">
-</div>
-<div id="img10" class="modal">
-    <img src="resources/Photo9.jpeg" alt="Image 9">
-</div>
+
 <footer>
     <p>&copy; 2025 dekhte-hai.com. All rights reserved.</p>
 </footer>
+
+<script>
+  const images = [
+    { src: 'resources/Photo1.jpeg', caption: 'Hungarian Parliament Budapest' },
+    { src: 'resources/Photo2.jpeg', caption: 'Durdle Door' },
+    { src: 'resources/Photo3.jpeg', caption: 'London Eye' },
+    { src: 'resources/Photo4.jpeg', caption: 'Westminster London' },
+    { src: 'resources/Photo5.jpeg', caption: 'Brighton' },
+    { src: 'resources/Photo6.jpeg', caption: 'BroadwayTower Cotswolds' },
+    { src: 'resources/Photo8.jpeg', caption: 'Wengen' },
+    { src: 'resources/Photo10.jpeg', caption: 'Cambridge' },
+    { src: 'resources/Photo7.jpeg', caption: 'London' },
+    { src: 'resources/Photo9.jpeg', caption: 'Paris' },
+  ];
+
+  const gallery = document.getElementById('gallery');
+  images.forEach((img, index) => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item';
+    div.innerHTML = `
+      <img src="${img.src}" alt="${img.caption}" onclick="openModal(${index})">
+      <div class="caption">${img.caption}</div>
+    `;
+    gallery.appendChild(div);
+  });
+
+  let currentIndex = 0;
+
+  function openModal(index) {
+    currentIndex = index;
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById('modalImage').src = images[currentIndex].src;
+  }
+
+  function closeModal() {
+    document.getElementById('myModal').style.display = "none";
+  }
+
+  function changeSlide(direction) {
+    currentIndex += direction;
+    if (currentIndex < 0) currentIndex = images.length - 1;
+    if (currentIndex >= images.length) currentIndex = 0;
+    document.getElementById('modalImage').src = images[currentIndex].src;
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById('myModal');
+    if (event.target === modal) {
+      closeModal();
+    }
+  }
+</script>
+
 </body>
 </html>
