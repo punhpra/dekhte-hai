@@ -21,6 +21,7 @@
             margin: 0;
             padding: 0;
             text-align: center;
+            padding-top: 50px; /* Matches your style */
             position: relative;
             min-height: 100vh;
         }
@@ -31,10 +32,6 @@
             width: 100px;
             height: 100px;
         }
-        .logo-placeholder img {
-            max-width: 100%;
-            max-height: 100%;
-        }
         nav {
             position: absolute;
             top: 10px;
@@ -42,15 +39,23 @@
         }
         nav a {
             color: white;
-            margin: 0 10px;
+            margin: 0 15px;
             text-decoration: none;
-            font-size: 16px;
+        }
+        .intro {
+            margin-top: 80px; /* Lower the welcome message */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+            white-space: normal;
+            padding: 10px;
         }
         .gallery-container {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 10px;
-            padding: 120px 20px 60px;
+            padding: 120px 20px 60px; /* Lower the gallery */
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -79,12 +84,11 @@
             text-align: center;
             color: white;
             font-size: 14px;
-            padding: 10px 0;
         }
         @media (max-width: 768px) {
             body {
-                padding-top: 100px;
-                min-height: auto;
+                flex-direction: column;
+                padding-top: 20px; /* Matches your style */
             }
             .logo-placeholder {
                 top: 5px;
@@ -97,19 +101,22 @@
                 right: 5px;
             }
             nav a {
-                margin: 0 5px;
+                margin: 0 10px;
+                font-size: 14px;
+            }
+            .intro {
+                margin-top: 60px; /* Adjusted for mobile */
                 font-size: 14px;
             }
             .gallery-container {
                 grid-template-columns: repeat(2, 1fr);
-                padding: 100px 10px 50px;
+                padding: 100px 10px 50px; /* Adjusted for mobile */
             }
             .gallery-item img {
                 height: 120px;
             }
             footer {
-                position: relative;
-                bottom: auto;
+                font-size: 12px;
                 padding: 10px;
             }
         }
@@ -167,11 +174,13 @@
     <a href="blogs.html">Blogs</a>
     <a href="products.html">Products</a>
 </nav>
-<h1>Gallery</h1>
-<p class="intro">Welcome to the dekhte-hai.com travel gallery, showcasing a stunning collection of images from iconic world landmarks, picturesque streets, and hidden gems. Explore the beauty of global destinations through our lens.</p>
+<p class="intro">Welcome to the dekhte-hai.com travel gallery, <br>showcasing stunning images of world landmarks and hidden gems.</p>
 <div class="gallery-container" id="gallery">
     <!-- JavaScript will insert images here -->
 </div>
+<footer>
+    <p>© 2025 dekhte-hai.com. All rights reserved.</p>
+</footer>
 <!-- Modal -->
 <div id="myModal" class="modal">
     <span class="close" onclick="closeModal()">×</span>
@@ -179,21 +188,18 @@
     <img class="modal-content" id="modalImage">
     <span class="next" onclick="changeSlide(1)">❯</span>
 </div>
-<footer>
-    <p>© 2025 dekhte-hai.com. All rights reserved.</p>
-</footer>
 <script>
         const images = [
-            { src: 'resources/Photo1.jpeg', caption: 'Hungarian Parliament Budapest' },
+            { src: 'resources/Photo1.jpeg', caption: 'Westminster London' },
             { src: 'resources/Photo2.jpeg', caption: 'Durdle Door' },
             { src: 'resources/Photo3.jpeg', caption: 'London Eye' },
             { src: 'resources/Photo4.jpeg', caption: 'Prague Castle' },
             { src: 'resources/Photo5.jpeg', caption: 'Brighton' },
             { src: 'resources/Photo6.jpeg', caption: 'BroadwayTower Cotswolds' },
-            { src: 'resources/Photo8.jpeg', caption: 'Wengen' },
+            { src: 'resources/Photo8.jpeg', caption: 'Wengen Switzerland' },
             { src: 'resources/Photo10.jpeg', caption: 'Cambridge' },
-            { src: 'resources/Photo7.jpeg', caption: 'London' },
-            { src: 'resources/Photo9.jpeg', caption: 'Paris' },
+            { src: 'resources/Photo7.jpeg', caption: 'London Snow' },
+            { src: 'resources/Photo9.jpeg', caption: 'Eiffel Tower Paris' },
         ];
 
         const gallery = document.getElementById('gallery');

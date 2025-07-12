@@ -3,8 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>dekhte-hai.com</title>
+  <title>dekhte-hai.com - Home | Travel Visual Experience</title>
   <link rel="icon" type="image/png" href="resources/favicon.png">
+  <meta name="description" content="Welcome to dekhte-hai.com, your gateway to a visual journey through iconic world landmarks, streets, and hidden gems for an immersive travel experience.">
+  <meta name="keywords" content="travel experience, world landmarks, travel images, hidden gems, dekhte-hai, immersive visuals">
+  <meta name="author" content="dekhte-hai">
+  <meta property="og:title" content="dekhte-hai.com - Home">
+  <meta property="og:description" content="Embark on a visual adventure with dekhte-hai.com, featuring stunning travel photos of global landmarks and hidden gems.">
+  <meta property="og:image" content="https://<your-username>.github.io/<repository-name>/resources/Home.jpeg">
+  <meta property="og:url" content="https://<your-username>.github.io/<repository-name>/">
+  <meta property="og:type" content="website">
   <style>
       body {
           background-color: black;
@@ -17,6 +25,7 @@
           align-items: center;
           height: 100vh;
           text-align: center;
+          position: relative;
       }
       .logo-placeholder {
           position: absolute;
@@ -40,12 +49,14 @@
           flex-direction: column;
           align-items: center;
           justify-content: center;
+          padding: 20px;
       }
       .image-placeholder img {
           max-width: 600px;
           max-height: 600px;
           width: auto;
           height: auto;
+          display: block;
       }
       footer {
           position: absolute;
@@ -58,7 +69,8 @@
       @media (max-width: 768px) {
           body {
               flex-direction: column;
-              padding-top: 20px;
+              padding-top: 120px;
+              height: auto;
           }
           .logo-placeholder {
               top: 5px;
@@ -81,6 +93,8 @@
           footer {
               font-size: 12px;
               padding: 10px;
+              position: relative;
+              bottom: auto;
           }
       }
   </style>
@@ -92,6 +106,7 @@
   </a>
 </div>
 <nav>
+  <a href="index.html">Home</a>
   <a href="gallery.html">Gallery</a>
   <a href="blogs.html">Blogs</a>
   <a href="products.html">Products</a>
@@ -99,14 +114,15 @@
 <div class="centered-content">
   <div class="text">
     <h1>View the world through our lens</h1>
+    <p class="intro">Welcome to dekhte-hai.com, where we invite you to embark on a visual journey through iconic world landmarks, vibrant streets, and hidden gems, creating an immersive travel experience.</p>
     <p>A visual journey through the iconic streets, landmarks and hidden gems of the world to create an immersive visual experience.</p>
   </div>
   <div class="image-placeholder">
-    <img src="resources/Home.jpeg" alt="Travel Image">
+    <img src="resources/Home.jpeg" alt="Travel image of a global landmark - dekhte-hai.com home">
   </div>
 </div>
 <footer>
-    <p>&copy; 2025 dekhte-hai.com. All rights reserved.</p>
+  <p>© 2025 dekhte-hai.com. All rights reserved.</p>
 </footer>
 </body>
 </html>
