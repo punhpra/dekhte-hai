@@ -2,195 +2,236 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>dekhte-hai.com - Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dekhte-hai.com - Travel Gallery | World Landmarks & Hidden Gems</title>
+    <link rel="icon" type="image/png" href="resources/favicon.png">
+    <meta name="description" content="Explore dekhte-hai.com's travel gallery featuring stunning images of world landmarks, iconic streets, and hidden gems for an immersive visual experience.">
+    <meta name="keywords" content="travel gallery, world landmarks, travel images, hidden gems, travel photography, dekhte-hai, immersive visual experience">
+    <meta name="author" content="dekhte-hai">
+    <meta property="og:title" content="dekhte-hai.com - Travel Gallery">
+    <meta property="og:description" content="Discover breathtaking travel photos of global landmarks and hidden gems at dekhte-hai.com.">
+    <meta property="og:image" content="https://<your-username>.github.io/<repository-name>/resources/Photo1.jpeg">
+    <meta property="og:url" content="https://<your-username>.github.io/<repository-name>/gallery.html">
+    <meta property="og:type" content="website">
     <style>
-    body {
-      background-color: black;
-      color: white;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      padding-top: 50px;
-    }
-      .logo-placeholder {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          width: 100px;
-          height: 100px;}
-    nav {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-    }
-    .gallery-container {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      padding: 20px;
-    }
-    .gallery-item {
-      position: relative;
-    }
-    .gallery-item img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border: 2px solid white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .caption {
-      margin-top: 5px;
-      font-size: 14px;
-    }
-    footer {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      color: white;
-      font-size: 14px;
-    }
-    @media (max-width: 768px) {
-      .gallery-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      padding-top: 60px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.9);
-    }
-    .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 90%;
-      max-height: 80%;
-    }
-    .close, .prev, .next {
-      position: absolute;
-      top: 50%;
-      color: white;
-      font-size: 30px;
-      font-weight: bold;
-      cursor: pointer;
-      padding: 16px;
-      user-select: none;
-    }
-    .close {
-      top: 20px;
-      right: 35px;
-      font-size: 40px;
-    }
-    .prev {
-      left: 0;
-    }
-    .next {
-      right: 0;
-    }
-  </style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+        }
+        .logo-placeholder {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px;
+            height: 100px;
+        }
+        .logo-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        nav {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            padding: 120px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .gallery-item {
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border: 2px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .caption {
+            margin-top: 5px;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            padding: 10px 0;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding-top: 100px;
+                min-height: auto;
+            }
+            .logo-placeholder {
+                top: 5px;
+                left: 5px;
+                width: 70px;
+                height: 70px;
+            }
+            nav {
+                top: 5px;
+                right: 5px;
+            }
+            nav a {
+                margin: 0 5px;
+                font-size: 14px;
+            }
+            .gallery-container {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 100px 10px 50px;
+            }
+            .gallery-item img {
+                height: 120px;
+            }
+            footer {
+                position: relative;
+                bottom: auto;
+                padding: 10px;
+            }
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80%;
+        }
+        .close, .prev, .next {
+            position: absolute;
+            top: 50%;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 16px;
+            user-select: none;
+        }
+        .close {
+            top: 20px;
+            right: 35px;
+            font-size: 40px;
+        }
+        .prev {
+            left: 0;
+        }
+        .next {
+            right: 0;
+        }
+    </style>
 </head>
 <body>
-
 <div class="logo-placeholder">
     <a href="index.html">
         <img src="resources/logo.png" alt="dekhte-hai logo">
     </a>
 </div>
-
 <nav>
     <a href="index.html">Home</a>
     <a href="gallery.html">Gallery</a>
     <a href="blogs.html">Blogs</a>
     <a href="products.html">Products</a>
 </nav>
-
 <h1>Gallery</h1>
-
+<p class="intro">Welcome to the dekhte-hai.com travel gallery, showcasing a stunning collection of images from iconic world landmarks, picturesque streets, and hidden gems. Explore the beauty of global destinations through our lens.</p>
 <div class="gallery-container" id="gallery">
     <!-- JavaScript will insert images here -->
 </div>
-
 <!-- Modal -->
 <div id="myModal" class="modal">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+    <span class="close" onclick="closeModal()">×</span>
+    <span class="prev" onclick="changeSlide(-1)">❮</span>
     <img class="modal-content" id="modalImage">
-    <span class="next" onclick="changeSlide(1)">&#10095;</span>
+    <span class="next" onclick="changeSlide(1)">❯</span>
 </div>
-
 <footer>
-    <p>&copy; 2025 dekhte-hai.com. All rights reserved.</p>
+    <p>© 2025 dekhte-hai.com. All rights reserved.</p>
 </footer>
-
 <script>
-  const images = [
-    { src: 'resources/Photo1.jpeg', caption: 'Hungarian Parliament Budapest' },
-    { src: 'resources/Photo2.jpeg', caption: 'Durdle Door' },
-    { src: 'resources/Photo3.jpeg', caption: 'London Eye' },
-    { src: 'resources/Photo4.jpeg', caption: 'Westminster London' },
-    { src: 'resources/Photo5.jpeg', caption: 'Brighton' },
-    { src: 'resources/Photo6.jpeg', caption: 'BroadwayTower Cotswolds' },
-    { src: 'resources/Photo8.jpeg', caption: 'Wengen' },
-    { src: 'resources/Photo10.jpeg', caption: 'Cambridge' },
-    { src: 'resources/Photo7.jpeg', caption: 'London' },
-    { src: 'resources/Photo9.jpeg', caption: 'Paris' },
-  ];
+        const images = [
+            { src: 'resources/Photo1.jpeg', caption: 'Hungarian Parliament Budapest' },
+            { src: 'resources/Photo2.jpeg', caption: 'Durdle Door' },
+            { src: 'resources/Photo3.jpeg', caption: 'London Eye' },
+            { src: 'resources/Photo4.jpeg', caption: 'Westminster London' },
+            { src: 'resources/Photo5.jpeg', caption: 'Brighton' },
+            { src: 'resources/Photo6.jpeg', caption: 'BroadwayTower Cotswolds' },
+            { src: 'resources/Photo8.jpeg', caption: 'Wengen' },
+            { src: 'resources/Photo10.jpeg', caption: 'Cambridge' },
+            { src: 'resources/Photo7.jpeg', caption: 'London' },
+            { src: 'resources/Photo9.jpeg', caption: 'Paris' },
+        ];
 
-  const gallery = document.getElementById('gallery');
-  images.forEach((img, index) => {
-    const div = document.createElement('div');
-    div.className = 'gallery-item';
-    div.innerHTML = `
-      <img src="${img.src}" alt="${img.caption}" onclick="openModal(${index})">
-      <div class="caption">${img.caption}</div>
-    `;
-    gallery.appendChild(div);
-  });
+        const gallery = document.getElementById('gallery');
+        images.forEach((img, index) => {
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+            div.innerHTML = `
+                <img src="${img.src}" alt="Travel image of ${img.caption} - dekhte-hai.com gallery" onclick="openModal(${index})">
+                <div class="caption"><h3>${img.caption}</h3></div>
+            `;
+            gallery.appendChild(div);
+        });
 
-  let currentIndex = 0;
+        let currentIndex = 0;
 
-  function openModal(index) {
-    currentIndex = index;
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById('modalImage').src = images[currentIndex].src;
-  }
+        function openModal(index) {
+            currentIndex = index;
+            document.getElementById('myModal').style.display = "block";
+            document.getElementById('modalImage').src = images[currentIndex].src;
+        }
 
-  function closeModal() {
-    document.getElementById('myModal').style.display = "none";
-  }
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
 
-  function changeSlide(direction) {
-    currentIndex += direction;
-    if (currentIndex < 0) currentIndex = images.length - 1;
-    if (currentIndex >= images.length) currentIndex = 0;
-    document.getElementById('modalImage').src = images[currentIndex].src;
-  }
+        function changeSlide(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = images.length - 1;
+            if (currentIndex >= images.length) currentIndex = 0;
+            document.getElementById('modalImage').src = images[currentIndex].src;
+        }
 
-  window.onclick = function(event) {
-    const modal = document.getElementById('myModal');
-    if (event.target === modal) {
-      closeModal();
-    }
-  }
-</script>
-
+        window.onclick = function(event) {
+            const modal = document.getElementById('myModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 </html>
