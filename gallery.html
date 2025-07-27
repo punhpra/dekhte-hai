@@ -10,8 +10,8 @@
     <meta name="author" content="dekhte-hai">
     <meta property="og:title" content="dekhte-hai.com - Travel Gallery">
     <meta property="og:description" content="Discover breathtaking travel photos of global landmarks and hidden gems at dekhte-hai.com.">
-    <meta property="og:image" content="https://<your-username>.github.io/<repository-name>/resources/Photo1.jpeg">
-    <meta property="og:url" content="https://<your-username>.github.io/<repository-name>/gallery.html">
+    <meta property="og:image" content="https://dekhte-hai.com/resources/Photo1.jpeg">
+    <meta property="og:url" content="https://dekhte-hai.com/gallery.html">
     <meta property="og:type" content="website">
     <style>
         body {
@@ -21,7 +21,7 @@
             margin: 0;
             padding: 0;
             text-align: center;
-            padding-top: 50px; /* Matches your style */
+            padding-top: 50px;
             position: relative;
             min-height: 100vh;
         }
@@ -43,7 +43,7 @@
             text-decoration: none;
         }
         .intro {
-            margin-top: 80px; /* Lower the welcome message */
+            margin-top: 80px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
@@ -53,9 +53,9 @@
         }
         .gallery-container {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            padding: 120px 20px 60px; /* Lower the gallery */
+            padding: 120px 20px 60px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -88,7 +88,7 @@
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
-                padding-top: 20px; /* Matches your style */
+                padding-top: 20px;
             }
             .logo-placeholder {
                 top: 5px;
@@ -105,12 +105,12 @@
                 font-size: 14px;
             }
             .intro {
-                margin-top: 60px; /* Adjusted for mobile */
+                margin-top: 60px;
                 font-size: 14px;
             }
             .gallery-container {
                 grid-template-columns: repeat(2, 1fr);
-                padding: 100px 10px 50px; /* Adjusted for mobile */
+                padding: 100px 10px 100px;
             }
             .gallery-item img {
                 height: 120px;
@@ -120,7 +120,6 @@
                 padding: 10px;
             }
         }
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -170,6 +169,7 @@
 </div>
 <nav>
     <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
     <a href="blogs.html">Blogs</a>
     <a href="products.html">Products</a>
 </nav>
@@ -189,55 +189,65 @@
     <span class="next" onclick="changeSlide(1)">❯</span>
 </div>
 <script>
-        const images = [
-            { src: 'resources/Photo1.jpeg', caption: 'Westminster London' },
-            { src: 'resources/Photo2.jpeg', caption: 'Durdle Door' },
-            { src: 'resources/Photo3.jpeg', caption: 'London Eye' },
-            { src: 'resources/Photo4.jpeg', caption: 'Prague Castle' },
-            { src: 'resources/Photo5.jpeg', caption: 'Brighton' },
-            { src: 'resources/Photo6.jpeg', caption: 'BroadwayTower Cotswolds' },
-            { src: 'resources/Photo8.jpeg', caption: 'Wengen Switzerland' },
-            { src: 'resources/Photo10.jpeg', caption: 'Cambridge' },
-            { src: 'resources/Photo7.jpeg', caption: 'London Snow' },
-            { src: 'resources/Photo9.jpeg', caption: 'Eiffel Tower Paris' },
-        ];
+    const images = [
+        { src: 'resources/Photo1.jpeg', caption: 'Westminster London' },
+        { src: 'resources/Photo2.jpeg', caption: 'Durdle Door' },
+        { src: 'resources/Photo3.jpeg', caption: 'London Eye' },
+        { src: 'resources/Photo4.jpeg', caption: 'Prague Castle' },
+        { src: 'resources/Photo5.jpeg', caption: 'Brighton' },
+        { src: 'resources/Photo6.jpeg', caption: 'BroadwayTower Cotswolds' },
+        { src: 'resources/Photo8.jpeg', caption: 'Wengen Switzerland' },
+        { src: 'resources/Photo10.jpeg', caption: 'Cambridge' },
+        { src: 'resources/Photo7.jpeg', caption: 'London Snow' },
+        { src: 'resources/Photo9.jpeg', caption: 'Eiffel Tower Paris' },
+        { src: 'resources/Photo11.jpeg', caption: 'Giant Causeway Northern Ireland' },
+        { src: 'resources/Photo12.jpeg', caption: 'Lenin\'s Wall Prague' },
+        { src: 'resources/Photo13.jpeg', caption: 'Dancing House Prague' },
+        { src: 'resources/Photo14.jpeg', caption: 'Zaanse Schans Amsterdam' },
+        { src: 'resources/Photo15.jpeg', caption: 'The Dancing Houses Amsterdam' },
+        { src: 'resources/Photo16.jpeg', caption: 'Leaning Tower of Pisa' },
+        { src: 'resources/Photo17.jpeg', caption: 'Astronomical Clock Prague' },
+        { src: 'resources/Photo18.jpeg', caption: 'Book Tunnel Prague' },
+        { src: 'resources/Photo19.jpeg', caption: 'Rialto Bridge Venice' },
+        { src: 'resources/Photo20.jpeg', caption: 'Colosseum Rome' }
+    ];
 
-        const gallery = document.getElementById('gallery');
-        images.forEach((img, index) => {
-            const div = document.createElement('div');
-            div.className = 'gallery-item';
-            div.innerHTML = `
-                <img src="${img.src}" alt="Travel image of ${img.caption} - dekhte-hai.com gallery" onclick="openModal(${index})">
-                <div class="caption"><h3>${img.caption}</h3></div>
-            `;
-            gallery.appendChild(div);
-        });
+    const gallery = document.getElementById('gallery');
+    images.forEach((img, index) => {
+        const div = document.createElement('div');
+        div.className = 'gallery-item';
+        div.innerHTML = `
+            <img src="${img.src}" alt="Travel image of ${img.caption} - dekhte-hai.com gallery" onclick="openModal(${index})">
+            <div class="caption"><h3>${img.caption}</h3></div>
+        `;
+        gallery.appendChild(div);
+    });
 
-        let currentIndex = 0;
+    let currentIndex = 0;
 
-        function openModal(index) {
-            currentIndex = index;
-            document.getElementById('myModal').style.display = "block";
-            document.getElementById('modalImage').src = images[currentIndex].src;
+    function openModal(index) {
+        currentIndex = index;
+        document.getElementById('myModal').style.display = "block";
+        document.getElementById('modalImage').src = images[currentIndex].src;
+    }
+
+    function closeModal() {
+        document.getElementById('myModal').style.display = "none";
+    }
+
+    function changeSlide(direction) {
+        currentIndex += direction;
+        if (currentIndex < 0) currentIndex = images.length - 1;
+        if (currentIndex >= images.length) currentIndex = 0;
+        document.getElementById('modalImage').src = images[currentIndex].src;
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('myModal');
+        if (event.target === modal) {
+            closeModal();
         }
-
-        function closeModal() {
-            document.getElementById('myModal').style.display = "none";
-        }
-
-        function changeSlide(direction) {
-            currentIndex += direction;
-            if (currentIndex < 0) currentIndex = images.length - 1;
-            if (currentIndex >= images.length) currentIndex = 0;
-            document.getElementById('modalImage').src = images[currentIndex].src;
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('myModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-    </script>
+    }
+</script>
 </body>
 </html>
