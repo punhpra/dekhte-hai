@@ -138,6 +138,17 @@
             max-width: 90%;
             max-height: 80%;
         }
+        .modal-caption {
+            color: white;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+            padding: 0 16px;
+            overflow-wrap: break-word;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
         .close, .prev, .next {
             position: absolute;
             top: 50%;
@@ -158,6 +169,11 @@
         }
         .next {
             right: 0;
+        }
+        @media (max-width: 768px) {
+            .modal-caption {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -185,6 +201,7 @@
     <span class="close" onclick="closeModal()">×</span>
     <span class="prev" onclick="changeSlide(-1)">❮</span>
     <img class="modal-content" id="modalImage">
+    <div id="modalCaption" class="modal-caption"></div>
     <span class="next" onclick="changeSlide(1)">❯</span>
 </div>
 <script>
@@ -203,7 +220,7 @@
         { src: 'resources/Photo12.jpeg', caption: 'Lenin\'s Wall Prague' },
         { src: 'resources/Photo13.jpeg', caption: 'Dancing House Prague' },
         { src: 'resources/Photo14.jpeg', caption: 'Zaanse Schans Amsterdam' },
-        { src: 'resources/Photo15.jpeg', caption: 'The Dancing Houses Amsterdam' },
+        { src: 'resources/Photo15.jpeg', caption: 'Dancing Houses Amsterdam' },
         { src: 'resources/Photo16.jpeg', caption: 'Leaning Tower of Pisa' },
         { src: 'resources/Photo17.jpeg', caption: 'Astronomical Clock Prague' },
         { src: 'resources/Photo18.jpeg', caption: 'Book Tunnel Prague' },
@@ -228,6 +245,7 @@
         currentIndex = index;
         document.getElementById('myModal').style.display = "block";
         document.getElementById('modalImage').src = images[currentIndex].src;
+        document.getElementById('modalCaption').textContent = images[currentIndex].caption;
     }
 
     function closeModal() {
@@ -239,6 +257,7 @@
         if (currentIndex < 0) currentIndex = images.length - 1;
         if (currentIndex >= images.length) currentIndex = 0;
         document.getElementById('modalImage').src = images[currentIndex].src;
+        document.getElementById('modalCaption').textContent = images[currentIndex].caption;
     }
 
     window.onclick = function(event) {
