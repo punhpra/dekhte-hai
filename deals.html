@@ -55,12 +55,46 @@
             line-height: 1.5;
         }
 
+        .deal-info {
+            max-width: 420px;
+            margin: 0 auto 36px;
+            text-align: left;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .deal-info h2 {
+            font-size: 15px;
+            margin: 0 0 12px;
+            color: white;
+        }
+
+        .deal-info ul {
+            margin: 0;
+            padding: 0 0 0 18px;
+            color: #b3b3b3;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .deal-info li {
+            margin-bottom: 8px;
+        }
+
+        .deal-info li:last-child {
+            margin-bottom: 0;
+        }
+
+        .deal-info strong {
+            color: white;
+        }
+
         #dealForm {
             width: 100%;
             max-width: 380px;
             margin: 0 auto;
             text-align: left;
-            padding: 0 20px 120px;
+            padding: 0 20px 160px;
             box-sizing: border-box;
         }
 
@@ -98,6 +132,61 @@
         }
 
         .row > div { flex: 1; }
+
+        /* --- Airport combobox --- */
+        .combobox {
+            position: relative;
+        }
+
+        .combobox input.selected-valid {
+            border-color: #4ade80;
+        }
+
+        .combobox-results {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: #111;
+            border: 1px solid #444;
+            max-height: 220px;
+            overflow-y: auto;
+            z-index: 20;
+            display: none;
+            text-align: left;
+        }
+
+        .combobox-results.open { display: block; }
+
+        .combobox-option {
+            padding: 9px 12px;
+            font-size: 13px;
+            cursor: pointer;
+            border-bottom: 1px solid #222;
+        }
+
+        .combobox-option:last-child { border-bottom: none; }
+
+        .combobox-option:hover,
+        .combobox-option.active {
+            background: #222;
+        }
+
+        .combobox-option .code {
+            color: white;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        .combobox-option .place {
+            color: #999;
+        }
+
+        .combobox-empty {
+            padding: 9px 12px;
+            font-size: 13px;
+            color: #777;
+        }
 
         button {
             width: 100%;
@@ -172,27 +261,40 @@
     <a href="index.html">Home</a>
     <a href="gallery.html">Gallery</a>
     <a href="blogs.html">Blogs</a>
-
 </nav>
 
 <h1>Deals</h1>
 <p class="subtitle">Tell us your route and, if you like, the price you're waiting for. We'll email you the moment we find a fare that matches.</p>
+
+<div class="deal-info">
+    <h2>What you'll get</h2>
+    <ul>
+        <li>We check your route <strong>once a day</strong> and compare it to the lowest fare we've seen for you so far.</li>
+        <li>You'll only get an email when a <strong>genuinely lower price</strong> shows up — not a daily digest, so an empty inbox just means nothing's changed.</li>
+        <li>Right now we search <strong>round-trip, direct flights</strong>, for stays of roughly <strong>1–4 weeks</strong>. One-way trips and flights with stopovers aren't covered yet.</li>
+        <li>Hotel price alerts are on the way — for now this covers flights only.</li>
+    </ul>
+</div>
 
 <form id="dealForm">
     <label for="email">Email address</label>
     <input type="email" id="email" placeholder="you@example.com" required>
 
     <div class="row">
-        <div>
-            <label for="origin">From</label>
-            <input type="text" id="origin" placeholder="LHR" maxlength="3" required>
+        <div class="combobox">
+            <label for="originInput">From</label>
+            <input type="text" id="originInput" placeholder="Search city or airport" autocomplete="off" required>
+            <input type="hidden" id="originCode">
+            <div class="combobox-results" id="originResults"></div>
         </div>
-        <div>
-            <label for="destination">To</label>
-            <input type="text" id="destination" placeholder="JFK" maxlength="3" required>
+        <div class="combobox">
+            <label for="destinationInput">To</label>
+            <input type="text" id="destinationInput" placeholder="Search city or airport" autocomplete="off" required>
+            <input type="hidden" id="destinationCode">
+            <div class="combobox-results" id="destinationResults"></div>
         </div>
     </div>
-    <p class="hint">Use 3-letter airport codes, e.g. LHR for London Heathrow.</p>
+    <p class="hint">Start typing a city or airport name, then pick one from the list.</p>
 
     <label for="minPrice">Alert me when the price drops below (optional)</label>
     <input type="number" id="minPrice" placeholder="e.g. 250" min="1" step="1">
@@ -208,8 +310,134 @@
 
 <script>
     // Paste your Apps Script Web App deployment URL here.
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzt45htF0KgNMtrq9WBfRqd4D1WttsmL66x0H7j86OU6AnwyI2amRZe03YAIk3HKYXh/exec";
+    const APPS_SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
 
+    // ---------- Airport data ----------
+    let AIRPORTS = [];
+
+    fetch("airports.json")
+        .then(res => res.json())
+        .then(data => { AIRPORTS = data; })
+        .catch(() => {
+            document.getElementById("formMessage").className = "error";
+            document.getElementById("formMessage").textContent =
+                "Couldn't load the airport list. Please refresh the page.";
+        });
+
+    function searchAirports(query) {
+        const q = query.trim().toLowerCase();
+        if (q.length < 2) return [];
+
+        const starts = [];
+        const contains = [];
+
+        for (const a of AIRPORTS) {
+            const code = a.code.toLowerCase();
+            const city = (a.city || "").toLowerCase();
+            const name = (a.name || "").toLowerCase();
+
+            if (code === q || city.startsWith(q) || name.startsWith(q)) {
+                starts.push(a);
+            } else if (city.includes(q) || name.includes(q)) {
+                contains.push(a);
+            }
+            if (starts.length >= 8) break;
+        }
+
+        return starts.concat(contains).slice(0, 8);
+    }
+
+    // ---------- Combobox wiring ----------
+    function setupCombobox(inputId, hiddenId, resultsId) {
+        const input = document.getElementById(inputId);
+        const hidden = document.getElementById(hiddenId);
+        const results = document.getElementById(resultsId);
+        let activeIndex = -1;
+        let currentOptions = [];
+
+        function clearSelection() {
+            hidden.value = "";
+            input.classList.remove("selected-valid");
+        }
+
+        function render(options) {
+            currentOptions = options;
+            activeIndex = -1;
+
+            if (options.length === 0) {
+                results.innerHTML = '<div class="combobox-empty">No matches</div>';
+                results.classList.add("open");
+                return;
+            }
+
+            results.innerHTML = options.map((a, i) => `
+                <div class="combobox-option" data-index="${i}">
+                    <span class="code">${a.code}</span>
+                    <span class="place">${a.city ? a.city + ", " : ""}${a.country} — ${a.name}</span>
+                </div>
+            `).join("");
+            results.classList.add("open");
+
+            results.querySelectorAll(".combobox-option").forEach(el => {
+                el.addEventListener("mousedown", (e) => {
+                    e.preventDefault();
+                    selectOption(options[parseInt(el.dataset.index, 10)]);
+                });
+            });
+        }
+
+        function selectOption(airport) {
+            hidden.value = airport.code;
+            input.value = `${airport.city ? airport.city + ", " : ""}${airport.country} (${airport.code})`;
+            input.classList.add("selected-valid");
+            results.classList.remove("open");
+        }
+
+        input.addEventListener("input", () => {
+            clearSelection();
+            const matches = searchAirports(input.value);
+            render(matches);
+        });
+
+        input.addEventListener("focus", () => {
+            if (input.value.trim().length >= 2 && !hidden.value) {
+                render(searchAirports(input.value));
+            }
+        });
+
+        input.addEventListener("blur", () => {
+            setTimeout(() => results.classList.remove("open"), 100);
+        });
+
+        input.addEventListener("keydown", (e) => {
+            if (!results.classList.contains("open") || currentOptions.length === 0) return;
+
+            const optionEls = results.querySelectorAll(".combobox-option");
+
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                activeIndex = Math.min(activeIndex + 1, currentOptions.length - 1);
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                activeIndex = Math.max(activeIndex - 1, 0);
+            } else if (e.key === "Enter") {
+                if (activeIndex >= 0) {
+                    e.preventDefault();
+                    selectOption(currentOptions[activeIndex]);
+                }
+                return;
+            } else {
+                return;
+            }
+
+            optionEls.forEach((el, i) => el.classList.toggle("active", i === activeIndex));
+        });
+    }
+
+    setupCombobox("originInput", "originCode", "originResults");
+    setupCombobox("destinationInput", "destinationCode", "destinationResults");
+
+    // ---------- Form submit ----------
     const form = document.getElementById("dealForm");
     const messageEl = document.getElementById("formMessage");
     const submitBtn = document.getElementById("submitBtn");
@@ -217,12 +445,26 @@
     form.addEventListener("submit", async function (e) {
         e.preventDefault();
 
+        const originCode = document.getElementById("originCode").value;
+        const destinationCode = document.getElementById("destinationCode").value;
+
+        if (!originCode || !destinationCode) {
+            messageEl.className = "error";
+            messageEl.textContent = "Please pick an airport from the dropdown for both From and To.";
+            return;
+        }
+        if (originCode === destinationCode) {
+            messageEl.className = "error";
+            messageEl.textContent = "Origin and destination can't be the same.";
+            return;
+        }
+
         const minPriceValue = document.getElementById("minPrice").value.trim();
 
         const payload = {
             email: document.getElementById("email").value.trim(),
-            origin: document.getElementById("origin").value.trim(),
-            destination: document.getElementById("destination").value.trim(),
+            origin: originCode,
+            destination: destinationCode,
             minPrice: minPriceValue === "" ? null : Number(minPriceValue)
         };
 
@@ -232,8 +474,6 @@
         messageEl.textContent = "";
 
         try {
-            // Content-Type text/plain avoids a CORS preflight, which Apps Script
-            // web apps don't handle. doPost() on the other end still parses it as JSON.
             const response = await fetch(APPS_SCRIPT_URL, {
                 method: "POST",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -246,6 +486,10 @@
                 messageEl.className = "success";
                 messageEl.textContent = result.message;
                 form.reset();
+                document.getElementById("originCode").value = "";
+                document.getElementById("destinationCode").value = "";
+                document.getElementById("originInput").classList.remove("selected-valid");
+                document.getElementById("destinationInput").classList.remove("selected-valid");
             } else {
                 messageEl.className = "error";
                 messageEl.textContent = result.message || "Something went wrong. Please try again.";
