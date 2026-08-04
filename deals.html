@@ -439,71 +439,89 @@
     setupCombobox("originInput", "originCode", "originResults");
     setupCombobox("destinationInput", "destinationCode", "destinationResults");
 
-    // ---------- Form submit ----------
-    const form = document.getElementById("dealForm");
-    const messageEl = document.getElementById("formMessage");
-    const submitBtn = document.getElementById("submitBtn");
+   // ---------- Form submit ----------
+const form = document.getElementById("dealForm");
+const messageEl = document.getElementById("formMessage");
+const submitBtn = document.getElementById("submitBtn");
 
-    form.addEventListener("submit", async function (e) {
-        e.preventDefault();
+form.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-        const originCode = document.getElementById("originCode").value;
-        const destinationCode = document.getElementById("destinationCode").value;
+    const originCode = document.getElementById("originCode").value;
+    const destinationCode = document.getElementById("destinationCode").value;
 
-        if (!originCode || !destinationCode) {
-            messageEl.className = "error";
-            messageEl.textContent = "Please pick an airport from the dropdown for both From and To.";
-            return;
-        }
-        if (originCode === destinationCode) {
-            messageEl.className = "error";
-            messageEl.textContent = "Origin and destination can't be the same.";
-            return;
-        }
+    if (!originCode || !destinationCode) {
+        messageEl.className = "error";
+        messageEl.textContent = "Please pick an airport from the dropdown for both From and To.";
+        return;
+    }
+    if (originCode === destinationCode) {
+        messageEl.className = "error";
+        messageEl.textContent = "Origin and destination can't be the same.";
+        return;
+    }
 
-        const minPriceValue = document.getElementById("minPrice").value.trim();
+    const minPriceValue = document.getElementById("minPrice").value.trim();
+    const payload = {
+        email: document.getElementById("email").value.trim(),
+        origin: originCode,
+        destination: destinationCode,
+        minPrice: minPriceValue === "" ? null : Number(minPriceValue)
+    };
 
-        const payload = {
-            email: document.getElementById("email").value.trim(),
-            origin: originCode,
-            destination: destinationCode,
-            minPrice: minPriceValue === "" ? null : Number(minPriceValue)
-        };
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+    messageEl.className = "";
+    messageEl.textContent = "";
 
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Submitting...";
-        messageEl.className = "";
-        messageEl.textContent = "";
+    try {
+        const response = await fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify(payload)
+        });
 
+        // Try to read the response, but don't rely on it
+        let result = null;
         try {
-            const response = await fetch(APPS_SCRIPT_URL, {
-                method: "POST",
-                headers: { "Content-Type": "text/plain;charset=utf-8" },
-                body: JSON.stringify(payload)
-            });
-
-            const result = await response.json();
-
-            if (result.status === "success") {
-                messageEl.className = "success";
-                messageEl.textContent = result.message;
-                form.reset();
-                document.getElementById("originCode").value = "";
-                document.getElementById("destinationCode").value = "";
-                document.getElementById("originInput").classList.remove("selected-valid");
-                document.getElementById("destinationInput").classList.remove("selected-valid");
-            } else {
-                messageEl.className = "error";
-                messageEl.textContent = result.message || "Something went wrong. Please try again.";
-            }
-        } catch (err) {
-            messageEl.className = "error";
-            messageEl.textContent = "Network error — please check your connection and try again.";
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Get price alerts";
+            const text = await response.text();
+            result = JSON.parse(text);
+        } catch (parseErr) {
+            // 302 redirect or non-JSON response from Apps Script — ignore
+            result = null;
         }
-    });
+
+        if (result && result.status === "success") {
+            messageEl.className = "success";
+            messageEl.textContent = result.message;
+            form.reset();
+            document.getElementById("originCode").value = "";
+            document.getElementById("destinationCode").value = "";
+            document.getElementById("originInput").classList.remove("selected-valid");
+            document.getElementById("destinationInput").classList.remove("selected-valid");
+        } else if (result && result.status === "error") {
+            messageEl.className = "error";
+            messageEl.textContent = result.message || "Something went wrong. Please try again.";
+        } else {
+            // Most common Apps Script case: request succeeded but response unreadable
+            messageEl.className = "success";
+            messageEl.textContent = "Subscribed! Check your email for confirmation.";
+            form.reset();
+            document.getElementById("originCode").value = "";
+            document.getElementById("destinationCode").value = "";
+            document.getElementById("originInput").classList.remove("selected-valid");
+            document.getElementById("destinationInput").classList.remove("selected-valid");
+        }
+
+    } catch (err) {
+        // Only real network failures (no internet, blocked, etc.)
+        messageEl.className = "error";
+        messageEl.textContent = "Network error — please check your connection and try again.";
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Get price alerts";
+    }
+});
 </script>
 </body>
 </html>
