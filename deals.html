@@ -47,7 +47,6 @@
             padding-bottom: 24px;
             box-sizing: border-box;
         }
-
         p.subtitle {
             color: #b3b3b3;
             font-size: 15px;
@@ -55,7 +54,6 @@
             margin: 0 auto 32px;
             line-height: 1.5;
         }
-
         .deal-info {
             max-width: 420px;
             margin: 0 auto 36px;
@@ -63,13 +61,11 @@
             padding: 0 20px;
             box-sizing: border-box;
         }
-
         .deal-info h2 {
             font-size: 15px;
             margin: 0 0 12px;
             color: white;
         }
-
         .deal-info ul {
             margin: 0;
             padding: 0 0 0 18px;
@@ -77,19 +73,15 @@
             font-size: 13px;
             line-height: 1.6;
         }
-
         .deal-info li {
             margin-bottom: 8px;
         }
-
         .deal-info li:last-child {
             margin-bottom: 0;
         }
-
         .deal-info strong {
             color: white;
         }
-
         #dealForm {
             width: 100%;
             max-width: 380px;
@@ -98,7 +90,6 @@
             padding: 0 20px;
             box-sizing: border-box;
         }
-
         label {
             display: block;
             font-size: 13px;
@@ -106,9 +97,7 @@
             margin-bottom: 6px;
             margin-top: 18px;
         }
-
         label:first-of-type { margin-top: 0; }
-
         input {
             width: 100%;
             padding: 11px 12px;
@@ -119,30 +108,23 @@
             font-family: Arial, sans-serif;
             box-sizing: border-box;
         }
-
         input:focus {
             outline: none;
             border-color: white;
         }
-
         input::placeholder { color: #666; }
-
         .row {
             display: flex;
             gap: 12px;
         }
-
         .row > div { flex: 1; }
-
         /* --- Airport combobox --- */
         .combobox {
             position: relative;
         }
-
         .combobox input.selected-valid {
             border-color: #4ade80;
         }
-
         .combobox-results {
             position: absolute;
             top: calc(100% + 4px);
@@ -156,39 +138,31 @@
             display: none;
             text-align: left;
         }
-
         .combobox-results.open { display: block; }
-
         .combobox-option {
             padding: 9px 12px;
             font-size: 13px;
             cursor: pointer;
             border-bottom: 1px solid #222;
         }
-
         .combobox-option:last-child { border-bottom: none; }
-
         .combobox-option:hover,
         .combobox-option.active {
             background: #222;
         }
-
         .combobox-option .code {
             color: white;
             font-weight: bold;
             margin-right: 6px;
         }
-
         .combobox-option .place {
             color: #999;
         }
-
         .combobox-empty {
             padding: 9px 12px;
             font-size: 13px;
             color: #777;
         }
-
         button {
             width: 100%;
             margin-top: 26px;
@@ -201,27 +175,50 @@
             cursor: pointer;
             font-family: Arial, sans-serif;
         }
-
         button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-
         #formMessage {
             margin-top: 14px;
             font-size: 13px;
             min-height: 18px;
         }
-
         #formMessage.error { color: #ff6b6b; }
         #formMessage.success { color: #4ade80; }
-
         .hint {
             font-size: 12px;
             color: #777;
             margin: 4px 0 0;
         }
-
+        /* --- Post-signup support block --- */
+        #supportBlock {
+            display: none;
+            max-width: 380px;
+            margin: 24px auto 0;
+            padding: 20px;
+            padding: 0 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        #supportBlock p {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0 0 16px;
+        }
+        #supportBlock a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #FFDD00;
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+        }
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
@@ -274,27 +271,8 @@
         <li>You'll only get an email when a <strong>genuinely lower price</strong> shows up — not a daily digest, so an empty inbox just means nothing's changed.</li>
         <li>Right now we search <strong>round-trip, direct flights</strong>, for stays of roughly <strong>1–4 weeks</strong>. One-way trips and flights with stopovers aren't covered yet.</li>
         <li>Hotel price alerts are on the way — for now this covers flights only.</li>
-        <li>Currently it is limited to <strong>2 routes per email</strong>. </li>
+        <li>Currently it is limited to <strong>2 routes per email</strong>.</li>
     </ul>
-
-        <!-- Support section -->
-    <p style="margin-top: 28px; padding-top: 20px; border-top: 1px solid #333; color: #ccc; font-size: 15px; line-height: 1.6;">
-        This tool is free to use. If a price alert saves you money on your next trip, you can support the project with a coffee — it helps keep the alerts running.
-    </p>
-    <p style="margin-top: 16px;">
-        <a href="https://www.buymeacoffee.com/dekhtehai"
-           target="_blank"
-           rel="noopener noreferrer"
-           style="display: inline-flex; align-items: center; gap: 8px;
-                  background: #FFDD00; color: #000; padding: 12px 20px;
-                  border-radius: 8px; text-decoration: none;
-                  font-weight: bold; font-size: 15px;">
-            <span style="font-size: 18px;">☕</span>
-            Buy me a coffee
-        </a>
-    </p>
-
-    
 </div>
 
 <form id="dealForm">
@@ -317,13 +295,21 @@
     </div>
     <p class="hint">Start typing a city or airport name, then pick one from the list.</p>
 
-    <label for="minPrice">Alert me when the price drops below (optional)</label>
+    <label for="minPrice">Alert me when the price drops below, in GBP (optional)</label>
     <input type="number" id="minPrice" placeholder="e.g. 250" min="1" step="1">
     <p class="hint">Leave blank and we'll email you about any price drop we find.</p>
 
     <button type="submit" id="submitBtn">Get price alerts</button>
     <div id="formMessage"></div>
 </form>
+
+<div id="supportBlock">
+    <p>Glad this could help! If a price alert saves you money on your next trip, you can support the project with a coffee — it helps keep the alerts running.</p>
+    <a href="https://www.buymeacoffee.com/dekhtehai" target="_blank" rel="noopener noreferrer">
+        <span style="font-size: 18px;">☕</span>
+        Buy me a coffee
+    </a>
+</div>
 
 <footer>
     <p>&copy; 2026 dekhte-hai.com. All rights reserved.</p>
@@ -458,89 +444,89 @@
     setupCombobox("originInput", "originCode", "originResults");
     setupCombobox("destinationInput", "destinationCode", "destinationResults");
 
-   // ---------- Form submit ----------
-const form = document.getElementById("dealForm");
-const messageEl = document.getElementById("formMessage");
-const submitBtn = document.getElementById("submitBtn");
+    // ---------- Form submit ----------
+    const form = document.getElementById("dealForm");
+    const messageEl = document.getElementById("formMessage");
+    const submitBtn = document.getElementById("submitBtn");
+    const supportBlock = document.getElementById("supportBlock");
 
-form.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const originCode = document.getElementById("originCode").value;
-    const destinationCode = document.getElementById("destinationCode").value;
-
-    if (!originCode || !destinationCode) {
-        messageEl.className = "error";
-        messageEl.textContent = "Please pick an airport from the dropdown for both From and To.";
-        return;
-    }
-    if (originCode === destinationCode) {
-        messageEl.className = "error";
-        messageEl.textContent = "Origin and destination can't be the same.";
-        return;
+    function showSuccess(message) {
+        messageEl.className = "success";
+        messageEl.textContent = message;
+        form.reset();
+        document.getElementById("originCode").value = "";
+        document.getElementById("destinationCode").value = "";
+        document.getElementById("originInput").classList.remove("selected-valid");
+        document.getElementById("destinationInput").classList.remove("selected-valid");
+        supportBlock.style.display = "block";
     }
 
-    const minPriceValue = document.getElementById("minPrice").value.trim();
-    const payload = {
-        email: document.getElementById("email").value.trim(),
-        origin: originCode,
-        destination: destinationCode,
-        minPrice: minPriceValue === "" ? null : Number(minPriceValue)
-    };
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Submitting...";
-    messageEl.className = "";
-    messageEl.textContent = "";
+        const originCode = document.getElementById("originCode").value;
+        const destinationCode = document.getElementById("destinationCode").value;
 
-    try {
-        const response = await fetch(APPS_SCRIPT_URL, {
-            method: "POST",
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: JSON.stringify(payload)
-        });
-
-        // Try to read the response, but don't rely on it
-        let result = null;
-        try {
-            const text = await response.text();
-            result = JSON.parse(text);
-        } catch (parseErr) {
-            // 302 redirect or non-JSON response from Apps Script — ignore
-            result = null;
-        }
-
-        if (result && result.status === "success") {
-            messageEl.className = "success";
-            messageEl.textContent = result.message;
-            form.reset();
-            document.getElementById("originCode").value = "";
-            document.getElementById("destinationCode").value = "";
-            document.getElementById("originInput").classList.remove("selected-valid");
-            document.getElementById("destinationInput").classList.remove("selected-valid");
-        } else if (result && result.status === "error") {
+        if (!originCode || !destinationCode) {
             messageEl.className = "error";
-            messageEl.textContent = result.message || "Something went wrong. Please try again.";
-        } else {
-            // Most common Apps Script case: request succeeded but response unreadable
-            messageEl.className = "success";
-            messageEl.textContent = "Subscribed! Check your email for confirmation.";
-            form.reset();
-            document.getElementById("originCode").value = "";
-            document.getElementById("destinationCode").value = "";
-            document.getElementById("originInput").classList.remove("selected-valid");
-            document.getElementById("destinationInput").classList.remove("selected-valid");
+            messageEl.textContent = "Please pick an airport from the dropdown for both From and To.";
+            return;
+        }
+        if (originCode === destinationCode) {
+            messageEl.className = "error";
+            messageEl.textContent = "Origin and destination can't be the same.";
+            return;
         }
 
-    } catch (err) {
-        // Only real network failures (no internet, blocked, etc.)
-        messageEl.className = "error";
-        messageEl.textContent = "Network error — please check your connection and try again.";
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Get price alerts";
-    }
-});
+        const minPriceValue = document.getElementById("minPrice").value.trim();
+
+        const payload = {
+            email: document.getElementById("email").value.trim(),
+            origin: originCode,
+            destination: destinationCode,
+            minPrice: minPriceValue === "" ? null : Number(minPriceValue)
+        };
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting...";
+        messageEl.className = "";
+        messageEl.textContent = "";
+
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(payload)
+            });
+
+            // Try to read the response, but don't rely on it
+            let result = null;
+            try {
+                const text = await response.text();
+                result = JSON.parse(text);
+            } catch (parseErr) {
+                // 302 redirect or non-JSON response from Apps Script — ignore
+                result = null;
+            }
+
+            if (result && result.status === "success") {
+                showSuccess(result.message);
+            } else if (result && result.status === "error") {
+                messageEl.className = "error";
+                messageEl.textContent = result.message || "Something went wrong. Please try again.";
+            } else {
+                // Most common Apps Script case: request succeeded but response unreadable
+                showSuccess("Subscribed! Check your email for confirmation.");
+            }
+        } catch (err) {
+            // Only real network failures (no internet, blocked, etc.)
+            messageEl.className = "error";
+            messageEl.textContent = "Network error — please check your connection and try again.";
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Get price alerts";
+        }
+    });
 </script>
 </body>
 </html>
