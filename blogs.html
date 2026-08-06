@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dekhte-hai.com - Blogs</title>
-    <meta name="description" content="Explore travel blogs on dekhte-hai.com for expert tips, hidden gems, and photography advice for your 2026 adventures.">
-    <meta name="keywords" content="travel blogs, travel tips, hidden gems, travel photography, dekhte-hai">
-    <meta property="og:title" content="dekhte-hai.com - Travel Blogs">
-    <meta property="og:description" content="Dive into travel blogs with tips and hidden gem discoveries for 2026 at dekhte-hai.com.">
-    <meta property="og:image" content="https://dekhte-hai.com/resources/blog-image.jpg">
-    <meta property="og:url" content="https://dekhte-hai.com/blogs.html">
+    <title>dekhtehai.com - Travel Blogs</title>
+    <meta name="description" content="Travel tips and guides from dekhtehai.com — how to find cheap flights, use free price alerts, and plan smarter trips.">
+    <meta name="keywords" content="travel blogs, cheap flights, flight alerts, travel tips, dekhtehai">
+    <meta property="og:title" content="dekhtehai.com - Travel Blogs">
+    <meta property="og:description" content="Practical travel tips and guides, including how to find cheap flights with free price alerts.">
+    <meta property="og:image" content="https://dekhtehai.com/resources/logo.png">
+    <meta property="og:url" content="https://dekhtehai.com/blogs.html">
     <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="resources/favicon.png">
     <style>
         body {
             background-color: black;
@@ -20,6 +21,9 @@
             padding: 0;
             text-align: center;
             padding-top: 50px;
+            padding-bottom: 60px;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
         .logo-placeholder {
             position: absolute;
@@ -27,6 +31,10 @@
             left: 10px;
             width: 100px;
             height: 100px;
+        }
+        .logo-placeholder img {
+            max-width: 100%;
+            height: auto;
         }
         nav {
             position: absolute;
@@ -38,6 +46,56 @@
             margin: 0 15px;
             text-decoration: none;
         }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            margin: 40px 0 10px;
+            font-size: 28px;
+        }
+        .intro {
+            color: #999;
+            font-size: 15px;
+            margin: 0 20px 40px;
+        }
+        .blog-list {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: left;
+        }
+        .blog-card {
+            border: 1px solid #333;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        .blog-card h2 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+        .blog-card h2 a {
+            color: white;
+            text-decoration: none;
+        }
+        .blog-card h2 a:hover {
+            color: #FFDD00;
+        }
+        .blog-card p {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0 0 14px;
+        }
+        .blog-card .read-link {
+            color: #FFDD00;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .blog-card .read-link:hover {
+            text-decoration: underline;
+        }
         footer {
             position: absolute;
             bottom: 10px;
@@ -48,7 +106,6 @@
         }
         @media (max-width: 768px) {
             body {
-                flex-direction: column;
                 padding-top: 20px;
             }
             .logo-placeholder {
@@ -65,9 +122,9 @@
                 margin: 0 10px;
                 font-size: 14px;
             }
-            .image-placeholder img {
-                max-width: 90%;
-                max-height: 300px;
+            h1 {
+                font-size: 22px;
+                margin-top: 60px;
             }
             footer {
                 font-size: 12px;
@@ -79,7 +136,7 @@
 <body>
 <div class="logo-placeholder">
     <a href="index.html">
-        <img src="resources/logo.png" alt="dekhte-hai logo">
+        <img src="resources/logo.png" alt="dekhtehai logo">
     </a>
 </div>
 <nav>
@@ -87,10 +144,35 @@
     <a href="gallery.html">Gallery</a>
     <a href="deals.html">Deals</a>
 </nav>
+
 <h1>Blogs</h1>
-<p>Stay tuned for expert travel blogs on hidden gems and photography tips</p>
+<p class="intro">Practical travel tips, guides, and how we find better flight deals.</p>
+
+<div class="blog-list">
+    <div class="blog-card">
+        <h2>
+            <a href="blog-cheap-flights.html">How to Find Cheap Flights and let us do the tracking)</a>
+        </h2>
+        <p>
+            Simple habits for spotting better fares — plus how to set a free alert on our Deals page
+            so you only get an email when the price actually drops.
+        </p>
+        <a class="read-link" href="blog-cheap-flights.html">Read more →</a>
+    </div>
+</div>
+
 <footer>
-    <p>&copy; 2026 dekhte-hai.com. All rights reserved.</p>
+    <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
+    <p class="coffee-line">
+        <a href="https://www.buymeacoffee.com/dekhtehai"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="coffee-link">
+            <img src="resources/bmc-logo-png.png"
+                 alt="Buy me a coffee"
+                 style="height: 24px; width: auto; vertical-align: middle;">
+        </a>
+    </p>
 </footer>
 </body>
 </html>
