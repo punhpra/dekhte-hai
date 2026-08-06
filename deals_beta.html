@@ -195,34 +195,44 @@
             color: #777;
             margin: 4px 0 0;
         }
-        /* --- Search deals now (Travelpayouts widgets) --- */
+        /* --- Travelpayouts widget --- */
         .search-now {
-            max-width: 720px;
+            width: 100%;
+            max-width: 420px;          /* same as original — works on mobile */
             margin: 0 auto 40px;
             padding: 0 20px;
             box-sizing: border-box;
+            text-align: left;          /* important: body is text-align:center */
         }
         .search-now h2 {
             font-size: 15px;
             margin: 0 0 6px;
             color: white;
+            text-align: center;
         }
         .search-now p.search-hint {
             color: #999;
             font-size: 13px;
             margin: 0 0 16px;
             line-height: 1.5;
+            text-align: center;
         }
         .search-now .widget-wrap {
             background: #fff;
             border-radius: 8px;
             padding: 12px;
             box-sizing: border-box;
-            min-height: 280px;
+            width: 100%;
             overflow: visible;
+            text-align: left;
         }
-        .widget-desktop-only { display: block; }
-        .widget-mobile-only { display: none; }
+        
+        /* Desktop only: give the widget more width */
+        @media (min-width: 769px) {
+            .search-now {
+                max-width: 720px;
+            }
+        }
         .section-divider {
             max-width: 420px;
             margin: 0 auto 32px;
@@ -361,15 +371,10 @@
     <h2>Trending flight deals from London</h2>
     <p class="search-hint">Popular routes and current prices — no waiting for an email.</p>
 
-    <!-- Desktop widget -->
-    <div class="widget-wrap widget-desktop-only">
-        <script async
-            src="https://tpwgt.com/content?currency=gbp&trs=559440&shmarker=760976&locale=en&powered_by=true&from_name=london_gb&limit=4&primary_color=00AE98&results_background_color=FFFFFF&form_background_color=FFFFFF&promo_id=4563&campaign_id=111"
-            charset="utf-8"></script>
-    </div>
-
-    <!-- Mobile widget -->
-    <div class="widget-wrap widget-mobile-only">
+<div class="search-now">
+    <h2>Trending flight deals from London</h2>
+    <p class="search-hint">Popular routes and current prices — no waiting for an email.</p>
+    <div class="widget-wrap">
         <script async
             src="https://tpwgt.com/content?currency=gbp&trs=559440&shmarker=760976&locale=en&powered_by=true&from_name=london_gb&limit=4&primary_color=00AE98&results_background_color=FFFFFF&form_background_color=FFFFFF&promo_id=4563&campaign_id=111"
             charset="utf-8"></script>
