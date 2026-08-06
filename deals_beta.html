@@ -28,6 +28,10 @@
             width: 100px;
             height: 100px;
         }
+        .logo-placeholder img {
+            max-width: 100%;
+            height: auto;
+        }
         nav {
             position: absolute;
             top: 10px;
@@ -37,6 +41,9 @@
             color: white;
             margin: 0 15px;
             text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
         }
         footer {
             width: 100%;
@@ -116,7 +123,6 @@
             gap: 12px;
         }
         .row > div { flex: 1; }
-        /* --- Airport combobox --- */
         .combobox {
             position: relative;
         }
@@ -189,10 +195,9 @@
             color: #777;
             margin: 4px 0 0;
         }
-        /* --- Flights / Hotels toggle --- */
         /* --- Search deals now (Travelpayouts widgets) --- */
         .search-now {
-            max-width: 420px;
+            max-width: 720px;
             margin: 0 auto 40px;
             padding: 0 20px;
             box-sizing: border-box;
@@ -213,13 +218,11 @@
             border-radius: 8px;
             padding: 12px;
             box-sizing: border-box;
+            min-height: 280px;
+            overflow: visible;
         }
         .widget-desktop-only { display: block; }
         .widget-mobile-only { display: none; }
-        @media (max-width: 768px) {
-            .widget-desktop-only { display: none; }
-            .widget-mobile-only { display: block; }
-        }
         .section-divider {
             max-width: 420px;
             margin: 0 auto 32px;
@@ -243,7 +246,6 @@
             margin: 0;
             text-align: left;
         }
-
         .tabs {
             display: flex;
             max-width: 380px;
@@ -270,12 +272,18 @@
             border-color: white;
         }
         #hotelForm { display: none; }
+        #hotelFormMessage {
+            margin-top: 14px;
+            font-size: 13px;
+            min-height: 18px;
+        }
+        #hotelFormMessage.error { color: #ff6b6b; }
+        #hotelFormMessage.success { color: #4ade80; }
         /* --- Post-signup support block --- */
         #supportBlock {
             display: none;
             max-width: 380px;
             margin: 24px auto 0;
-            padding: 20px;
             padding: 0 20px;
             box-sizing: border-box;
             text-align: center;
@@ -290,17 +298,19 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #FFDD00;
-            color: #000;
-            padding: 12px 20px;
-            border-radius: 8px;
+            background: transparent;
+            color: #FFDD00;
+            padding: 8px 0;
+            border-radius: 0;
             text-decoration: none;
             font-weight: bold;
             font-size: 15px;
         }
+        #supportBlock a:hover {
+            opacity: 0.85;
+        }
         @media (max-width: 768px) {
             body {
-                flex-direction: column;
                 padding-top: 90px;
             }
             .logo-placeholder {
@@ -317,13 +327,17 @@
                 margin: 0 10px;
                 font-size: 14px;
             }
-            .image-placeholder img {
-                max-width: 90%;
-                max-height: 300px;
-            }
             footer {
                 font-size: 12px;
                 padding: 10px;
+            }
+            .search-now {
+                max-width: 420px;
+            }
+            .widget-desktop-only { display: none; }
+            .widget-mobile-only { display: block; }
+            .search-now .widget-wrap {
+                min-height: 320px;
             }
         }
     </style>
@@ -346,11 +360,19 @@
 <div class="search-now">
     <h2>Trending flight deals from London</h2>
     <p class="search-hint">Popular routes and current prices — no waiting for an email.</p>
-    <div class="widget-wrap widget-mobile-only">
-        <script async src="https://tpwgt.com/content?currency=gbp&trs=559440&shmarker=760976&locale=en&powered_by=true&from_name=london_gb&limit=4&primary_color=00AE98&results_background_color=FFFFFF&form_background_color=FFFFFF&promo_id=4563&campaign_id=111" charset="utf-8"></script>
-    </div>
+
+    <!-- Desktop widget -->
     <div class="widget-wrap widget-desktop-only">
-        <script async src="https://tpwgt.com/content?currency=gbp&trs=559440&shmarker=760976&locale=en&powered_by=true&from_name=london_gb&limit=4&primary_color=00AE98&results_background_color=FFFFFF&form_background_color=FFFFFF&promo_id=4563&campaign_id=111" charset="utf-8"></script>
+        <script async
+            src="https://tpwgt.com/content?currency=gbp&trs=559440&shmarker=760976&locale=en&powered_by=true&from_name=london_gb&limit=4&primary_color=00AE98&results_background_color=FFFFFF&form_background_color=FFFFFF&promo_id=4563&campaign_id=111"
+            charset="utf-8"></script>
+    </div>
+
+    <!-- Mobile widget -->
+    <div class="widget-wrap widget-mobile-only">
+        <script async
+            src="https://tpwgt.com/content?currency=gbp&trs=559440&shmarker=760976&locale=en&powered_by=true&from_name=london_gb&limit=4&primary_color=00AE98&results_background_color=FFFFFF&form_background_color=FFFFFF&promo_id=4563&campaign_id=111"
+            charset="utf-8"></script>
     </div>
 </div>
 
@@ -368,7 +390,6 @@
 <form id="dealForm">
     <label for="email">Email address</label>
     <input type="email" id="email" placeholder="you@example.com" required>
-
     <div class="row">
         <div class="combobox">
             <label for="originInput">From</label>
@@ -384,11 +405,9 @@
         </div>
     </div>
     <p class="hint">Start typing a city or airport name, then pick one from the list.</p>
-
     <label for="minPrice">Alert me when the price drops below, in GBP (optional)</label>
     <input type="number" id="minPrice" placeholder="e.g. 250" min="1" step="1">
     <p class="hint">Leave blank and we'll email you about any price drop we find.</p>
-
     <button type="submit" id="submitBtn">Get price alerts</button>
     <div id="formMessage"></div>
 </form>
@@ -396,7 +415,6 @@
 <form id="hotelForm">
     <label for="hotelEmail">Email address</label>
     <input type="email" id="hotelEmail" placeholder="you@example.com" required>
-
     <div class="combobox">
         <label for="hotelDestinationInput">Destination</label>
         <input type="text" id="hotelDestinationInput" placeholder="Search city or airport" autocomplete="off" required>
@@ -404,20 +422,22 @@
         <div class="combobox-results" id="hotelDestinationResults"></div>
     </div>
     <p class="hint">We'll search 3–7 night stays over the next few months and email you when we find a low nightly rate.</p>
-
     <label for="hotelMinPrice">Alert me when the nightly rate drops below, in GBP (optional)</label>
     <input type="number" id="hotelMinPrice" placeholder="e.g. 80" min="1" step="1">
     <p class="hint">Leave blank and we'll email you about any price drop we find.</p>
-
     <button type="submit" id="hotelSubmitBtn">Get price alerts</button>
     <div id="hotelFormMessage"></div>
 </form>
 
 <div id="supportBlock">
     <p>Glad this could help! If a price alert saves you money on your next trip, you can support the project with a coffee — it helps keep the alerts running.</p>
-    <a href="https://www.buymeacoffee.com/dekhtehai" target="_blank" rel="noopener noreferrer">
-        <span style="font-size: 18px;">☕</span>
-        Buy me a coffee
+    <a href="https://www.buymeacoffee.com/dekhtehai"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="coffee-link">
+                <img src="resources/bmc-logo-png.png"
+                     alt="Buy me a coffee"
+                     style="height: 32px; width: auto; vertical-align: middle;">
     </a>
 </div>
 
@@ -425,22 +445,27 @@
     <p>We check your route once a day and only email you when a genuinely lower price shows up — not a daily digest, so an empty inbox just means nothing's changed. Right now this covers <strong>round-trip, direct flights</strong> for stays of roughly <strong>1–4 weeks</strong>; one-way trips and flights with stopovers aren't covered yet, and hotel price alerts are on the way. Each email address is currently limited to <strong>2 active routes</strong>.</p>
 </div>
 
+
 <footer>
-    <p>&copy; 2026 dekhte-hai.com. All rights reserved.</p>
+    <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
     <p class="coffee-line">
-        <a href="https://www.buymeacoffee.com/dekhtehai" target="_blank" rel="noopener noreferrer" class="coffee-link">
-            ☕ Buy me a coffee
+        <a href="https://www.buymeacoffee.com/dekhtehai"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="coffee-link">
+            <img src="resources/bmc-logo-png.png"
+                 alt="Buy me a coffee"
+                 style="height: 24px; width: auto; vertical-align: middle;">
         </a>
     </p>
 </footer>
 
+
 <script>
-    // Paste your Apps Script Web App deployment URL here.
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbypGnLkcWrALUiMyl5IN0F-nzK_sogIebP01UAvNeBPZNyTeoIv5TxKv5yNc7sEedL8/exec";
 
     // ---------- Airport data ----------
     let AIRPORTS = [];
-
     fetch("airports.json")
         .then(res => res.json())
         .then(data => { AIRPORTS = data; })
@@ -453,15 +478,12 @@
     function searchAirports(query) {
         const q = query.trim().toLowerCase();
         if (q.length < 2) return [];
-
         const starts = [];
         const contains = [];
-
         for (const a of AIRPORTS) {
             const code = a.code.toLowerCase();
             const city = (a.city || "").toLowerCase();
             const name = (a.name || "").toLowerCase();
-
             if (code === q || city.startsWith(q) || name.startsWith(q)) {
                 starts.push(a);
             } else if (city.includes(q) || name.includes(q)) {
@@ -469,11 +491,9 @@
             }
             if (starts.length >= 8) break;
         }
-
         return starts.concat(contains).slice(0, 8);
     }
 
-    // ---------- Combobox wiring ----------
     function setupCombobox(inputId, hiddenId, resultsId) {
         const input = document.getElementById(inputId);
         const hidden = document.getElementById(hiddenId);
@@ -489,13 +509,11 @@
         function render(options) {
             currentOptions = options;
             activeIndex = -1;
-
             if (options.length === 0) {
                 results.innerHTML = '<div class="combobox-empty">No matches</div>';
                 results.classList.add("open");
                 return;
             }
-
             results.innerHTML = options.map((a, i) => `
                 <div class="combobox-option" data-index="${i}">
                     <span class="code">${a.code}</span>
@@ -503,7 +521,6 @@
                 </div>
             `).join("");
             results.classList.add("open");
-
             results.querySelectorAll(".combobox-option").forEach(el => {
                 el.addEventListener("mousedown", (e) => {
                     e.preventDefault();
@@ -521,25 +538,19 @@
 
         input.addEventListener("input", () => {
             clearSelection();
-            const matches = searchAirports(input.value);
-            render(matches);
+            render(searchAirports(input.value));
         });
-
         input.addEventListener("focus", () => {
             if (input.value.trim().length >= 2 && !hidden.value) {
                 render(searchAirports(input.value));
             }
         });
-
         input.addEventListener("blur", () => {
             setTimeout(() => results.classList.remove("open"), 100);
         });
-
         input.addEventListener("keydown", (e) => {
             if (!results.classList.contains("open") || currentOptions.length === 0) return;
-
             const optionEls = results.querySelectorAll(".combobox-option");
-
             if (e.key === "ArrowDown") {
                 e.preventDefault();
                 activeIndex = Math.min(activeIndex + 1, currentOptions.length - 1);
@@ -555,7 +566,6 @@
             } else {
                 return;
             }
-
             optionEls.forEach((el, i) => el.classList.toggle("active", i === activeIndex));
         });
     }
@@ -576,7 +586,6 @@
         dealFormEl.style.display = "block";
         hotelFormEl.style.display = "none";
     });
-
     hotelsTabBtn.addEventListener("click", () => {
         hotelsTabBtn.classList.add("active");
         flightsTabBtn.classList.remove("active");
@@ -584,7 +593,7 @@
         dealFormEl.style.display = "none";
     });
 
-    // ---------- Form submit ----------
+    // ---------- Flight form submit ----------
     const form = document.getElementById("dealForm");
     const messageEl = document.getElementById("formMessage");
     const submitBtn = document.getElementById("submitBtn");
@@ -603,10 +612,8 @@
 
     form.addEventListener("submit", async function (e) {
         e.preventDefault();
-
         const originCode = document.getElementById("originCode").value;
         const destinationCode = document.getElementById("destinationCode").value;
-
         if (!originCode || !destinationCode) {
             messageEl.className = "error";
             messageEl.textContent = "Please pick an airport from the dropdown for both From and To.";
@@ -617,49 +624,39 @@
             messageEl.textContent = "Origin and destination can't be the same.";
             return;
         }
-
         const minPriceValue = document.getElementById("minPrice").value.trim();
-
         const payload = {
             email: document.getElementById("email").value.trim(),
             origin: originCode,
             destination: destinationCode,
             minPrice: minPriceValue === "" ? null : Number(minPriceValue)
         };
-
         submitBtn.disabled = true;
         submitBtn.textContent = "Submitting...";
         messageEl.className = "";
         messageEl.textContent = "";
-
         try {
             const response = await fetch(APPS_SCRIPT_URL, {
                 method: "POST",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
                 body: JSON.stringify(payload)
             });
-
-            // Try to read the response, but don't rely on it
             let result = null;
             try {
                 const text = await response.text();
                 result = JSON.parse(text);
             } catch (parseErr) {
-                // 302 redirect or non-JSON response from Apps Script — ignore
                 result = null;
             }
-
             if (result && result.status === "success") {
                 showSuccess(result.message);
             } else if (result && result.status === "error") {
                 messageEl.className = "error";
                 messageEl.textContent = result.message || "Something went wrong. Please try again.";
             } else {
-                // Most common Apps Script case: request succeeded but response unreadable
                 showSuccess("Subscribed! Check your email for confirmation.");
             }
         } catch (err) {
-            // Only real network failures (no internet, blocked, etc.)
             messageEl.className = "error";
             messageEl.textContent = "Network error — please check your connection and try again.";
         } finally {
@@ -684,36 +681,29 @@
 
     hotelForm.addEventListener("submit", async function (e) {
         e.preventDefault();
-
         const destinationCode = document.getElementById("hotelDestinationCode").value;
-
         if (!destinationCode) {
             hotelMessageEl.className = "error";
             hotelMessageEl.textContent = "Please pick a destination from the dropdown.";
             return;
         }
-
         const minPriceValue = document.getElementById("hotelMinPrice").value.trim();
-
         const payload = {
             action: "subscribeHotel",
             email: document.getElementById("hotelEmail").value.trim(),
             destination: destinationCode,
             minPrice: minPriceValue === "" ? null : Number(minPriceValue)
         };
-
         hotelSubmitBtn.disabled = true;
         hotelSubmitBtn.textContent = "Submitting...";
         hotelMessageEl.className = "";
         hotelMessageEl.textContent = "";
-
         try {
             const response = await fetch(APPS_SCRIPT_URL, {
                 method: "POST",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
                 body: JSON.stringify(payload)
             });
-
             let result = null;
             try {
                 const text = await response.text();
@@ -721,7 +711,6 @@
             } catch (parseErr) {
                 result = null;
             }
-
             if (result && result.status === "success") {
                 showHotelSuccess(result.message);
             } else if (result && result.status === "error") {
