@@ -304,7 +304,7 @@
             <div class="combobox-results" id="destinationResults"></div>
         </div>
     </div>
-    <p class="hint">Start typing a city or airport name, then pick one from the list.</p>
+    <p class="hint">Start typing a city or airport name, then pick one from the list. Cities with multiple airports (e.g. London, New York, Tokyo) offer an "All airports" option that searches all of them for the cheapest fare.</p>
 
     <label for="minPrice">Alert me when the price drops below, in GBP (optional)</label>
     <input type="number" id="minPrice" placeholder="e.g. 250" min="1" step="1">
@@ -347,9 +347,18 @@
     // ---------- Airport data ----------
     let AIRPORTS = [];
 
-    fetch("airports.json")
-        .then(res => res.json())
-        .then(data => { AIRPORTS = data; })
+    // Loads individual airports plus the 41 official IATA multi-airport
+    // city codes (e.g. LON = all 5 London airports). Tequila accepts city
+    // codes exactly like airport codes in fly_from/fly_to, so picking one
+    // of these searches every airport in that city for the cheapest fare —
+    // no backend change needed, this is purely adding the option to pick one.
+    Promise.all([
+        fetch("airports.json").then(res => res.json()),
+        fetch("metro_codes.json").then(res => res.json())
+    ])
+        .then(([airports, metros]) => {
+            AIRPORTS = metros.concat(airports);
+        })
         .catch(() => {
             document.getElementById("formMessage").className = "error";
             document.getElementById("formMessage").textContent =
@@ -420,7 +429,10 @@
 
         function selectOption(airport) {
             hidden.value = airport.code;
-            input.value = `${airport.city ? airport.city + ", " : ""}${airport.country} (${airport.code})`;
+            const label = airport.name === "All airports"
+                ? `${airport.city}, ${airport.country} — All airports (${airport.code})`
+                : `${airport.city ? airport.city + ", " : ""}${airport.country} (${airport.code})`;
+            input.value = label;
             input.classList.add("selected-valid");
             results.classList.remove("open");
         }
