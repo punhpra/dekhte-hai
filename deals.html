@@ -56,7 +56,7 @@
             text-decoration: underline;
         }
         footer p.coffee-line {
-            margin-top: 8px;
+            margin-bottom: 12px;
         }
         p.subtitle {
             color: #b3b3b3;
@@ -67,31 +67,18 @@
         }
         .deal-info {
             max-width: 420px;
-            margin: 0 auto 36px;
-            text-align: left;
+            margin: 32px auto 24px;
             padding: 0 20px;
             box-sizing: border-box;
         }
-        .deal-info h2 {
-            font-size: 15px;
-            margin: 0 0 12px;
-            color: white;
-        }
-        .deal-info ul {
+        .deal-info p {
+            color: #888;
+            font-size: 12px;
+            line-height: 1.7;
             margin: 0;
-            padding: 0 0 0 18px;
-            color: #b3b3b3;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-        .deal-info li {
-            margin-bottom: 8px;
-        }
-        .deal-info li:last-child {
-            margin-bottom: 0;
         }
         .deal-info strong {
-            color: white;
+            color: #bbb;
         }
         #dealForm {
             width: 100%;
@@ -129,6 +116,8 @@
             gap: 12px;
         }
         .row > div { flex: 1; }
+        .row > .currency-field { flex: 0 0 90px; }
+        .row > .price-field { flex: 1; }
         /* --- Airport combobox --- */
         .combobox {
             position: relative;
@@ -275,17 +264,6 @@
 <h1>Deals</h1>
 <p class="subtitle">Tell us your route and, if you like, the price you're waiting for. We'll email you the moment we find a fare that matches.</p>
 
-<div class="deal-info">
-    <h2>What you'll get</h2>
-    <ul>
-        <li>We check your route <strong>once a day</strong> and compare it to the lowest fare we've seen for you so far.</li>
-        <li>You'll only get an email when a <strong>genuinely lower price</strong> shows up — not a daily digest, so an empty inbox just means nothing's changed.</li>
-        <li>Right now we search <strong>round-trip, direct flights</strong>, for stays of roughly <strong>1–4 weeks</strong>. One-way trips and flights with stopovers aren't covered yet.</li>
-        <li>Hotel price alerts are on the way — for now this covers flights only.</li>
-        <li>Currently it is limited to <strong>2 routes per email</strong>.</li>
-    </ul>
-</div>
-
 <form id="dealForm">
     <label for="email">Email address</label>
     <input type="email" id="email" placeholder="you@example.com" required>
@@ -306,20 +284,24 @@
     </div>
     <p class="hint">Start typing a city or airport name, then pick one from the list. Cities with multiple airports (e.g. London, New York, Tokyo) offer an "All airports" option that searches all of them for the cheapest fare.</p>
 
-    <label for="currency">Currency</label>
-    <select id="currency">
-        <option value="GBP" selected>GBP — British Pound</option>
-        <option value="EUR">EUR — Euro</option>
-        <option value="INR">INR — Indian Rupee</option>
-        <option value="USD">USD — US Dollar</option>
-        <option value="AUD">AUD — Australian Dollar</option>
-        <option value="CAD">CAD — Canadian Dollar</option>
-    </select>
-    <p class="hint">Prices and booking links will be shown in this currency.</p>
-
-    <label for="minPrice">Alert me when the price drops below (optional)</label>
-    <input type="number" id="minPrice" placeholder="e.g. 250" min="1" step="1">
-    <p class="hint">Leave blank and we'll email you about any price drop we find.</p>
+    <div class="row">
+        <div class="currency-field">
+            <label for="currency">Currency</label>
+            <select id="currency">
+                <option value="GBP" selected>GBP</option>
+                <option value="EUR">EUR</option>
+                <option value="INR">INR</option>
+                <option value="USD">USD</option>
+                <option value="AUD">AUD</option>
+                <option value="CAD">CAD</option>
+            </select>
+        </div>
+        <div class="price-field">
+            <label for="minPrice">Alert below (optional)</label>
+            <input type="number" id="minPrice" placeholder="e.g. 250" min="1" step="1">
+        </div>
+    </div>
+    <p class="hint">Leave the price blank and we'll email you about any drop we find, shown in your chosen currency.</p>
 
     <button type="submit" id="submitBtn">Get price alerts</button>
     <div id="formMessage"></div>
@@ -335,6 +317,10 @@
                      alt="Buy me a coffee"
                      style="height: 32px; width: auto; vertical-align: middle;">
     </a>
+</div>
+
+<div class="deal-info">
+    <p>We check your route once a day and only email you when a genuinely lower price shows up — not a daily digest, so an empty inbox just means nothing's changed. Right now this covers <strong>round-trip, direct flights</strong> for stays of roughly <strong>1–4 weeks</strong>; one-way trips and flights with stopovers aren't covered yet, and hotel price alerts are on the way. Each email address is currently limited to <strong>2 active routes</strong>.</p>
 </div>
 
 <footer>
