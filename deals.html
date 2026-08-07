@@ -109,7 +109,7 @@
             margin-top: 18px;
         }
         label:first-of-type { margin-top: 0; }
-        input {
+        input, select {
             width: 100%;
             padding: 11px 12px;
             background: #000;
@@ -119,7 +119,7 @@
             font-family: Arial, sans-serif;
             box-sizing: border-box;
         }
-        input:focus {
+        input:focus, select:focus {
             outline: none;
             border-color: white;
         }
@@ -306,7 +306,18 @@
     </div>
     <p class="hint">Start typing a city or airport name, then pick one from the list. Cities with multiple airports (e.g. London, New York, Tokyo) offer an "All airports" option that searches all of them for the cheapest fare.</p>
 
-    <label for="minPrice">Alert me when the price drops below, in GBP (optional)</label>
+    <label for="currency">Currency</label>
+    <select id="currency">
+        <option value="GBP" selected>GBP — British Pound</option>
+        <option value="EUR">EUR — Euro</option>
+        <option value="INR">INR — Indian Rupee</option>
+        <option value="USD">USD — US Dollar</option>
+        <option value="AUD">AUD — Australian Dollar</option>
+        <option value="CAD">CAD — Canadian Dollar</option>
+    </select>
+    <p class="hint">Prices and booking links will be shown in this currency.</p>
+
+    <label for="minPrice">Alert me when the price drops below (optional)</label>
     <input type="number" id="minPrice" placeholder="e.g. 250" min="1" step="1">
     <p class="hint">Leave blank and we'll email you about any price drop we find.</p>
 
@@ -521,6 +532,7 @@
             email: document.getElementById("email").value.trim(),
             origin: originCode,
             destination: destinationCode,
+            currency: document.getElementById("currency").value,
             minPrice: minPriceValue === "" ? null : Number(minPriceValue)
         };
 
