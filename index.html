@@ -3,30 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>dekhtehai.com - Home | Travel Visual Experience</title>
+  <title>dekhtehai.com — Travel Photos & Free Flight Price Alerts</title>
   <link rel="icon" type="image/png" href="resources/favicon.png">
-  <meta name="description" content="dekhtehai.com — travel photography, hidden gems, and free tools to help you find cheap flight deals and plan smarter trips."> 
+  <meta name="description" content="dekhtehai.com — travel photography, hidden gems, and free flight price alerts that email you the moment fares drop on your route.">
   <meta name="keywords" content="travel experience,travel alerts,cheap flights, flight deals, world landmarks, travel images, hidden gems, dekhtehai, immersive visuals,deals, flights, budget trips">
   <meta name="author" content="dekhtehai">
-  <meta property="og:title" content="dekhtehai.com - Home">
-  <meta property="og:description" content="Embark on a visual adventure with dekhte-hai.com, featuring stunning travel photos of global landmarks and hidden gems.">
-  <meta property="og:image" content="https://dekhtehai.com/resources/blog-image.jpg">
-  <meta property="og:url" content="https://dekhtehai.com/blogs.html">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://dekhtehai.com/index.html">
+
+  <meta property="og:title" content="dekhtehai.com — Travel Photos & Free Flight Price Alerts">
+  <meta property="og:description" content="Explore travel photography of global landmarks and hidden gems, and set free flight price alerts so you know the moment a fare drops.">
+  <meta property="og:image" content="https://dekhtehai.com/resources/Home.jpeg">
+  <meta property="og:url" content="https://dekhtehai.com/index.html">
   <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="dekhtehai.com — Travel Photos & Free Flight Price Alerts">
+  <meta name="twitter:description" content="Explore travel photography of global landmarks and hidden gems, and set free flight price alerts so you know the moment a fare drops.">
+  <meta name="twitter:image" content="https://dekhtehai.com/resources/Home.jpeg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Organization/WebSite schema — the homepage is the right place for
+       this; it's what lets Google show a sitelinks searchbox / knowledge
+       panel entry for the site as a whole. -->
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "dekhtehai",
+      "url": "https://dekhtehai.com/",
+      "description": "Travel photography of global landmarks and hidden gems, plus free flight price alerts.",
+      "publisher": {
+          "@type": "Organization",
+          "name": "dekhtehai",
+          "logo": { "@type": "ImageObject", "url": "https://dekhtehai.com/resources/logo.png" }
+      }
+  }
+  </script>
+
   <style>
+      :root {
+          --bg: #0a0a0a;
+          --surface: #141414;
+          --border: #2a2a2a;
+          --text: #f2f2f0;
+          --text-dim: #b3b3b3;
+          --text-faint: #6f6f6b;
+          --accent: #FFDD00;
+      }
+
+      * { box-sizing: border-box; }
+
       body {
-          background-color: black;
-          color: white;
-          font-family: Arial, sans-serif;
+          background-color: var(--bg);
+          color: var(--text);
+          font-family: Arial, Helvetica, sans-serif;
           margin: 0;
           padding: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
           text-align: center;
           position: relative;
       }
+
+      h1, .step-title, .card-title {
+          font-family: 'Sora', Arial, sans-serif;
+      }
+
       .logo-placeholder {
           position: absolute;
           top: 10px;
@@ -34,43 +77,153 @@
           width: 100px;
           height: 100px;
       }
+      .logo-placeholder img {
+          max-width: 100%;
+          height: auto;
+      }
       nav {
           position: absolute;
           top: 10px;
           right: 10px;
       }
       nav a {
-          color: white;
+          color: var(--text);
           margin: 0 15px;
           text-decoration: none;
+          font-size: 14px;
       }
+      nav a:hover {
+          text-decoration: underline;
+          color: var(--accent);
+      }
+      nav a[aria-current="page"] {
+          color: var(--accent);
+      }
+
+      .hero {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 110px 20px 60px;
+      }
+
       .centered-content {
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
           padding: 20px;
+          max-width: 640px;
       }
+
+      h1 {
+          font-size: 32px;
+          font-weight: 700;
+          margin: 0 0 14px;
+          letter-spacing: -0.01em;
+          line-height: 1.25;
+      }
+
+      p.intro {
+          color: var(--text-dim);
+          font-size: 15.5px;
+          line-height: 1.6;
+          max-width: 480px;
+          margin: 0 auto 30px;
+      }
+
       .image-placeholder img {
           max-width: 600px;
           max-height: 600px;
           width: auto;
           height: auto;
           display: block;
+          border-radius: 10px;
+          margin: 0 auto;
       }
+
+      .cta-row {
+          margin-top: 26px;
+      }
+      .cta-row a.button {
+          display: inline-block;
+          background: var(--accent);
+          color: #000;
+          padding: 12px 24px;
+          border-radius: 6px;
+          text-decoration: none;
+          font-weight: bold;
+          font-size: 14px;
+          transition: background 0.15s ease;
+      }
+      .cta-row a.button:hover {
+          background: #fff;
+      }
+
+      /* --- Explore section --- */
+      .explore {
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 20px 20px 80px;
+      }
+      .explore h2 {
+          font-family: 'Sora', Arial, sans-serif;
+          font-size: 20px;
+          font-weight: 700;
+          margin: 0 0 24px;
+          text-align: center;
+      }
+      .cards {
+          display: flex;
+          gap: 18px;
+          text-align: left;
+      }
+      .card {
+          flex: 1;
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          padding: 20px;
+          text-decoration: none;
+          display: block;
+          transition: border-color 0.15s ease;
+      }
+      .card:hover {
+          border-color: var(--accent);
+      }
+      .card-title {
+          font-size: 15px;
+          font-weight: 700;
+          color: #fff;
+          margin: 0 0 6px;
+      }
+      .card p {
+          font-size: 13.5px;
+          color: var(--text-dim);
+          margin: 0;
+          line-height: 1.5;
+      }
+      .card .arrow {
+          color: var(--accent);
+          font-size: 13px;
+          font-weight: bold;
+          display: inline-block;
+          margin-top: 10px;
+      }
+
       footer {
-          position: absolute;
-          bottom: 10px;
           width: 100%;
           text-align: center;
           color: white;
           font-size: 14px;
+          padding: 0 0 30px;
       }
+
       @media (max-width: 768px) {
-          body {
-              flex-direction: column;
-              padding-top: 120px;
-              height: auto;
+          .hero {
+              padding: 90px 16px 40px;
+              min-height: auto;
           }
           .logo-placeholder {
               top: 5px;
@@ -86,15 +239,25 @@
               margin: 0 10px;
               font-size: 14px;
           }
+          h1 {
+              font-size: 24px;
+          }
           .image-placeholder img {
               max-width: 90%;
               max-height: 300px;
           }
+          .cards {
+              flex-direction: column;
+          }
           footer {
               font-size: 12px;
               padding: 10px;
-              position: relative;
-              bottom: auto;
+          }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+          .cta-row a.button, .card {
+              transition: none;
           }
       }
   </style>
@@ -102,23 +265,52 @@
 <body>
 <div class="logo-placeholder">
   <a href="index.html">
-    <img src="resources/logo.png" alt="dekhte-hai logo">
+    <img src="resources/logo.png" alt="dekhtehai logo">
   </a>
 </div>
 <nav>
+  <a href="index.html" aria-current="page">Home</a>
   <a href="gallery.html">Gallery</a>
   <a href="blogs.html">Blogs</a>
   <a href="deals.html">Deals</a>
 </nav>
-<div class="centered-content">
-  <div class="text">
-    <h1>View the world through our lens</h1>
-    <p class="intro">Explore iconic landmarks, vibrant streets, and hidden gems through our photos and use free price alerts on our Deals page to help find cheaper flights for your next adventure.</p></p>
-  </div>
-  <div class="image-placeholder">
-    <img src="resources/Home.jpeg" alt="Travel image of a global landmark - dekhte-hai.com home">
+
+<div class="hero">
+  <div class="centered-content">
+    <div class="text">
+      <h1>See the World. Then Go, For Less.</h1>
+      <p class="intro">Explore iconic landmarks, vibrant streets, and hidden gems through our photos — then set a free price alert on our <a href="deals.html" style="color: var(--accent);">Deals page</a> and we'll email you the moment flights to your next destination drop.</p>
+    </div>
+    <div class="image-placeholder">
+      <img src="resources/Home.jpeg" alt="Travel image of a global landmark - dekhtehai.com home" fetchpriority="high">
+    </div>
+    <div class="cta-row">
+      <a class="button" href="deals.html">Get free flight alerts →</a>
+    </div>
   </div>
 </div>
+
+<div class="explore">
+  <h2>Explore dekhtehai</h2>
+  <div class="cards">
+    <a class="card" href="gallery.html">
+      <p class="card-title">Gallery</p>
+      <p>Travel photography from landmarks and hidden gems around the world.</p>
+      <span class="arrow">View gallery →</span>
+    </a>
+    <a class="card" href="blogs.html">
+      <p class="card-title">Blogs</p>
+      <p>Practical travel tips, including how to actually find cheap flights.</p>
+      <span class="arrow">Read blogs →</span>
+    </a>
+    <a class="card" href="deals.html">
+      <p class="card-title">Deals</p>
+      <p>Free price alerts — set your route, we email you when it drops.</p>
+      <span class="arrow">Set an alert →</span>
+    </a>
+  </div>
+</div>
+
 <footer>
     <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
 </footer>
