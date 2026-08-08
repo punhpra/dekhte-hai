@@ -6,25 +6,76 @@
     <title>dekhtehai.com - Travel Blogs</title>
     <meta name="description" content="Travel tips and guides from dekhtehai.com — how to find cheap flights, use free price alerts, and plan smarter trips.">
     <meta name="keywords" content="travel blogs, cheap flights, flight alerts, travel tips, dekhtehai">
+    <meta name="author" content="dekhtehai">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://dekhtehai.com/blogs.html">
+
+    <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="dekhtehai.com - Travel Blogs">
     <meta property="og:description" content="Practical travel tips and guides, including how to find cheap flights with free price alerts.">
     <meta property="og:image" content="https://dekhtehai.com/resources/logo.png">
     <meta property="og:url" content="https://dekhtehai.com/blogs.html">
     <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="dekhtehai.com - Travel Blogs">
+    <meta name="twitter:description" content="Practical travel tips and guides, including how to find cheap flights with free price alerts.">
+    <meta name="twitter:image" content="https://dekhtehai.com/resources/logo.png">
+
     <link rel="icon" type="image/png" href="resources/favicon.png">
+
+    <!-- Sora Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "dekhtehai Travel Blogs",
+      "description": "Practical travel tips, guides, and insights on finding low-cost flights.",
+      "url": "https://dekhtehai.com/blogs.html"
+    }
+    </script>
+
     <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            padding-top: 50px;
-            padding-bottom: 60px;
-            min-height: 100vh;
-            box-sizing: border-box;
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: #2a2a2a;
+            --text: #f2f2f0;
+            --text-dim: #b3b3b3;
+            --text-faint: #6f6f6b;
+            --accent: #FFDD00;
         }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 110px 20px 0;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        h1, .blog-card h2 {
+            font-family: 'Sora', Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 0 14px;
+            letter-spacing: -0.01em;
+        }
+
         .logo-placeholder {
             position: absolute;
             top: 10px;
@@ -36,77 +87,99 @@
             max-width: 100%;
             height: auto;
         }
+
         nav {
             position: absolute;
             top: 10px;
             right: 10px;
         }
         nav a {
-            color: white;
+            color: var(--text);
             margin: 0 15px;
             text-decoration: none;
+            font-size: 14px;
         }
         nav a:hover {
             text-decoration: underline;
+            color: var(--accent);
         }
-        h1 {
-            margin: 40px 0 10px;
-            font-size: 28px;
+        nav a[aria-current="page"] {
+            color: var(--accent);
         }
+
         .intro {
-            color: #999;
-            font-size: 15px;
-            margin: 0 20px 40px;
+            margin: 0 auto 40px;
+            max-width: 480px;
+            line-height: 1.6;
+            color: var(--text-dim);
+            font-size: 15.5px;
         }
+
         .blog-list {
-            max-width: 600px;
+            max-width: 640px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 0 60px;
             text-align: left;
         }
+
         .blog-card {
-            border: 1px solid #333;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             padding: 24px;
             margin-bottom: 20px;
-            box-sizing: border-box;
+            transition: border-color 0.15s ease;
         }
+        .blog-card:hover {
+            border-color: var(--accent);
+        }
+
         .blog-card h2 {
             margin: 0 0 10px;
             font-size: 18px;
+            font-weight: 700;
         }
         .blog-card h2 a {
-            color: white;
+            color: #fff;
             text-decoration: none;
+            transition: color 0.15s ease;
         }
         .blog-card h2 a:hover {
-            color: #FFDD00;
+            color: var(--accent);
         }
+
         .blog-card p {
-            color: #ccc;
+            color: var(--text-dim);
             font-size: 14px;
             line-height: 1.6;
-            margin: 0 0 14px;
+            margin: 0 0 16px;
         }
+
         .blog-card .read-link {
-            color: #FFDD00;
-            font-size: 14px;
+            color: var(--accent);
+            font-size: 13.5px;
             text-decoration: none;
             font-weight: bold;
+            display: inline-block;
         }
         .blog-card .read-link:hover {
             text-decoration: underline;
         }
+
         footer {
-            position: absolute;
-            bottom: 10px;
             width: 100%;
             text-align: center;
-            color: white;
+            color: var(--text);
             font-size: 14px;
+            padding: 20px 0 30px;
         }
+
         @media (max-width: 768px) {
             body {
-                padding-top: 20px;
+                padding: 90px 16px 0;
+            }
+            h1 {
+                font-size: 24px;
             }
             .logo-placeholder {
                 top: 5px;
@@ -122,9 +195,11 @@
                 margin: 0 10px;
                 font-size: 14px;
             }
-            h1 {
-                font-size: 22px;
-                margin-top: 60px;
+            .intro {
+                font-size: 14px;
+            }
+            .blog-list {
+                padding: 0 0 40px;
             }
             footer {
                 font-size: 12px;
@@ -142,6 +217,7 @@
 <nav>
     <a href="index.html">Home</a>
     <a href="gallery.html">Gallery</a>
+    <a href="blogs.html" aria-current="page">Blogs</a>
     <a href="deals.html">Deals</a>
 </nav>
 
@@ -151,7 +227,7 @@
 <div class="blog-list">
     <div class="blog-card">
         <h2>
-            <a href="blog-cheap-flights.html">How to Find Cheap Flights and let us do the tracking)</a>
+            <a href="blogs/blog-cheap-flights.html">How to Find Cheap Flights (and let us do the tracking)</a>
         </h2>
         <p>
             Simple habits for spotting better fares — plus how to set a free alert on our Deals page
@@ -162,7 +238,6 @@
 </div>
 
 <footer>
-    <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
     <p class="coffee-line">
         <a href="https://www.buymeacoffee.com/dekhtehai"
            target="_blank"
@@ -173,6 +248,7 @@
                  style="height: 24px; width: auto; vertical-align: middle;">
         </a>
     </p>
+    <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
 </footer>
 </body>
 </html>
