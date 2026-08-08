@@ -63,6 +63,8 @@
             text-align: center;
             position: relative;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         h1, .blog-card h2 {
@@ -117,9 +119,11 @@
 
         .blog-list {
             max-width: 640px;
+            width: 100%;
             margin: 0 auto;
             padding: 0 0 60px;
             text-align: left;
+            flex: 1;
         }
 
         .blog-card {
@@ -172,6 +176,7 @@
             color: var(--text);
             font-size: 14px;
             padding: 20px 0 30px;
+            margin-top: auto;
         }
 
         @media (max-width: 768px) {
