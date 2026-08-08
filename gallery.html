@@ -3,28 +3,75 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dekhte-hai.com - Travel Gallery | World Landmarks & Hidden Gems</title>
+    <title>dekhtehai.com - Travel Gallery | World Landmarks & Hidden Gems</title>
     <link rel="icon" type="image/png" href="resources/favicon.png">
-    <meta name="description" content="Explore dekhte-hai.com's travel gallery featuring stunning images of world landmarks, iconic streets, and hidden gems for an immersive visual experience.">
-    <meta name="keywords" content="travel gallery, world landmarks, travel images, hidden gems, travel photography, dekhte-hai, immersive visual experience">
-    <meta name="author" content="dekhte-hai">
-    <meta property="og:title" content="dekhte-hai.com - Travel Gallery">
-    <meta property="og:description" content="Discover breathtaking travel photos of global landmarks and hidden gems at dekhte-hai.com.">
-    <meta property="og:image" content="https://dekhte-hai.com/resources/Photo1.jpeg">
-    <meta property="og:url" content="https://dekhte-hai.com/gallery.html">
+    <meta name="description" content="Explore dekhtehai.com's travel gallery featuring photos of world landmarks, iconic streets, and hidden gems around the world.">
+    <meta name="keywords" content="travel gallery, world landmarks, travel images, hidden gems, travel photography, dekhtehai, visual travel">
+    <meta name="author" content="dekhtehai">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://dekhtehai.com/gallery.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="dekhtehai.com - Travel Gallery">
+    <meta property="og:description" content="Discover breathtaking travel photos of global landmarks and hidden gems at dekhtehai.com.">
+    <meta property="og:image" content="https://dekhtehai.com/resources/Photo1.jpeg">
+    <meta property="og:url" content="https://dekhtehai.com/gallery.html">
     <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="dekhtehai.com - Travel Gallery">
+    <meta name="twitter:description" content="Discover breathtaking travel photos of global landmarks and hidden gems at dekhtehai.com.">
+    <meta name="twitter:image" content="https://dekhtehai.com/resources/Photo1.jpeg">
+
+    <!-- Sora Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "dekhtehai Travel Gallery",
+      "description": "Travel photography featuring world landmarks and hidden gems.",
+      "url": "https://dekhtehai.com/gallery.html"
+    }
+    </script>
+
     <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: #2a2a2a;
+            --text: #f2f2f0;
+            --text-dim: #b3b3b3;
+            --text-faint: #6f6f6b;
+            --accent: #FFDD00;
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
-            padding-top: 50px;
             position: relative;
             min-height: 100vh;
         }
+
+        h1 {
+            font-family: 'Sora', Arial, sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 110px 0 0;
+            letter-spacing: -0.01em;
+        }
+
         .logo-placeholder {
             position: absolute;
             top: 10px;
@@ -32,30 +79,44 @@
             width: 100px;
             height: 100px;
         }
+        .logo-placeholder img {
+            max-width: 100%;
+            height: auto;
+        }
+
         nav {
             position: absolute;
             top: 10px;
             right: 10px;
         }
         nav a {
-            color: white;
+            color: var(--text);
             margin: 0 15px;
             text-decoration: none;
+            font-size: 14px;
         }
+        nav a:hover {
+            text-decoration: underline;
+            color: var(--accent);
+        }
+        nav a[aria-current="page"] {
+            color: var(--accent);
+        }
+
         .intro {
-            margin-top: 80px;
+            margin: 14px auto 0;
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.5;
-            white-space: normal;
-            padding: 10px;
+            line-height: 1.6;
+            color: var(--text-dim);
+            font-size: 15.5px;
+            padding: 0 10px;
         }
+
         .gallery-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            padding: 120px 20px 60px;
+            gap: 18px;
+            padding: 40px 20px 60px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -64,31 +125,96 @@
         }
         .gallery-item img {
             width: 100%;
-            height: 150px;
+            height: 180px;
             object-fit: cover;
-            border: 2px solid white;
-            border-radius: 5px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
             cursor: pointer;
+            transition: border-color 0.15s ease;
+        }
+        .gallery-item img:hover {
+            border-color: var(--accent);
         }
         .caption {
-            margin-top: 5px;
-            font-size: 14px;
+            margin-top: 8px;
+            font-size: 13.5px;
+            color: var(--text-dim);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
         footer {
-            position: absolute;
-            bottom: 10px;
             width: 100%;
             text-align: center;
-            color: white;
+            color: var(--text);
             font-size: 14px;
+            padding: 20px 0 30px;
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(10, 10, 10, 0.95);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .modal-caption {
+            color: var(--text);
+            text-align: center;
+            font-size: 16px;
+            margin-top: 15px;
+            padding: 0 16px;
+            overflow-wrap: break-word;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: 'Sora', Arial, sans-serif;
+        }
+        .close, .prev, .next {
+            position: absolute;
+            color: var(--text);
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 16px;
+            user-select: none;
+            transition: color 0.15s ease;
+        }
+        .close:hover, .prev:hover, .next:hover {
+            color: var(--accent);
+        }
+        .close {
+            top: 20px;
+            right: 35px;
+            font-size: 40px;
+        }
+        .prev {
+            top: 50%;
+            left: 10px;
+        }
+        .next {
+            top: 50%;
+            right: 10px;
+        }
+
         @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-                padding-top: 20px;
+            h1 {
+                font-size: 24px;
+                margin-top: 80px;
             }
             .logo-placeholder {
                 top: 5px;
@@ -105,72 +231,20 @@
                 font-size: 14px;
             }
             .intro {
-                margin-top: 60px;
                 font-size: 14px;
             }
             .gallery-container {
                 grid-template-columns: repeat(2, 1fr);
-                padding: 100px 10px 100px;
+                padding: 30px 10px 60px;
+                gap: 12px;
             }
             .gallery-item img {
-                height: 120px;
+                height: 130px;
             }
             footer {
                 font-size: 12px;
                 padding: 10px;
             }
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 999;
-            padding-top: 60px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.9);
-        }
-        .modal-content {
-            margin: auto;
-            display: block;
-            max-width: 90%;
-            max-height: 80%;
-        }
-        .modal-caption {
-            color: white;
-            text-align: center;
-            font-size: 18px;
-            margin-top: 10px;
-            padding: 0 16px;
-            overflow-wrap: break-word;
-            max-width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .close, .prev, .next {
-            position: absolute;
-            top: 50%;
-            color: white;
-            font-size: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 16px;
-            user-select: none;
-        }
-        .close {
-            top: 20px;
-            right: 35px;
-            font-size: 40px;
-        }
-        .prev {
-            left: 0;
-        }
-        .next {
-            right: 0;
-        }
-        @media (max-width: 768px) {
             .modal-caption {
                 font-size: 14px;
             }
@@ -180,19 +254,23 @@
 <body>
 <div class="logo-placeholder">
     <a href="index.html">
-        <img src="resources/logo.png" alt="dekhte-hai logo">
+        <img src="resources/logo.png" alt="dekhtehai logo">
     </a>
 </div>
 <nav>
     <a href="index.html">Home</a>
+    <a href="gallery.html" aria-current="page">Gallery</a>
     <a href="blogs.html">Blogs</a>
     <a href="deals.html">Deals</a>
 </nav>
-<h1>Gallery</h1>
-<p class="intro">Welcome to the dekhte-hai.com travel gallery, <br>showcasing stunning images of world landmarks and hidden gems.</p>
+
+<h1>Travel Gallery</h1>
+<p class="intro">Explore world landmarks, iconic streets, and hidden gems through our travel photography collection.</p>
+
 <div class="gallery-container" id="gallery">
-    <!-- JavaScript will insert images here -->
+    <!-- JavaScript inserts images here -->
 </div>
+
 <footer>
     <p class="coffee-line">
         <a href="https://www.buymeacoffee.com/dekhtehai"
@@ -206,14 +284,16 @@
     </p>
     <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
 </footer>
+
 <!-- Modal -->
-<div id="myModal" class="modal">
-    <span class="close" onclick="closeModal()">×</span>
-    <span class="prev" onclick="changeSlide(-1)">❮</span>
-    <img class="modal-content" id="modalImage">
+<div id="myModal" class="modal" role="dialog" aria-hidden="true">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+    <img class="modal-content" id="modalImage" alt="Enlarged gallery view">
     <div id="modalCaption" class="modal-caption"></div>
-    <span class="next" onclick="changeSlide(1)">❯</span>
+    <span class="next" onclick="changeSlide(1)">&#10095;</span>
 </div>
+
 <script>
     const images = [
         { src: 'resources/Photo1.jpeg', caption: 'Westminster London' },
@@ -247,8 +327,8 @@
         const div = document.createElement('div');
         div.className = 'gallery-item';
         div.innerHTML = `
-            <img src="${img.src}" alt="Travel image of ${img.caption} - dekhte-hai.com gallery" onclick="openModal(${index})">
-            <div class="caption"><h3>${img.caption}</h3></div>
+            <img src="${img.src}" alt="Travel image of ${img.caption} - dekhtehai.com gallery" onclick="openModal(${index})" loading="lazy">
+            <div class="caption"><p>${img.caption}</p></div>
         `;
         gallery.appendChild(div);
     });
@@ -257,13 +337,18 @@
 
     function openModal(index) {
         currentIndex = index;
-        document.getElementById('myModal').style.display = "block";
+        const modal = document.getElementById('myModal');
+        modal.style.display = "block";
+        modal.setAttribute("aria-hidden", "false");
         document.getElementById('modalImage').src = images[currentIndex].src;
+        document.getElementById('modalImage').alt = images[currentIndex].caption;
         document.getElementById('modalCaption').textContent = images[currentIndex].caption;
     }
 
     function closeModal() {
-        document.getElementById('myModal').style.display = "none";
+        const modal = document.getElementById('myModal');
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
     }
 
     function changeSlide(direction) {
@@ -271,6 +356,7 @@
         if (currentIndex < 0) currentIndex = images.length - 1;
         if (currentIndex >= images.length) currentIndex = 0;
         document.getElementById('modalImage').src = images[currentIndex].src;
+        document.getElementById('modalImage').alt = images[currentIndex].caption;
         document.getElementById('modalCaption').textContent = images[currentIndex].caption;
     }
 
