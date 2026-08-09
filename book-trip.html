@@ -37,7 +37,43 @@
       "@type": "WebPage",
       "name": "Book your Trip | dekhtehai.com",
       "description": "Search and book flights with trusted partners.",
-      "url": "https://dekhtehai.com/book-trip.html"
+      "url": "https://dekhtehai.com/book-trip.html",
+      "isPartOf": { "@type": "WebSite", "name": "dekhtehai", "url": "https://dekhtehai.com/" }
+    }
+    </script>
+
+    <!-- FAQ structured data, generated from the FAQ section further down —
+         keep the two in sync if you edit either one. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does dekhtehai charge for flight search or booking?",
+          "acceptedAnswer": { "@type": "Answer",
+              "text": "No. Searching and booking here is free. If you book through one of our partner links, we may earn a small commission at no extra cost to you — that's what keeps the price alerts free." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why might prices differ from other sites?",
+          "acceptedAnswer": { "@type": "Answer",
+              "text": "Results come from our booking partners' live inventory, which can differ slightly from other search engines due to timing, currency, or fare-class availability. Always confirm the final price on the booking page before paying." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it safe to book through these links?",
+          "acceptedAnswer": { "@type": "Answer",
+              "text": "Yes — the search and booking widgets on this page are provided by established travel booking partners; we don't process payments or handle your booking details ourselves." }
+        },
+        {
+          "@type": "Question",
+          "name": "I'd rather wait for a lower price — can I do that instead?",
+          "acceptedAnswer": { "@type": "Answer",
+              "text": "Yes, set a free price alert on our Deals page and we'll email you when the fare drops, rather than booking right away." }
+        }
+      ]
     }
     </script>
 
@@ -141,7 +177,8 @@
             margin: 0 auto 40px;
             text-align: left;
         }
-        .section.map-section {
+        .section.map-section,
+        .section.wide-section {
             max-width: 960px;
         }
         .section h2 {
@@ -221,6 +258,53 @@
             font-size: 14px;
             padding: 20px 0 30px;
             margin-top: auto;
+        }
+
+        .faq-section {
+            max-width: 620px;
+            margin: 0 auto 40px;
+            text-align: left;
+        }
+        .faq-section h2 {
+            font-family: 'Sora', Arial, sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 16px;
+            text-align: center;
+        }
+        .faq details {
+            border-bottom: 1px solid var(--border);
+            padding: 14px 0;
+        }
+        .faq details:first-of-type {
+            border-top: 1px solid var(--border);
+        }
+        .faq summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+            font-size: 14.5px;
+            list-style: none;
+        }
+        .faq summary::-webkit-details-marker {
+            display: none;
+        }
+        .faq summary::before {
+            content: "+";
+            color: var(--accent);
+            display: inline-block;
+            width: 18px;
+            font-weight: bold;
+        }
+        .faq details[open] summary::before {
+            content: "–";
+        }
+        .faq p {
+            margin: 8px 0 0 18px;
+            color: #ccc;
+            font-size: 13.5px;
+            line-height: 1.6;
         }
 
         @media (min-width: 769px) {
@@ -323,11 +407,61 @@
         </div>
     </section>
 
+    <hr class="divider">
+
+    <!-- 3. Things to do (GetYourGuide) — PLACEHOLDER.
+         Replace the div/script pair below with the exact embed code from
+         your GetYourGuide Partner dashboard (partner.getyourguide.com ->
+         Widgets). The snippet below is GetYourGuide's standard "Activities"
+         widget format as of their current docs — but always use the exact
+         code they give you, since the params differ by widget type
+         (Activities grid, Search bar, Category, Availability calendar, etc).
+         Keep it inside .widget-wrap.wide-wrap so it gets the wider 960px
+         section width — GetYourGuide's activity cards need more horizontal
+         room than the flight widgets above. -->
+    <section class="section wide-section">
+        <h2>Things to do</h2>
+        <p class="hint">Tours and activities at your destination, powered by GetYourGuide.</p>
+        <div class="widget-wrap wide-wrap">
+            <div
+                data-gyg-href="https://widget.getyourguide.com/default/activities.frame"
+                data-gyg-locale-code="en-US"
+                data-gyg-widget="activities"
+                data-gyg-number-of-items="6"
+                data-gyg-partner-id="YOUR_PARTNER_ID"
+            ></div>
+            <script async defer
+                    src="https://widget.getyourguide.com/dist/pa.umd.production.min.js"></script>
+        </div>
+    </section>
+
     <p class="alerts-cta">
         Prefer to wait for a drop?
         <a href="deals.html">Set a free price alert</a>
         and we’ll email you when the fare improves.
     </p>
+
+    <section class="faq-section">
+        <h2>Frequently asked questions</h2>
+        <div class="faq">
+            <details>
+                <summary>Does dekhtehai charge for flight search or booking?</summary>
+                <p>No. Searching and booking here is free. If you book through one of our partner links, we may earn a small commission at no extra cost to you — that's what keeps the price alerts free.</p>
+            </details>
+            <details>
+                <summary>Why might prices differ from other sites?</summary>
+                <p>Results come from our booking partners' live inventory, which can differ slightly from other search engines due to timing, currency, or fare-class availability. Always confirm the final price on the booking page before paying.</p>
+            </details>
+            <details>
+                <summary>Is it safe to book through these links?</summary>
+                <p>Yes — the search and booking widgets on this page are provided by established travel booking partners; we don't process payments or handle your booking details ourselves.</p>
+            </details>
+            <details>
+                <summary>I'd rather wait for a lower price — can I do that instead?</summary>
+                <p>Yes, set a free price alert on our Deals page and we'll email you when the fare drops, rather than booking right away.</p>
+            </details>
+        </div>
+    </section>
 </div>
 
 <footer>
