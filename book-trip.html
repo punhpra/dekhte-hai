@@ -30,6 +30,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&display=swap" rel="stylesheet">
 
+    <!-- GetYourGuide Analytics -->
+    <script async defer src="https://widget.getyourguide.com/dist/pa.umd.production.min.js" data-gyg-partner-id="DA7KIEH"></script>
+
     <!-- Structured Data / JSON-LD -->
     <script type="application/ld+json">
     {
@@ -42,8 +45,7 @@
     }
     </script>
 
-    <!-- FAQ structured data, generated from the FAQ section further down —
-         keep the two in sync if you edit either one. -->
+    <!-- FAQ structured data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -409,29 +411,12 @@
 
     <hr class="divider">
 
-    <!-- 3. Things to do (GetYourGuide) — PLACEHOLDER.
-         Replace the div/script pair below with the exact embed code from
-         your GetYourGuide Partner dashboard (partner.getyourguide.com ->
-         Widgets). The snippet below is GetYourGuide's standard "Activities"
-         widget format as of their current docs — but always use the exact
-         code they give you, since the params differ by widget type
-         (Activities grid, Search bar, Category, Availability calendar, etc).
-         Keep it inside .widget-wrap.wide-wrap so it gets the wider 960px
-         section width — GetYourGuide's activity cards need more horizontal
-         room than the flight widgets above. -->
+    <!-- 3. Things to do (GetYourGuide) -->
     <section class="section wide-section">
         <h2>Things to do</h2>
         <p class="hint">Tours and activities at your destination, powered by GetYourGuide.</p>
         <div class="widget-wrap wide-wrap">
-            <div
-                data-gyg-href="https://widget.getyourguide.com/default/activities.frame"
-                data-gyg-locale-code="en-US"
-                data-gyg-widget="activities"
-                data-gyg-number-of-items="6"
-                data-gyg-partner-id="YOUR_PARTNER_ID"
-            ></div>
-            <script async defer
-                    src="https://widget.getyourguide.com/dist/pa.umd.production.min.js"></script>
+            <div data-gyg-href="https://widget.getyourguide.com/default/activities.frame" data-gyg-location-id="16" data-gyg-locale-code="en-US" data-gyg-widget="activities" data-gyg-number-of-items="3" data-gyg-excluded-tour-ids="457745,403886,395320,1282311" data-gyg-partner-id="DA7KIEH"><span>Powered by <a target="_blank" rel="sponsored" href="https://www.getyourguide.com/paris-l16/">GetYourGuide</a></span></div>
         </div>
     </section>
 
@@ -465,16 +450,6 @@
 </div>
 
 <footer>
-    <p class="coffee-line">
-        <a href="https://www.buymeacoffee.com/dekhtehai"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="coffee-link">
-            <img src="resources/bmc-logo-png.png"
-                 alt="Buy me a coffee"
-                 style="height: 24px; width: auto; vertical-align: middle;">
-        </a>
-    </p>
     <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
 </footer>
 </body>
