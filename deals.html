@@ -812,6 +812,13 @@
         document.getElementById("originInput").classList.remove("selected-valid");
         document.getElementById("destinationInput").classList.remove("selected-valid");
         supportBlock.style.display = "block";
+
+        // Belt-and-braces: reset any horizontal scroll (e.g. from a mobile
+        // browser keeping the view where the last-tapped field was) so the
+        // success message is never left partially off-screen, then bring
+        // it fully into view.
+        window.scrollTo({ left: 0, behavior: "auto" });
+        messageEl.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
     }
 
     form.addEventListener("submit", async function (e) {
