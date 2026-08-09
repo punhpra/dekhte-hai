@@ -37,7 +37,17 @@
       "@type": "Blog",
       "name": "dekhtehai Travel Blogs",
       "description": "Practical travel tips, guides, and insights on finding low-cost flights.",
-      "url": "https://dekhtehai.com/blogs.html"
+      "url": "https://dekhtehai.com/blogs.html",
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "headline": "How to Find Cheap Flights (And Let dekhtehai Do the Watching for You)",
+          "url": "https://dekhtehai.com/blogs/blog-cheap-flights.html",
+          "description": "Simple habits for spotting better fares, plus how to set a free price alert so you only get an email when the price actually drops.",
+          "datePublished": "2026-02-01",
+          "dateModified": "2026-08-08"
+        }
+      ]
     }
     </script>
 
@@ -152,6 +162,21 @@
             color: var(--accent);
         }
 
+        .blog-card .card-meta {
+            color: var(--text-faint);
+            font-size: 12.5px;
+            margin: 0 0 10px;
+        }
+        .blog-card .card-meta span::after {
+            content: "·";
+            margin: 0 6px;
+            color: var(--border);
+        }
+        .blog-card .card-meta span:last-child::after {
+            content: "";
+            margin: 0;
+        }
+
         .blog-card p {
             color: var(--text-dim);
             font-size: 14px;
@@ -229,18 +254,19 @@
 <h1>Blogs</h1>
 <p class="intro">Practical travel tips, guides, and how we find better flight deals.</p>
 
-<div class="blog-list">
+<main class="blog-list">
     <div class="blog-card">
         <h2>
             <a href="blogs/blog-cheap-flights.html">How to Find Cheap Flights (and let us do the tracking)</a>
         </h2>
+        <p class="card-meta"><span>5 min read</span><span>Updated August 2026</span></p>
         <p>
             Simple habits for spotting better fares — plus how to set a free alert on our Deals page
             so you only get an email when the price actually drops.
         </p>
         <a class="read-link" href="blogs/blog-cheap-flights.html">Read more →</a>
     </div>
-</div>
+</main>
 
 <footer>
     <p class="coffee-line">
