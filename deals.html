@@ -359,34 +359,6 @@
             margin: 4px 0 0;
         }
 
-        /* --- Post-signup support block --- */
-        #supportBlock {
-            display: none;
-            max-width: 380px;
-            margin: 24px auto 0;
-            padding: 0 20px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-        #supportBlock p {
-            color: #ccc;
-            font-size: 14px;
-            line-height: 1.6;
-            margin: 0 0 16px;
-        }
-        #supportBlock a {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: transparent;
-            color: #000;
-            padding: 12px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 15px;
-        }
-
         .deal-info {
             max-width: 460px;
             margin: 32px auto 0;
@@ -603,18 +575,6 @@
     </form>
 </div>
 
-<div id="supportBlock">
-    <p>Glad this could help! If a price alert saves you money on your next trip, you can support the project with a coffee — it helps keep the alerts running.</p>
-    <a href="https://www.buymeacoffee.com/dekhtehai"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="coffee-link">
-                <img src="resources/bmc-logo-png.png"
-                     alt="Buy me a coffee"
-                     style="height: 32px; width: auto; vertical-align: middle;">
-    </a>
-</div>
-
 <div class="deal-info">
     <p>We check your route every couple of hours and only email you when a genuinely lower price is confirmed — not a daily digest, so an empty inbox just means nothing's changed. Covers <strong>round-trip, direct flights</strong> for stays of roughly <strong>2 days–4 weeks</strong>; one-way trips and flights with stopovers aren't covered yet, and hotel price alerts are on the way. Some links are affiliate links — booking through them may earn us a small commission at no extra cost to you. Each email address is currently limited to <strong>2 active routes</strong>.</p>
 </div>
@@ -801,7 +761,6 @@
     const form = document.getElementById("dealForm");
     const messageEl = document.getElementById("formMessage");
     const submitBtn = document.getElementById("submitBtn");
-    const supportBlock = document.getElementById("supportBlock");
 
     function showSuccess(message) {
         messageEl.className = "success";
@@ -811,7 +770,6 @@
         document.getElementById("destinationCode").value = "";
         document.getElementById("originInput").classList.remove("selected-valid");
         document.getElementById("destinationInput").classList.remove("selected-valid");
-        supportBlock.style.display = "block";
 
         // Belt-and-braces: reset any horizontal scroll (e.g. from a mobile
         // browser keeping the view where the last-tapped field was) so the
