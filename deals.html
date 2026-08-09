@@ -233,6 +233,7 @@
         label:first-of-type { margin-top: 0; }
         input, select {
             width: 100%;
+            min-width: 0;
             padding: 11px 12px;
             background: #000;
             border: 1px solid #444;
@@ -241,6 +242,12 @@
             font-size: 14px;
             font-family: Arial, sans-serif;
             box-sizing: border-box;
+            /* Long selected values (e.g. "London, GB — All airports (LON)")
+               truncate with an ellipsis instead of forcing the input, its
+               flex parent, and the whole row wider than the viewport. */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         input:focus, select:focus {
             outline: none;
@@ -251,14 +258,21 @@
         .row {
             display: flex;
             gap: 12px;
+            min-width: 0;
         }
-        .row > div { flex: 1; }
-        .row > .currency-field { flex: 0 0 90px; }
-        .row > .price-field { flex: 1; }
+        /* min-width: 0 overrides the flex default of min-width: auto, which
+           otherwise refuses to shrink a flex item below its content's
+           intrinsic width — that's what was pushing this row (and the page)
+           wider than small screens, forcing users to zoom out to see both
+           From/To fields at once. */
+        .row > div { flex: 1; min-width: 0; }
+        .row > .currency-field { flex: 0 0 90px; min-width: 0; }
+        .row > .price-field { flex: 1; min-width: 0; }
 
         /* --- Airport combobox --- */
         .combobox {
             position: relative;
+            min-width: 0;
         }
         .combobox input.selected-valid {
             border-color: var(--success);
@@ -519,7 +533,7 @@
     <a href="deals.html" aria-current="page">Deals</a>
 </nav>
 
-
+<p class="breadcrumb"><a href="index.html">Home</a> / Deals</p>
 <h1>Free Flight Price Alerts</h1>
 <p class="subtitle">Tell us your route and, if you like, the price you're waiting for. We'll email you the moment we find a fare that matches.</p>
 
