@@ -36,7 +36,33 @@
       "@type": "ImageGallery",
       "name": "dekhtehai Travel Gallery",
       "description": "Travel photography featuring world landmarks and hidden gems.",
-      "url": "https://dekhtehai.com/gallery.html"
+      "url": "https://dekhtehai.com/gallery.html",
+      "associatedMedia": [
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo1.jpeg", "name": "Westminster, London" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo3.jpeg", "name": "London Eye" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo7.jpeg", "name": "London Snow" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo2.jpeg", "name": "Durdle Door" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo5.jpeg", "name": "Brighton" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo6.jpeg", "name": "Broadway Tower, Cotswolds" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo10.jpeg", "name": "Cambridge" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo11.jpeg", "name": "Giant's Causeway, N Ireland" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo9.jpeg", "name": "Eiffel Tower, Paris" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo8.jpeg", "name": "Wengen, Switzerland" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo4.jpeg", "name": "Prague Castle" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo12.jpeg", "name": "Lenin's Wall, Prague" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo13.jpeg", "name": "Dancing House, Prague" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo17.jpeg", "name": "Astronomical Clock, Prague" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo18.jpeg", "name": "Book Tunnel, Prague" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo14.jpeg", "name": "Zaanse Schans, Amsterdam" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo15.jpeg", "name": "Dancing Houses, Amsterdam" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo16.jpeg", "name": "Leaning Tower of Pisa" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo19.jpeg", "name": "Rialto Bridge, Venice" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo20.jpeg", "name": "Colosseum, Rome" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo21.jpeg", "name": "Casa Batlló, Barcelona" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo22.jpeg", "name": "Parc Güell, Barcelona" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo23.jpeg", "name": "Sagrada Família, Barcelona" },
+        { "@type": "ImageObject", "contentUrl": "https://dekhtehai.com/resources/Photo24.jpeg", "name": "Casa Milà (La Pedrera), Barcelona" }
+      ]
     }
     </script>
 
@@ -134,6 +160,11 @@
         .gallery-item img:hover {
             border-color: var(--accent);
         }
+        .gallery-item img:focus-visible {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent);
+        }
         .caption {
             margin-top: 8px;
             font-size: 13.5px;
@@ -141,6 +172,27 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        /* Destination group labels — one subtle heading per cluster of
+           photos, spanning the full grid width. */
+        .group-label {
+            grid-column: 1 / -1;
+            text-align: left;
+            font-family: 'Sora', Arial, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin: 28px 0 2px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+        .group-label:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
         }
 
         footer {
@@ -195,6 +247,11 @@
         }
         .close:hover, .prev:hover, .next:hover {
             color: var(--accent);
+        }
+        .close:focus-visible, .prev:focus-visible, .next:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            border-radius: 4px;
         }
         .close {
             top: 20px;
@@ -287,69 +344,106 @@
 </footer>
 
 <!-- Modal -->
-<div id="myModal" class="modal" role="dialog" aria-hidden="true">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+<div id="myModal" class="modal" role="dialog" aria-hidden="true" aria-label="Photo viewer">
+    <span class="close" id="closeBtn" tabindex="0" role="button" aria-label="Close">&times;</span>
+    <span class="prev" tabindex="0" role="button" aria-label="Previous photo">&#10094;</span>
     <img class="modal-content" id="modalImage" alt="Enlarged gallery view">
     <div id="modalCaption" class="modal-caption"></div>
-    <span class="next" onclick="changeSlide(1)">&#10095;</span>
+    <span class="next" tabindex="0" role="button" aria-label="Next photo">&#10095;</span>
 </div>
 
 <script>
+    // Grouped by destination (UK -> France -> Switzerland -> Prague ->
+    // Amsterdam -> Italy -> Barcelona) so the grid reads as a loose "grand
+    // tour" instead of a random shuffle. Each item's original relative
+    // order within its destination is preserved.
     const images = [
-        { src: 'resources/Photo1.jpeg', caption: 'Westminster London' },
-        { src: 'resources/Photo2.jpeg', caption: 'Durdle Door' },
-        { src: 'resources/Photo3.jpeg', caption: 'London Eye' },
-        { src: 'resources/Photo4.jpeg', caption: 'Prague Castle' },
-        { src: 'resources/Photo5.jpeg', caption: 'Brighton' },
-        { src: 'resources/Photo6.jpeg', caption: 'BroadwayTower Cotswolds' },
-        { src: 'resources/Photo8.jpeg', caption: 'Wengen Switzerland' },
-        { src: 'resources/Photo10.jpeg', caption: 'Cambridge' },
-        { src: 'resources/Photo7.jpeg', caption: 'London Snow' },
-        { src: 'resources/Photo9.jpeg', caption: 'Eiffel Tower Paris' },
-        { src: 'resources/Photo11.jpeg', caption: 'Giant\'s Causeway N Ireland' },
-        { src: 'resources/Photo12.jpeg', caption: 'Lenin\'s Wall Prague' },
-        { src: 'resources/Photo13.jpeg', caption: 'Dancing House Prague' },
-        { src: 'resources/Photo14.jpeg', caption: 'Zaanse Schans Amsterdam' },
-        { src: 'resources/Photo15.jpeg', caption: 'Dancing Houses Amsterdam' },
-        { src: 'resources/Photo16.jpeg', caption: 'Leaning Tower of Pisa' },
-        { src: 'resources/Photo17.jpeg', caption: 'Astronomical Clock Prague' },
-        { src: 'resources/Photo18.jpeg', caption: 'Book Tunnel Prague' },
-        { src: 'resources/Photo19.jpeg', caption: 'Rialto Bridge Venice' },
-        { src: 'resources/Photo20.jpeg', caption: 'Colosseum Rome' },
-        { src: 'resources/Photo21.jpeg', caption: 'Casa Batlló Barcelona' },
-        { src: 'resources/Photo22.jpeg', caption: 'Parc Guell Barcelona' },
-        { src: 'resources/Photo23.jpeg', caption: 'Sagrada Familia Barcelona' },
-        { src: 'resources/Photo24.jpeg', caption: 'Casa Milà(La Pedrera) Barcelona' }
+        // United Kingdom
+        { src: 'resources/Photo1.jpeg', caption: 'Westminster London', destination: 'United Kingdom' },
+        { src: 'resources/Photo3.jpeg', caption: 'London Eye', destination: 'United Kingdom' },
+        { src: 'resources/Photo7.jpeg', caption: 'London Snow', destination: 'United Kingdom' },
+        { src: 'resources/Photo2.jpeg', caption: 'Durdle Door', destination: 'United Kingdom' },
+        { src: 'resources/Photo5.jpeg', caption: 'Brighton', destination: 'United Kingdom' },
+        { src: 'resources/Photo6.jpeg', caption: 'BroadwayTower Cotswolds', destination: 'United Kingdom' },
+        { src: 'resources/Photo10.jpeg', caption: 'Cambridge', destination: 'United Kingdom' },
+        { src: 'resources/Photo11.jpeg', caption: 'Giant\'s Causeway N Ireland', destination: 'United Kingdom' },
+        // France
+        { src: 'resources/Photo9.jpeg', caption: 'Eiffel Tower Paris', destination: 'France' },
+        // Switzerland
+        { src: 'resources/Photo8.jpeg', caption: 'Wengen Switzerland', destination: 'Switzerland' },
+        // Czechia (Prague)
+        { src: 'resources/Photo4.jpeg', caption: 'Prague Castle', destination: 'Prague, Czechia' },
+        { src: 'resources/Photo12.jpeg', caption: 'Lenin\'s Wall Prague', destination: 'Prague, Czechia' },
+        { src: 'resources/Photo13.jpeg', caption: 'Dancing House Prague', destination: 'Prague, Czechia' },
+        { src: 'resources/Photo17.jpeg', caption: 'Astronomical Clock Prague', destination: 'Prague, Czechia' },
+        { src: 'resources/Photo18.jpeg', caption: 'Book Tunnel Prague', destination: 'Prague, Czechia' },
+        // Netherlands (Amsterdam)
+        { src: 'resources/Photo14.jpeg', caption: 'Zaanse Schans Amsterdam', destination: 'Amsterdam, Netherlands' },
+        { src: 'resources/Photo15.jpeg', caption: 'Dancing Houses Amsterdam', destination: 'Amsterdam, Netherlands' },
+        // Italy
+        { src: 'resources/Photo16.jpeg', caption: 'Leaning Tower of Pisa', destination: 'Italy' },
+        { src: 'resources/Photo19.jpeg', caption: 'Rialto Bridge Venice', destination: 'Italy' },
+        { src: 'resources/Photo20.jpeg', caption: 'Colosseum Rome', destination: 'Italy' },
+        // Spain (Barcelona)
+        { src: 'resources/Photo21.jpeg', caption: 'Casa Batlló Barcelona', destination: 'Barcelona, Spain' },
+        { src: 'resources/Photo22.jpeg', caption: 'Parc Guell Barcelona', destination: 'Barcelona, Spain' },
+        { src: 'resources/Photo23.jpeg', caption: 'Sagrada Familia Barcelona', destination: 'Barcelona, Spain' },
+        { src: 'resources/Photo24.jpeg', caption: 'Casa Milà (La Pedrera), Barcelona', destination: 'Barcelona, Spain' }
     ];
 
     const gallery = document.getElementById('gallery');
+    let lastDestination = null;
+
     images.forEach((img, index) => {
+        if (img.destination !== lastDestination) {
+            const label = document.createElement('p');
+            label.className = 'group-label';
+            label.textContent = img.destination;
+            gallery.appendChild(label);
+            lastDestination = img.destination;
+        }
+
         const div = document.createElement('div');
         div.className = 'gallery-item';
         div.innerHTML = `
-            <img src="${img.src}" alt="Travel image of ${img.caption} - dekhtehai.com gallery" onclick="openModal(${index})" loading="lazy">
+            <img src="${img.src}" alt="Travel image of ${img.caption} - dekhtehai.com gallery"
+                 tabindex="0" role="button" aria-haspopup="dialog"
+                 loading="lazy">
             <div class="caption"><p>${img.caption}</p></div>
         `;
+        const thumb = div.querySelector('img');
+        thumb.addEventListener('click', () => openModal(index));
+        thumb.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal(index);
+            }
+        });
         gallery.appendChild(div);
     });
 
     let currentIndex = 0;
+    let lastFocusedThumb = null;
 
     function openModal(index) {
         currentIndex = index;
+        lastFocusedThumb = document.activeElement;
         const modal = document.getElementById('myModal');
         modal.style.display = "block";
         modal.setAttribute("aria-hidden", "false");
         document.getElementById('modalImage').src = images[currentIndex].src;
         document.getElementById('modalImage').alt = images[currentIndex].caption;
         document.getElementById('modalCaption').textContent = images[currentIndex].caption;
+        document.getElementById('closeBtn').focus();
     }
 
     function closeModal() {
         const modal = document.getElementById('myModal');
         modal.style.display = "none";
         modal.setAttribute("aria-hidden", "true");
+        // Return focus to whichever thumbnail opened the modal, so
+        // keyboard users land back where they were, not at the top of the page.
+        if (lastFocusedThumb) lastFocusedThumb.focus();
     }
 
     function changeSlide(direction) {
@@ -367,6 +461,37 @@
             closeModal();
         }
     }
+
+    // Keyboard support: Escape closes, Left/Right navigate — only while
+    // the modal is actually open, so this never interferes with normal
+    // page browsing.
+    document.addEventListener('keydown', (e) => {
+        const modal = document.getElementById('myModal');
+        if (modal.style.display !== 'block') return;
+
+        if (e.key === 'Escape') {
+            closeModal();
+        } else if (e.key === 'ArrowLeft') {
+            changeSlide(-1);
+        } else if (e.key === 'ArrowRight') {
+            changeSlide(1);
+        }
+    });
+
+    // Close/prev/next controls: click and keyboard (Enter/Space), same
+    // pattern as the gallery thumbnails.
+    function wireControl(el, action) {
+        el.addEventListener('click', action);
+        el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                action();
+            }
+        });
+    }
+    wireControl(document.getElementById('closeBtn'), closeModal);
+    wireControl(document.querySelector('.prev'), () => changeSlide(-1));
+    wireControl(document.querySelector('.next'), () => changeSlide(1));
 </script>
 </body>
 </html>
