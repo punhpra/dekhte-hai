@@ -660,40 +660,73 @@
     // of these searches every airport in that city for the cheapest fare —
     // no backend change needed, this is purely adding the option to pick one.
     Promise.all([
-        fetch("airports.json").then(res => res.json()),
-        fetch("metro_codes.json").then(res => res.json())
-    ])
-        .then(([airports, metros]) => {
-            AIRPORTS = metros.concat(airports);
-        })
-        .catch(() => {
-            document.getElementById("formMessage").className = "error";
-            document.getElementById("formMessage").textContent =
-                "Couldn't load the airport list. Please refresh the page.";
+    fetch("airports.json").then(r => {
+        if (!r.ok) throw new Error("airports.json " + r.status);
+        return r.json();
+    }),
+    fetch("metro_codes.json").then(r => r.ok ? r.json() : []).catch(() => [])
+])
+.then(([airports, metros]) => {
+    AIRPORTS = (Array.isArray(metros) ? metros : [])
+        .concat(Array.isArray(airports) ? airports : []);
+    console.log("Airports loaded:", AIRPORTS.length);
+})
+.catch((err) => {
+    console.error(err);
+    document.getElementById("formMessage").className = "error";
+    document.getElementById("formMessage").textContent =
+        "Couldn't load the airport list. Please refresh the page.";
+});
+
+function searchAirports(query) {
+    const q = query.trim().toLowerCase();
+    if (q.length < 2) return [];
+
+    const exactCode = [];
+    const exactCity = [];
+    const cityStarts = [];
+    const nameStarts = [];
+    const contains = [];
+
+    for (const a of AIRPORTS) {
+        if (!a || !a.code) continue;
+
+        const code = String(a.code).toLowerCase();
+        const city = String(a.city || "").toLowerCase();
+        const name = String(a.name || "").toLowerCase();
+        const isMetro = a.name === "All airports";
+
+        if (code === q) {
+            exactCode.push(a);
+        } else if (city === q) {
+            exactCity.push(a);
+        } else if (city.startsWith(q)) {
+            cityStarts.push(a);
+        } else if (name.startsWith(q) || (isMetro && city.startsWith(q))) {
+            nameStarts.push(a);
+        } else if (city.includes(q) || name.includes(q)) {
+            contains.push(a);
+        }
+    }
+
+    // Prefer: exact code → exact city → city prefix → name prefix → contains
+    // Within each group, put "All airports" (metro) first
+    const rank = (list) =>
+        list.sort((a, b) => {
+            const am = a.name === "All airports" ? 0 : 1;
+            const bm = b.name === "All airports" ? 0 : 1;
+            if (am !== bm) return am - bm;
+            return String(a.city || "").localeCompare(String(b.city || ""));
         });
 
-    function searchAirports(query) {
-        const q = query.trim().toLowerCase();
-        if (q.length < 2) return [];
-
-        const starts = [];
-        const contains = [];
-
-        for (const a of AIRPORTS) {
-            const code = a.code.toLowerCase();
-            const city = (a.city || "").toLowerCase();
-            const name = (a.name || "").toLowerCase();
-
-            if (code === q || city.startsWith(q) || name.startsWith(q)) {
-                starts.push(a);
-            } else if (city.includes(q) || name.includes(q)) {
-                contains.push(a);
-            }
-            if (starts.length >= 8) break;
-        }
-
-        return starts.concat(contains).slice(0, 8);
-    }
+    return []
+        .concat(rank(exactCode))
+        .concat(rank(exactCity))
+        .concat(rank(cityStarts))
+        .concat(rank(nameStarts))
+        .concat(rank(contains))
+        .slice(0, 12);
+}
 
     // ---------- Combobox wiring ----------
     function setupCombobox(inputId, hiddenId, resultsId) {
