@@ -94,7 +94,7 @@
             color: var(--text);
             font-family: Arial, Helvetica, sans-serif;
             margin: 0;
-            padding: 110px 20px 0; /* Exact Original Top Padding */
+            padding: 110px 20px 0;
             text-align: center;
             position: relative;
             min-height: 100vh;
@@ -118,7 +118,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Header Navigation - Matching original positioning */
+        /* Header Navigation */
         .logo-placeholder {
             position: absolute;
             top: 10px;
@@ -158,7 +158,7 @@
             color: var(--accent);
         }
 
-        /* 3-COLUMN DESKTOP LAYOUT (Left - Center - Right) */
+        /* 3-COLUMN DESKTOP LAYOUT */
         .page-layout {
             display: flex;
             flex-direction: row;
@@ -171,7 +171,7 @@
             align-items: flex-start;
         }
 
-        /* Left Side GYG Sidebar */
+        /* Sidebars */
         .sidebar-left {
             order: 1;
             width: 320px;
@@ -180,7 +180,6 @@
             top: 110px;
         }
 
-        /* Middle Column (Travelpayouts, Airalo & FAQs) */
         .center-column {
             order: 2;
             flex: 1;
@@ -188,7 +187,6 @@
             width: 100%;
         }
 
-        /* Right Side GYG Sidebar */
         .sidebar-right {
             order: 3;
             width: 320px;
@@ -207,7 +205,6 @@
             text-align: left;
         }
 
-        /* Content Structure */
         .intro {
             max-width: 480px;
             margin: 0 auto 20px;
@@ -230,10 +227,17 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
+        /* Section Container & Z-Index Layering for Calendar Popups */
         .section {
             width: 100%;
             margin: 0 auto 40px;
             text-align: left;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section.flight-search-section {
+            z-index: 10; /* Higher stacking so date pickers float above lower elements */
         }
 
         .section h2 {
@@ -252,20 +256,22 @@
             line-height: 1.45;
         }
 
-        /* Standard Cards */
+        /* Flight Widget Containers - FIXED OVERFLOW FOR CALENDAR POPUPS */
         .widget-wrap {
             background: var(--card-bg);
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 12px;
             width: 100%;
-            min-height: 120px;
-            overflow: hidden;
+            min-height: 280px;
+            overflow: visible !important; /* Allows calendar popup to expand outside box */
             text-align: left;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 10;
         }
 
-        /* Expanded GetYourGuide Vertical Side Wrapper */
+        /* GetYourGuide Sidebar Containers */
         .gyg-vertical-wrapper {
             background: #ffffff;
             border-radius: 10px;
@@ -284,7 +290,6 @@
             margin-bottom: -50px;
         }
 
-        /* "Powered by GetYourGuide" Official Brand Color (#FF5533) */
         .gyg-attribution {
             display: flex;
             justify-content: flex-start;
@@ -409,14 +414,13 @@
             border-top: 1px solid var(--border);
         }
 
-        /* RESPONSIVE LAYOUT FOR TABLETS AND MOBILE SCREENS (<1300px) */
+        /* RESPONSIVE LAYOUT */
         @media (max-width: 1300px) {
             .page-layout {
                 flex-direction: column;
                 align-items: center;
             }
 
-            /* Place GYG Widgets at the top on small screens */
             .sidebar-left {
                 order: 1;
                 width: 100%;
@@ -433,7 +437,6 @@
                 margin-bottom: 30px;
             }
 
-            /* Main Travelpayouts Widgets in Middle */
             .center-column {
                 order: 3;
             }
@@ -449,7 +452,7 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 90px 16px 0; /* Exact Original Mobile Top Padding */
+                padding: 90px 16px 0;
             }
 
             .logo-placeholder {
@@ -477,7 +480,13 @@
                 font-size: 14px;
             }
 
-            .widget-wrap, .gyg-vertical-wrapper {
+            .widget-wrap {
+                padding: 8px;
+                border-radius: 10px;
+                min-height: 320px;
+            }
+
+            .gyg-vertical-wrapper {
                 padding: 8px;
                 border-radius: 10px;
             }
@@ -534,8 +543,8 @@
     <!-- CENTER COLUMN: Main Searches & FAQs -->
     <main class="center-column">
 
-        <!-- 1. Flight Search Form -->
-        <section class="section">
+        <!-- 1. Flight Search Form (Fixed Overflow for Date Picker Popup) -->
+        <section class="section flight-search-section">
             <h2>Search flights</h2>
             <p class="hint">Enter your route and dates to compare live prices.</p>
             <div class="widget-wrap">
@@ -603,7 +612,7 @@
 
     </main>
 
-    <!-- RIGHT SIDEBAR: GetYourGuide Widget (Spain/Location-based Query) -->
+    <!-- RIGHT SIDEBAR: GetYourGuide Widget (Spain Query) -->
     <aside class="sidebar-right">
         <div class="sidebar-title">Top Rated Tours</div>
         <div class="gyg-attribution">
