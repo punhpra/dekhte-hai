@@ -384,6 +384,33 @@
             color: #bbb;
         }
 
+        /* --- Date range fields --- */
+        input[type="date"] {
+            /* Same base input styling applies via the shared input{} rule
+               above; Safari/Chrome render the native date-picker icon in
+               the browser's default color regardless of our CSS, which is
+               expected and not worth fighting. */
+            color-scheme: dark;
+        }
+
+        #dateFieldsRow {
+            display: none;
+        }
+        #dateFieldsRow.visible {
+            display: flex;
+        }
+        #dateFieldsRow .date-field {
+            display: none;
+            flex: 1;
+            min-width: 0;
+        }
+        #dateFieldsRow .date-field.visible {
+            display: block;
+        }
+        #dateModeHint {
+            margin-top: 4px;
+        }
+
         /* --- FAQ --- */
         .faq-section {
             max-width: 460px;
@@ -503,9 +530,13 @@
             }
             .row > .currency-field,
             .row > .price-field,
-            .row > div {
+            .row > div,
+            #dateFieldsRow .date-field {
                 flex: 1 1 auto;
                 width: 100%;
+            }
+            #dateFieldsRow.visible {
+                flex-direction: column;
             }
             label {
                 margin-top: 14px;
@@ -601,6 +632,24 @@
         </div>
         <p class="hint">Leave blank to get emailed about any drop, in your chosen currency.</p>
 
+        <label for="dateMode">Travel window</label>
+        <select id="dateMode">
+            <option value="anytime" selected>Anytime (next 6 months)</option>
+            <option value="specific">Specific dates</option>
+        </select>
+        <p class="hint" id="dateModeHint">We'll search any departure dates in the next 6 months.</p>
+
+        <div class="row" id="dateFieldsRow">
+            <div class="date-field" id="departField">
+                <label for="departDate">Depart date</label>
+                <input type="date" id="departDate">
+            </div>
+            <div class="date-field" id="returnField">
+                <label for="returnDate">Return date</label>
+                <input type="date" id="returnDate">
+            </div>
+        </div>
+
         <button type="submit" id="submitBtn">Get price alerts</button>
         <p class="trust-line">Free forever · No spam · Unsubscribe anytime</p>
         <div id="formMessage"></div>
@@ -608,7 +657,7 @@
 </div>
 
 <div class="deal-info">
-    <p>We check your route every couple of hours and only email you when a genuinely lower price is confirmed — not a daily digest, so an empty inbox just means nothing's changed. Covers <strong>round-trip, direct flights</strong> for stays of roughly <strong>2 days–4 weeks</strong>; one-way trips and flights with stopovers aren't covered yet, and hotel price alerts are on the way. Some links are affiliate links — booking through them may earn us a small commission at no extra cost to you. Each email address is currently limited to <strong>2 active routes</strong>.</p>
+    <p>We check your route every couple of hours and only email you when a genuinely lower price is confirmed — not a daily digest, so an empty inbox just means nothing's changed. Choose <strong>Anytime</strong> or specific depart/return dates. Covers <strong>round-trip, direct flights</strong> for stays of roughly <strong>2 days–4 weeks</strong>; one-way trips and flights with stopovers aren't covered yet, and hotel price alerts are on the way. Some links are affiliate links — booking through them may earn us a small commission at no extra cost to you. Each email address is currently limited to <strong>2 active routes</strong>.</p>
 </div>
 
 <div class="faq-section">
@@ -822,6 +871,62 @@ function searchAirports(query) {
     setupCombobox("originInput", "originCode", "originResults");
     setupCombobox("destinationInput", "destinationCode", "destinationResults");
 
+    // ---------- Depart / return dates + travel window mode ----------
+    // Prevent picking a past date. Mode selector shows/hides the date
+    // fields. Payload keys are departDate and returnDate (null = anytime).
+    (function initDateFields() {
+        const todayStr = new Date().toISOString().split("T")[0];
+        const departInput = document.getElementById("departDate");
+        const returnInput = document.getElementById("returnDate");
+        const dateMode = document.getElementById("dateMode");
+        const dateFieldsRow = document.getElementById("dateFieldsRow");
+        const departField = document.getElementById("departField");
+        const returnField = document.getElementById("returnField");
+        const dateModeHint = document.getElementById("dateModeHint");
+
+        departInput.min = todayStr;
+        returnInput.min = todayStr;
+
+        // Keep return from being set before depart.
+        departInput.addEventListener("change", () => {
+            if (departInput.value) {
+                returnInput.min = departInput.value;
+            } else {
+                returnInput.min = todayStr;
+            }
+        });
+
+        const HINTS = {
+            anytime: "We'll search any departure dates in the next 6 months.",
+            specific: "Only fares for these exact depart and return dates will trigger an alert."
+        };
+
+        function applyDateMode() {
+            const mode = dateMode.value;
+            dateModeHint.textContent = HINTS[mode] || HINTS.anytime;
+
+            if (mode === "anytime") {
+                departInput.value = "";
+                returnInput.value = "";
+                returnInput.min = todayStr;
+                dateFieldsRow.classList.remove("visible");
+                departField.classList.remove("visible");
+                returnField.classList.remove("visible");
+                departInput.required = false;
+                returnInput.required = false;
+            } else {
+                dateFieldsRow.classList.add("visible");
+                departField.classList.add("visible");
+                returnField.classList.add("visible");
+                departInput.required = true;
+                returnInput.required = true;
+            }
+        }
+
+        dateMode.addEventListener("change", applyDateMode);
+        applyDateMode();
+    })();
+
     // ---------- Form submit ----------
     const form = document.getElementById("dealForm");
     const messageEl = document.getElementById("formMessage");
@@ -835,6 +940,14 @@ function searchAirports(query) {
         document.getElementById("destinationCode").value = "";
         document.getElementById("originInput").classList.remove("selected-valid");
         document.getElementById("destinationInput").classList.remove("selected-valid");
+        // form.reset() already clears the date inputs; also reset returnDate's
+        // dynamically-set min and re-apply default "Anytime" visibility.
+        document.getElementById("returnDate").min = new Date().toISOString().split("T")[0];
+        const dateModeEl = document.getElementById("dateMode");
+        if (dateModeEl) {
+            dateModeEl.value = "anytime";
+            dateModeEl.dispatchEvent(new Event("change"));
+        }
 
         // Belt-and-braces: reset any horizontal scroll (e.g. from a mobile
         // browser keeping the view where the last-tapped field was) so the
@@ -861,6 +974,27 @@ function searchAirports(query) {
             return;
         }
 
+        const dateModeValue = document.getElementById("dateMode").value;
+        let departDateValue = document.getElementById("departDate").value;
+        let returnDateValue = document.getElementById("returnDate").value;
+
+        // Only send dates when "Specific dates" is selected.
+        if (dateModeValue === "anytime") {
+            departDateValue = "";
+            returnDateValue = "";
+        } else {
+            if (!departDateValue || !returnDateValue) {
+                messageEl.className = "error";
+                messageEl.textContent = "Please pick both depart and return dates.";
+                return;
+            }
+            if (returnDateValue < departDateValue) {
+                messageEl.className = "error";
+                messageEl.textContent = "Return date can't be before depart date.";
+                return;
+            }
+        }
+
         const minPriceValue = document.getElementById("minPrice").value.trim();
 
         const payload = {
@@ -868,7 +1002,9 @@ function searchAirports(query) {
             origin: originCode,
             destination: destinationCode,
             currency: document.getElementById("currency").value,
-            minPrice: minPriceValue === "" ? null : Number(minPriceValue)
+            minPrice: minPriceValue === "" ? null : Number(minPriceValue),
+            departDate: departDateValue === "" ? null : departDateValue,
+            returnDate: returnDateValue === "" ? null : returnDateValue
         };
 
         submitBtn.disabled = true;
