@@ -1004,7 +1004,9 @@ function searchAirports(query) {
             currency: document.getElementById("currency").value,
             minPrice: minPriceValue === "" ? null : Number(minPriceValue),
             departDate: departDateValue === "" ? null : departDateValue,
-            returnDate: returnDateValue === "" ? null : returnDateValue
+            returnDate: returnDateValue === "" ? null : returnDateValue,
+            // anytime = flexible 6-month search; specific = pin to these dates
+            searchMode: dateModeValue === "specific" ? "specific" : "anytime"
         };
 
         submitBtn.disabled = true;
