@@ -441,44 +441,44 @@
             line-height: 1.6;
         }
 
-        /* ========== LIVE DEALS (under the form) ========== */
+             /* ========== LIVE DEALS (under the form) ========== */
         .live-deals-section {
             max-width: 900px;
-            margin: 56px auto 0;
-            padding: 0 20px 20px;
+            margin: 48px auto 0;
+            padding: 0 20px 12px;
             text-align: left;
         }
         .live-deals-section h2 {
             font-family: 'Sora', Arial, sans-serif;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             color: #fff;
-            margin: 0 0 6px;
+            margin: 0 0 4px;
             text-align: center;
         }
         .live-deals-intro {
             text-align: center;
             color: var(--text-dim);
-            font-size: 14px;
-            margin: 0 0 8px;
-            line-height: 1.5;
+            font-size: 13.5px;
+            margin: 0 0 6px;
+            line-height: 1.45;
         }
         .live-deals-status {
             text-align: center;
-            font-size: 12.5px;
+            font-size: 12px;
             color: var(--text-faint);
-            margin: 0 0 22px;
+            margin: 0 0 16px;
         }
         .deals-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
         }
         .deal-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 16px 16px 14px;
+            border-radius: 8px;
+            padding: 12px 14px 12px;
             transition: border-color 0.15s ease;
             display: flex;
             flex-direction: column;
@@ -488,38 +488,39 @@
         }
         .card-route {
             font-family: 'Sora', Arial, sans-serif;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             color: #fff;
-            margin: 0 0 4px;
+            margin: 0 0 2px;
             letter-spacing: -0.01em;
         }
         .card-price {
             font-family: 'Sora', Arial, sans-serif;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--accent);
-            margin: 0 0 8px;
+            margin: 0 0 6px;
+            line-height: 1.15;
         }
         .card-dates {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-dim);
-            margin: 0 0 4px;
-            line-height: 1.4;
+            margin: 0 0 2px;
+            line-height: 1.35;
         }
         .card-spotted {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-faint);
-            margin: 0 0 12px;
+            margin: 0 0 10px;
         }
         .card-actions {
             margin-top: auto;
         }
         .card-actions a {
             display: inline-block;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12.5px;
+            padding: 7px 12px;
+            border-radius: 5px;
+            font-size: 12px;
             font-weight: bold;
             text-decoration: none;
             background: var(--accent);
@@ -532,11 +533,10 @@
         .live-empty, .live-error, .live-loading {
             text-align: center;
             color: var(--text-dim);
-            font-size: 14px;
-            padding: 12px 0 8px;
+            font-size: 13.5px;
+            padding: 8px 0 4px;
         }
         .live-error { color: var(--error); }
-
         footer {
             width: 100%;
             text-align: center;
@@ -621,15 +621,24 @@
             }
 
             .live-deals-section {
-                margin-top: 40px;
-                padding: 0 12px 12px;
+                margin-top: 36px;
+                padding: 0 12px 8px;
             }
             .deals-grid {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 10px;
             }
-            .card-price { font-size: 20px; }
-        }
+            .deal-card {
+                padding: 11px 13px 11px;
+            }
+            .card-price { font-size: 18px; }
+            .card-route { font-size: 13.5px; }
+            .card-dates { font-size: 11.5px; }
+            .card-spotted { font-size: 11px; margin-bottom: 9px; }
+            .card-actions a {
+                padding: 7px 11px;
+                font-size: 12px;
+            }
 
         @media (prefers-reduced-motion: reduce) {
             button, .deal-card, .card-actions a {
