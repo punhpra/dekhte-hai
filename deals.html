@@ -327,6 +327,27 @@
             color: #777;
             margin: 4px 0 0;
         }
+        #cheapHint {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 12px;
+            background: rgba(255, 221, 0, 0.06);
+            border: 1px solid rgba(255, 221, 0, 0.22);
+            border-radius: 6px;
+            color: var(--text-dim);
+            font-size: 12.5px;
+            line-height: 1.45;
+        }
+        #cheapHint.visible { display: block; }
+        #cheapHint strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        #cheapHint.muted {
+            background: transparent;
+            border-color: var(--border);
+            color: var(--text-faint);
+        }
         .deal-info {
             max-width: 460px;
             margin: 32px auto 0;
@@ -411,8 +432,6 @@
             font-size: 13.5px;
             line-height: 1.6;
         }
-
-        /* ========== LIVE DEALS – compact cards ========== */
         .live-deals-section {
             max-width: 720px;
             margin: 48px auto 0;
@@ -515,7 +534,6 @@
             padding: 8px 0 4px;
         }
         .live-error { color: var(--error); }
-
         footer {
             width: 100%;
             text-align: center;
@@ -564,7 +582,6 @@
             height: 22px !important;
             display: block;
         }
-
         @media (max-width: 768px) {
             body {
                 padding-top: 90px;
@@ -638,7 +655,6 @@
                 font-size: 12px;
             }
         }
-
         @media (prefers-reduced-motion: reduce) {
             button, .deal-card, .card-actions a {
                 transition: none;
@@ -718,6 +734,7 @@
             </div>
         </div>
         <p class="hint">Leave blank to get emailed about any drop, in your chosen currency.</p>
+        <p id="cheapHint" aria-live="polite"></p>
         <label for="dateMode">Travel window</label>
         <select id="dateMode">
             <option value="anytime" selected>Anytime (next 6 months)</option>
@@ -763,7 +780,6 @@
         </details>
     </div>
 </div>
-
 <section class="live-deals-section" aria-labelledby="liveDealsHeading">
     <h2 id="liveDealsHeading">Recently spotted deals</h2>
     <p class="live-deals-intro">Real finds from our tracker. Set an alert for any of these routes and we’ll email you if the price drops further.</p>
@@ -777,7 +793,6 @@
         Couldn’t load deals right now. Please refresh the page or try again shortly.
     </div>
 </section>
-
 <footer>
     <p class="social-links">
         <a href="https://www.instagram.com/dekhte_hai_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
@@ -802,6 +817,9 @@
 </footer>
 <script>
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbypGnLkcWrALUiMyl5IN0F-nzK_sogIebP01UAvNeBPZNyTeoIv5TxKv5yNc7sEedL8/exec";
+    const CURRENCY_SYMBOLS = {
+        GBP: "£", EUR: "€", USD: "$", INR: "₹", AUD: "A$", CAD: "C$"
+    };
 
     let AIRPORTS = [];
 
@@ -875,6 +893,7 @@
         function clearSelection() {
             hidden.value = "";
             input.classList.remove("selected-valid");
+            scheduleCheapCheck();
         }
         function render(options) {
             currentOptions = options;
@@ -906,6 +925,7 @@
             input.value = label;
             input.classList.add("selected-valid");
             results.classList.remove("open");
+            scheduleCheapCheck();
         }
         input.addEventListener("input", () => {
             clearSelection();
@@ -1007,6 +1027,7 @@
             dateModeEl.value = "anytime";
             dateModeEl.dispatchEvent(new Event("change"));
         }
+        hideCheapHint();
         window.scrollTo({ left: 0, behavior: "auto" });
         messageEl.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
     }
@@ -1123,13 +1144,11 @@
             }
             findAndSet(fromCode, "originInput", "originCode");
             findAndSet(toCode, "destinationInput", "destinationCode");
+            scheduleCheapCheck();
         };
         tryPrefill();
     })();
 
-    const CURRENCY_SYMBOLS = {
-        GBP: "£", EUR: "€", USD: "$", INR: "₹", AUD: "A$", CAD: "C$"
-    };
     function formatPrice(value, currency) {
         const num = Number(value);
         if (!isFinite(num)) return String(value);
@@ -1165,6 +1184,97 @@
             return "";
         }
     }
+
+    // ---------- Is this cheap? (form only — does not add live cards) ----------
+    const cheapHintEl = document.getElementById("cheapHint");
+    let cheapTimer = null;
+    let cheapRequestId = 0;
+
+    function hideCheapHint() {
+        cheapHintEl.className = "";
+        cheapHintEl.textContent = "";
+        cheapHintEl.style.display = "none";
+    }
+
+    function showCheapHint(html, muted) {
+        cheapHintEl.className = muted ? "muted visible" : "visible";
+        cheapHintEl.innerHTML = html;
+        cheapHintEl.style.display = "block";
+    }
+
+    function scheduleCheapCheck() {
+        if (cheapTimer) clearTimeout(cheapTimer);
+        cheapTimer = setTimeout(loadCheapHint, 250);
+    }
+
+    document.getElementById("currency").addEventListener("change", scheduleCheapCheck);
+
+    async function loadCheapHint() {
+        const origin = document.getElementById("originCode").value;
+        const destination = document.getElementById("destinationCode").value;
+        const currency = document.getElementById("currency").value;
+
+        if (!origin || !destination || origin === destination) {
+            hideCheapHint();
+            return;
+        }
+
+        const requestId = ++cheapRequestId;
+        showCheapHint("Checking recent confirmed fares for this route…", true);
+
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({
+                    action: "getRouteBaseline",
+                    origin: origin,
+                    destination: destination,
+                    currency: currency
+                })
+            });
+            const text = await response.text();
+            if (requestId !== cheapRequestId) return;
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                hideCheapHint();
+                return;
+            }
+            if (!data || data.status !== "success") {
+                hideCheapHint();
+                return;
+            }
+            if (!data.found) {
+                showCheapHint(
+                    "No confirmed fare for this route yet. Set an alert and we’ll start watching it.",
+                    true
+                );
+                return;
+            }
+            const priceText = formatPrice(data.price, data.currency);
+            const depart = formatDate(data.departDate);
+            const spotted = data.spottedAt ? timeAgo(data.spottedAt) : "";
+            let extra = "";
+            if (depart) extra += " · outbound " + depart;
+            if (spotted) extra += " · spotted " + spotted;
+            const currencyNote = data.matchedCurrency === false
+                ? " <span style='color:#777'>(shown in " + data.currency + ")</span>"
+                : "";
+            showCheapHint(
+                "Lowest we’ve confirmed for " + origin + " → " + destination +
+                ": <strong>" + priceText + "</strong>" + extra + currencyNote +
+                ". Use that as a guide for your alert.",
+                false
+            );
+        } catch (err) {
+            if (requestId !== cheapRequestId) return;
+            hideCheapHint();
+        }
+    }
+
+    // ---------- Live deals (last 14 days only, capped, deduped) ----------
     function buildDealCard(deal) {
         const priceText = formatPrice(deal.price, deal.currency);
         const depart = formatDate(deal.departDate);
