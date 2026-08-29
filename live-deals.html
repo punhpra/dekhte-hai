@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Flight Deals | dekhtehai.com</title>
+    <meta name="description" content="Recently spotted low flight prices. Set a free alert for any route and we’ll email you when it drops further.">
+    <meta name="keywords" content="live flight deals, cheap flights, flight price alerts, dekhtehai">
+    <meta name="author" content="dekhtehai">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://dekhtehai.com/live-deals.html">
+
+    <meta property="og:title" content="Live Flight Deals | dekhtehai.com">
+    <meta property="og:description" content="Recently spotted low flight prices. Set a free alert for any route.">
+    <meta property="og:image" content="https://dekhtehai.com/resources/logo.png">
+    <meta property="og:url" content="https://dekhtehai.com/live-deals.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Live Flight Deals | dekhtehai.com">
+    <meta name="twitter:description" content="Recently spotted low flight prices. Set a free alert for any route.">
+    <meta name="twitter:image" content="https://dekhtehai.com/resources/logo.png">
+
+    <link rel="icon" type="image/png" href="resources/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Live Flight Deals",
+      "description": "Recently spotted low flight prices from dekhtehai.com price tracker.",
+      "url": "https://dekhtehai.com/live-deals.html",
+      "isPartOf": { "@type": "WebSite", "name": "dekhtehai", "url": "https://dekhtehai.com/" }
+    }
+    </script>
+
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: #2a2a2a;
+            --text: #f2f2f0;
+            --text-dim: #b3b3b3;
+            --text-faint: #6f6f6b;
+            --accent: #FFDD00;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 110px 20px 0;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, .card-route {
+            font-family: 'Sora', Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 0 14px;
+            letter-spacing: -0.01em;
+        }
+
+        .logo-placeholder {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px;
+            height: 100px;
+            z-index: 100;
+        }
+        .logo-placeholder img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        nav {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+        }
+        nav a {
+            color: var(--text);
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+            color: var(--accent);
+        }
+        nav a[aria-current="page"] {
+            color: var(--accent);
+        }
+
+        .intro {
+            margin: 0 auto 28px;
+            max-width: 520px;
+            line-height: 1.6;
+            color: var(--text-dim);
+            font-size: 15.5px;
+        }
+
+        .status-line {
+            font-size: 13px;
+            color: var(--text-faint);
+            margin-bottom: 28px;
+        }
+
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+            max-width: 1100px;
+            margin: 0 auto 50px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .deal-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 18px 16px;
+            transition: border-color 0.15s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .deal-card:hover {
+            border-color: var(--accent);
+        }
+
+        .card-route {
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 6px;
+            letter-spacing: -0.01em;
+        }
+        .card-price {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0 0 10px;
+            font-family: 'Sora', Arial, sans-serif;
+        }
+        .card-dates {
+            font-size: 13.5px;
+            color: var(--text-dim);
+            margin: 0 0 6px;
+            line-height: 1.45;
+        }
+        .card-spotted {
+            font-size: 12px;
+            color: var(--text-faint);
+            margin: 0 0 14px;
+        }
+
+        .card-actions {
+            margin-top: auto;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .card-actions a {
+            display: inline-block;
+            padding: 9px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+        .btn-alert {
+            background: var(--accent);
+            color: #000;
+        }
+        .btn-alert:hover {
+            background: #fff;
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .empty-state, .error-state, .loading-state {
+            max-width: 420px;
+            margin: 40px auto 60px;
+            color: var(--text-dim);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .error-state { color: #ff6b6b; }
+
+        .cta-bottom {
+            max-width: 480px;
+            margin: 0 auto 50px;
+            padding: 20px;
+            background: rgba(255, 221, 0, 0.03);
+            border: 1px dashed rgba(255, 221, 0, 0.3);
+            border-radius: 12px;
+            color: var(--text-dim);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .cta-bottom a {
+            color: var(--accent);
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .cta-bottom a:hover { text-decoration: underline; }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            color: var(--text);
+            font-size: 14px;
+            padding: 20px 0 30px;
+            margin-top: auto;
+            border-top: 1px solid var(--border);
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 14px;
+        }
+        .social-links a {
+            color: var(--text-faint);
+            display: inline-flex;
+            transition: color 0.15s ease;
+        }
+        .social-links a:hover { color: var(--accent); }
+        .social-links svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 90px 16px 0; }
+            .logo-placeholder {
+                top: 5px; left: 5px;
+                width: 70px; height: 70px;
+            }
+            nav { top: 5px; right: 5px; }
+            nav a { margin: 0 10px; font-size: 14px; }
+            h1 { font-size: 24px; }
+            .intro { font-size: 14px; }
+            .deals-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .card-price { font-size: 22px; }
+            footer { font-size: 12px; padding: 10px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .deal-card, .card-actions a { transition: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="logo-placeholder">
+    <a href="index.html">
+        <img src="resources/logo.png" alt="dekhtehai logo">
+    </a>
+</div>
+<nav>
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="blogs.html">Blogs</a>
+    <a href="deals.html">Deals</a>
+    <a href="live-deals.html" aria-current="page">Live</a>
+    <a href="book-trip.html">Book</a>
+</nav>
+
+<h1>Live Flight Deals</h1>
+<p class="intro">
+    Recently spotted low prices from our tracker. These are real finds — set a free alert for any route and we’ll email you if it drops further.
+</p>
+<p class="status-line" id="statusLine">Loading recent deals…</p>
+
+<div class="deals-grid" id="dealsGrid" aria-live="polite"></div>
+
+<div class="loading-state" id="loadingState">Fetching the latest finds…</div>
+<div class="empty-state" id="emptyState" style="display:none;">
+    No recent deals in the last couple of weeks. Check back soon, or
+    <a href="deals.html" style="color:var(--accent);">set your own free alert</a>.
+</div>
+<div class="error-state" id="errorState" style="display:none;">
+    Couldn’t load deals right now. Please refresh the page or try again shortly.
+</div>
+
+<p class="cta-bottom">
+    Want alerts for a specific route?
+    <a href="deals.html">Set a free price alert</a>
+    — we’ll only email you when a genuinely lower price is confirmed.
+</p>
+
+<footer>
+    <p class="social-links">
+        <a href="https://www.instagram.com/dekhte_hai_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@dekhte_hai_" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.6 9.4.6 9.4.6s7.6 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.5v-7l6.3 3.5-6.3 3.5Z"/></svg>
+        </a>
+    </p>
+    <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
+</footer>
+
+<script>
+    // Same Apps Script URL used by the Deals form
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbypGnLkcWrALUiMyl5IN0F-nzK_sogIebP01UAvNeBPZNyTeoIv5TxKv5yNc7sEedL8/exec";
+
+    const CURRENCY_SYMBOLS = {
+        GBP: "£", EUR: "€", USD: "$", INR: "₹", AUD: "A$", CAD: "C$"
+    };
+
+    function formatPrice(value, currency) {
+        const num = Number(value);
+        if (!isFinite(num)) return String(value);
+        const symbol = CURRENCY_SYMBOLS[currency] || (currency + " ");
+        if (num === Math.floor(num)) return symbol + num.toLocaleString("en-GB");
+        return symbol + num.toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function formatDate(ymd) {
+        if (!ymd) return null;
+        try {
+            const d = new Date(ymd + "T12:00:00");
+            if (isNaN(d.getTime())) return ymd;
+            return d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+        } catch (e) {
+            return ymd;
+        }
+    }
+
+    function timeAgo(iso) {
+        try {
+            const then = new Date(iso);
+            const now = new Date();
+            const sec = Math.floor((now - then) / 1000);
+            if (sec < 60) return "just now";
+            const min = Math.floor(sec / 60);
+            if (min < 60) return min + " min ago";
+            const hr = Math.floor(min / 60);
+            if (hr < 24) return hr + " hour" + (hr === 1 ? "" : "s") + " ago";
+            const days = Math.floor(hr / 24);
+            if (days === 1) return "yesterday";
+            if (days < 14) return days + " days ago";
+            return then.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+        } catch (e) {
+            return "";
+        }
+    }
+
+    function buildCard(deal) {
+        const priceText = formatPrice(deal.price, deal.currency);
+        const depart = formatDate(deal.departDate);
+        const ret = formatDate(deal.returnDate);
+        let datesHtml = "";
+        if (depart && ret) {
+            datesHtml = `<p class="card-dates">Outbound ${depart}<br>Return ${ret}</p>`;
+        } else if (depart) {
+            datesHtml = `<p class="card-dates">Depart ${depart}</p>`;
+        }
+
+        const spotted = timeAgo(deal.spottedAt);
+        const alertUrl = `deals.html?from=${encodeURIComponent(deal.origin)}&to=${encodeURIComponent(deal.destination)}`;
+
+        return `
+            <article class="deal-card">
+                <p class="card-route">${deal.origin} → ${deal.destination}</p>
+                <p class="card-price">${priceText}</p>
+                ${datesHtml}
+                <p class="card-spotted">Spotted ${spotted}</p>
+                <div class="card-actions">
+                    <a class="btn-alert" href="${alertUrl}">Set alert for this route</a>
+                </div>
+            </article>
+        `;
+    }
+
+    async function loadDeals() {
+        const grid = document.getElementById("dealsGrid");
+        const loading = document.getElementById("loadingState");
+        const empty = document.getElementById("emptyState");
+        const error = document.getElementById("errorState");
+        const status = document.getElementById("statusLine");
+
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ action: "listPublicDeals", limit: 40, days: 14 })
+            });
+
+            const text = await response.text();
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (parseErr) {
+                throw new Error("Invalid response");
+            }
+
+            loading.style.display = "none";
+
+            if (!data || data.status !== "success" || !Array.isArray(data.deals)) {
+                error.style.display = "block";
+                status.textContent = "";
+                return;
+            }
+
+            if (data.deals.length === 0) {
+                empty.style.display = "block";
+                status.textContent = "No recent finds in the last 14 days.";
+                return;
+            }
+
+            status.textContent = data.deals.length + " recent find" + (data.deals.length === 1 ? "" : "s") + " · last 14 days";
+            grid.innerHTML = data.deals.map(buildCard).join("");
+        } catch (err) {
+            loading.style.display = "none";
+            error.style.display = "block";
+            status.textContent = "";
+            console.error(err);
+        }
+    }
+
+    loadDeals();
+</script>
+</body>
+</html>
