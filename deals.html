@@ -239,18 +239,9 @@
             border: 1px solid #444;
             border-radius: 6px;
             color: white;
-            /* 16px is the mobile-web standard minimum for form inputs.
-               Below that, iOS Safari (and some Android browsers) force-zoom
-               and re-center the viewport on the focused field — that zoom
-               is what was causing the page to "shift left" when typing.
-               Fixing this, not disabling pinch-zoom, is the correct fix:
-               disabling user zoom is an accessibility violation. */
             font-size: 16px;
             font-family: Arial, sans-serif;
             box-sizing: border-box;
-            /* Long selected values (e.g. "London, GB — All airports (LON)")
-               truncate with an ellipsis instead of forcing the input, its
-               flex parent, and the whole row wider than the viewport. */
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -266,11 +257,6 @@
             gap: 12px;
             min-width: 0;
         }
-        /* min-width: 0 overrides the flex default of min-width: auto, which
-           otherwise refuses to shrink a flex item below its content's
-           intrinsic width — that's what was pushing this row (and the page)
-           wider than small screens, forcing users to zoom out to see both
-           From/To fields at once. */
         .row > div { flex: 1; min-width: 0; }
         .row > .currency-field { flex: 0 0 90px; min-width: 0; }
         .row > .price-field { flex: 1; min-width: 0; }
@@ -386,10 +372,6 @@
 
         /* --- Date range fields --- */
         input[type="date"] {
-            /* Same base input styling applies via the shared input{} rule
-               above; Safari/Chrome render the native date-picker icon in
-               the browser's default color regardless of our CSS, which is
-               expected and not worth fighting. */
             color-scheme: dark;
         }
 
@@ -459,6 +441,102 @@
             line-height: 1.6;
         }
 
+        /* ========== LIVE DEALS (under the form) ========== */
+        .live-deals-section {
+            max-width: 900px;
+            margin: 56px auto 0;
+            padding: 0 20px 20px;
+            text-align: left;
+        }
+        .live-deals-section h2 {
+            font-family: 'Sora', Arial, sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 6px;
+            text-align: center;
+        }
+        .live-deals-intro {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 14px;
+            margin: 0 0 8px;
+            line-height: 1.5;
+        }
+        .live-deals-status {
+            text-align: center;
+            font-size: 12.5px;
+            color: var(--text-faint);
+            margin: 0 0 22px;
+        }
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+        .deal-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 16px 14px;
+            transition: border-color 0.15s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .deal-card:hover {
+            border-color: var(--accent);
+        }
+        .card-route {
+            font-family: 'Sora', Arial, sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 4px;
+            letter-spacing: -0.01em;
+        }
+        .card-price {
+            font-family: 'Sora', Arial, sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0 0 8px;
+        }
+        .card-dates {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin: 0 0 4px;
+            line-height: 1.4;
+        }
+        .card-spotted {
+            font-size: 12px;
+            color: var(--text-faint);
+            margin: 0 0 12px;
+        }
+        .card-actions {
+            margin-top: auto;
+        }
+        .card-actions a {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: bold;
+            text-decoration: none;
+            background: var(--accent);
+            color: #000;
+            transition: background 0.15s ease;
+        }
+        .card-actions a:hover {
+            background: #fff;
+        }
+        .live-empty, .live-error, .live-loading {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 14px;
+            padding: 12px 0 8px;
+        }
+        .live-error { color: var(--error); }
+
         footer {
             width: 100%;
             text-align: center;
@@ -517,10 +595,6 @@
                 padding: 10px;
             }
 
-            /* Mobile forms are more usable stacked in a single column than
-               side-by-side — smaller screens mean side-by-side fields get
-               cramped and hard to tap accurately. Also tighten the form's
-               overall padding/spacing so more of it fits without scrolling. */
             .form-card {
                 padding: 20px 16px 18px;
             }
@@ -545,10 +619,20 @@
             .hint {
                 margin: 3px 0 0;
             }
+
+            .live-deals-section {
+                margin-top: 40px;
+                padding: 0 12px 12px;
+            }
+            .deals-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .card-price { font-size: 20px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            button {
+            button, .deal-card, .card-actions a {
                 transition: none;
             }
         }
@@ -700,6 +784,22 @@
     </div>
 </div>
 
+<!-- ========== LIVE DEALS (same page, under the form) ========== -->
+<section class="live-deals-section" aria-labelledby="liveDealsHeading">
+    <h2 id="liveDealsHeading">Recently spotted deals</h2>
+    <p class="live-deals-intro">Real finds from our tracker. Set an alert for any of these routes and we’ll email you if the price drops further.</p>
+    <p class="live-deals-status" id="liveStatus">Loading recent deals…</p>
+
+    <div class="deals-grid" id="dealsGrid" aria-live="polite"></div>
+    <div class="live-loading" id="liveLoading">Fetching the latest finds…</div>
+    <div class="live-empty" id="liveEmpty" style="display:none;">
+        No recent deals in the last couple of weeks. Set an alert above and check back soon.
+    </div>
+    <div class="live-error" id="liveError" style="display:none;">
+        Couldn’t load deals right now. Please refresh the page or try again shortly.
+    </div>
+</section>
+
 <footer>
     <p class="social-links">
         <a href="https://www.instagram.com/dekhte_hai_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
@@ -730,11 +830,6 @@
     // ---------- Airport data ----------
     let AIRPORTS = [];
 
-    // Loads individual airports plus the 41 official IATA multi-airport
-    // city codes (e.g. LON = all 5 London airports). Tequila accepts city
-    // codes exactly like airport codes in fly_from/fly_to, so picking one
-    // of these searches every airport in that city for the cheapest fare —
-    // no backend change needed, this is purely adding the option to pick one.
     Promise.all([
     fetch("airports.json").then(r => {
         if (!r.ok) throw new Error("airports.json " + r.status);
@@ -785,8 +880,6 @@ function searchAirports(query) {
         }
     }
 
-    // Prefer: exact code → exact city → city prefix → name prefix → contains
-    // Within each group, put "All airports" (metro) first
     const rank = (list) =>
         list.sort((a, b) => {
             const am = a.name === "All airports" ? 0 : 1;
@@ -898,8 +991,6 @@ function searchAirports(query) {
     setupCombobox("destinationInput", "destinationCode", "destinationResults");
 
     // ---------- Depart / return dates + travel window mode ----------
-    // Prevent picking a past date. Mode selector shows/hides the date
-    // fields. Payload keys are departDate and returnDate (null = anytime).
     (function initDateFields() {
         const todayStr = new Date().toISOString().split("T")[0];
         const departInput = document.getElementById("departDate");
@@ -913,7 +1004,6 @@ function searchAirports(query) {
         departInput.min = todayStr;
         returnInput.min = todayStr;
 
-        // Keep return from being set before depart.
         departInput.addEventListener("change", () => {
             if (departInput.value) {
                 returnInput.min = departInput.value;
@@ -966,8 +1056,6 @@ function searchAirports(query) {
         document.getElementById("destinationCode").value = "";
         document.getElementById("originInput").classList.remove("selected-valid");
         document.getElementById("destinationInput").classList.remove("selected-valid");
-        // form.reset() already clears the date inputs; also reset returnDate's
-        // dynamically-set min and re-apply default "Anytime" visibility.
         document.getElementById("returnDate").min = new Date().toISOString().split("T")[0];
         const dateModeEl = document.getElementById("dateMode");
         if (dateModeEl) {
@@ -975,10 +1063,6 @@ function searchAirports(query) {
             dateModeEl.dispatchEvent(new Event("change"));
         }
 
-        // Belt-and-braces: reset any horizontal scroll (e.g. from a mobile
-        // browser keeping the view where the last-tapped field was) so the
-        // success message is never left partially off-screen, then bring
-        // it fully into view.
         window.scrollTo({ left: 0, behavior: "auto" });
         messageEl.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
     }
@@ -1004,7 +1088,6 @@ function searchAirports(query) {
         let departDateValue = document.getElementById("departDate").value;
         let returnDateValue = document.getElementById("returnDate").value;
 
-        // Only send dates when "Specific dates" is selected.
         if (dateModeValue === "anytime") {
             departDateValue = "";
             returnDateValue = "";
@@ -1031,11 +1114,9 @@ function searchAirports(query) {
             minPrice: minPriceValue === "" ? null : Number(minPriceValue),
             departDate: departDateValue === "" ? null : departDateValue,
             returnDate: returnDateValue === "" ? null : returnDateValue,
-            // anytime = flexible 6-month search; specific = pin to these dates
             searchMode: dateModeValue === "specific" ? "specific" : "anytime"
         };
 
-        // Block double-submit (rapid clicks / double Enter)
         if (submitBtn.dataset.busy === "1") return;
         submitBtn.dataset.busy = "1";
         submitBtn.disabled = true;
@@ -1050,13 +1131,11 @@ function searchAirports(query) {
                 body: JSON.stringify(payload)
             });
 
-            // Try to read the response, but don't rely on it
             let result = null;
             try {
                 const text = await response.text();
                 result = JSON.parse(text);
             } catch (parseErr) {
-                // 302 redirect or non-JSON response from Apps Script — ignore
                 result = null;
             }
 
@@ -1066,9 +1145,6 @@ function searchAirports(query) {
                 messageEl.className = "error";
                 messageEl.textContent = result.message || "Something went wrong. Please try again.";
             } else if (response.ok) {
-                // Apps Script often returns an opaque/redirected body on success.
-                // Do NOT treat this as success when the server may have rejected
-                // (e.g. 2-route limit) — ask the user to check email / try manage link.
                 showSuccess(
                     "Request sent. Check your email for confirmation. " +
                     "If you already have 2 routes on this email, the new one was not added — " +
@@ -1079,7 +1155,6 @@ function searchAirports(query) {
                 messageEl.textContent = "Something went wrong. Please try again.";
             }
         } catch (err) {
-            // Only real network failures (no internet, blocked, etc.)
             messageEl.className = "error";
             messageEl.textContent = "Network error — please check your connection and try again.";
         } finally {
@@ -1088,6 +1163,156 @@ function searchAirports(query) {
             submitBtn.textContent = "Get price alerts";
         }
     });
+
+    // ---------- Prefill From/To when arriving with ?from= & ?to= ----------
+    (function prefillFromQuery() {
+        const params = new URLSearchParams(window.location.search);
+        const fromCode = (params.get("from") || "").trim().toUpperCase();
+        const toCode   = (params.get("to") || "").trim().toUpperCase();
+        if (!fromCode && !toCode) return;
+
+        const tryPrefill = () => {
+            if (!AIRPORTS || AIRPORTS.length === 0) {
+                setTimeout(tryPrefill, 200);
+                return;
+            }
+            function findAndSet(code, inputId, hiddenId) {
+                if (!code) return;
+                const match = AIRPORTS.find(a => String(a.code).toUpperCase() === code);
+                if (!match) return;
+                const input = document.getElementById(inputId);
+                const hidden = document.getElementById(hiddenId);
+                hidden.value = match.code;
+                const label = match.name === "All airports"
+                    ? `${match.city}, ${match.country} — All airports (${match.code})`
+                    : `${match.city ? match.city + ", " : ""}${match.country} (${match.code})`;
+                input.value = label;
+                input.classList.add("selected-valid");
+            }
+            findAndSet(fromCode, "originInput", "originCode");
+            findAndSet(toCode, "destinationInput", "destinationCode");
+        };
+        tryPrefill();
+    })();
+
+    // ---------- LIVE DEALS (same page) ----------
+    const CURRENCY_SYMBOLS = {
+        GBP: "£", EUR: "€", USD: "$", INR: "₹", AUD: "A$", CAD: "C$"
+    };
+
+    function formatPrice(value, currency) {
+        const num = Number(value);
+        if (!isFinite(num)) return String(value);
+        const symbol = CURRENCY_SYMBOLS[currency] || (currency + " ");
+        if (num === Math.floor(num)) return symbol + num.toLocaleString("en-GB");
+        return symbol + num.toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function formatDate(ymd) {
+        if (!ymd) return null;
+        try {
+            const d = new Date(ymd + "T12:00:00");
+            if (isNaN(d.getTime())) return ymd;
+            return d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+        } catch (e) {
+            return ymd;
+        }
+    }
+
+    function timeAgo(iso) {
+        try {
+            const then = new Date(iso);
+            const now = new Date();
+            const sec = Math.floor((now - then) / 1000);
+            if (sec < 60) return "just now";
+            const min = Math.floor(sec / 60);
+            if (min < 60) return min + " min ago";
+            const hr = Math.floor(min / 60);
+            if (hr < 24) return hr + " hour" + (hr === 1 ? "" : "s") + " ago";
+            const days = Math.floor(hr / 24);
+            if (days === 1) return "yesterday";
+            if (days < 14) return days + " days ago";
+            return then.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+        } catch (e) {
+            return "";
+        }
+    }
+
+    function buildDealCard(deal) {
+        const priceText = formatPrice(deal.price, deal.currency);
+        const depart = formatDate(deal.departDate);
+        const ret = formatDate(deal.returnDate);
+        let datesHtml = "";
+        if (depart && ret) {
+            datesHtml = `<p class="card-dates">Outbound ${depart}<br>Return ${ret}</p>`;
+        } else if (depart) {
+            datesHtml = `<p class="card-dates">Depart ${depart}</p>`;
+        }
+        const spotted = timeAgo(deal.spottedAt);
+
+        // Clicking the button scrolls to the form and prefills From/To
+        const alertUrl = `?from=${encodeURIComponent(deal.origin)}&to=${encodeURIComponent(deal.destination)}#dealForm`;
+
+        return `
+            <article class="deal-card">
+                <p class="card-route">${deal.origin} → ${deal.destination}</p>
+                <p class="card-price">${priceText}</p>
+                ${datesHtml}
+                <p class="card-spotted">Spotted ${spotted}</p>
+                <div class="card-actions">
+                    <a href="${alertUrl}">Set alert for this route</a>
+                </div>
+            </article>
+        `;
+    }
+
+    async function loadLiveDeals() {
+        const grid = document.getElementById("dealsGrid");
+        const loading = document.getElementById("liveLoading");
+        const empty = document.getElementById("liveEmpty");
+        const error = document.getElementById("liveError");
+        const status = document.getElementById("liveStatus");
+
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ action: "listPublicDeals", limit: 40, days: 14 })
+            });
+
+            const text = await response.text();
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (parseErr) {
+                throw new Error("Invalid response");
+            }
+
+            loading.style.display = "none";
+
+            if (!data || data.status !== "success" || !Array.isArray(data.deals)) {
+                error.style.display = "block";
+                status.textContent = "";
+                return;
+            }
+
+            if (data.deals.length === 0) {
+                empty.style.display = "block";
+                status.textContent = "No recent finds in the last 14 days.";
+                return;
+            }
+
+            status.textContent = data.deals.length + " recent find" + (data.deals.length === 1 ? "" : "s") + " · last 14 days";
+            grid.innerHTML = data.deals.map(buildDealCard).join("");
+        } catch (err) {
+            loading.style.display = "none";
+            error.style.display = "block";
+            status.textContent = "";
+            console.error(err);
+        }
+    }
+
+    loadLiveDeals();
 </script>
 </body>
 </html>
