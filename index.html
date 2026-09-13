@@ -230,6 +230,348 @@
           overflow: hidden;
           border: 1px solid var(--border);
           background: var(--surface);
+          min-height: 280px;
+      }
+      .tp-map-wrap iframe,
+      .tp-map-wrap > div,
+      .tp-map-wrap script + div {
+          max-width: 100% !important;
+      }
+      .tp-map-wrap [id^="tp-widget"],
+      .tp-map-wrap .tp-widget-wrapper,
+      .tp-map-wrap iframe {
+          width: 100% !important;
+          max-width: 100% !important;
+      }
+      @media (max-width: 768px) {
+          .hero {
+              padding: 90px 16px 40px;
+              min-height: auto;
+          }
+          .logo-placeholder {
+              top: 5px;
+              left: 5px;
+              width: 70px;
+              height: 70px;
+          }
+          nav {
+              top: 5px;
+              right: 5px;
+          }
+          nav a {
+              margin: 0 10px;
+              font-size: 14px;
+          }
+          h1 {
+              font-size: 24px;
+          }
+          .image-placeholder img {
+              max-width: 90%;
+              max-height: 300px;
+          }
+          .cards {
+              flex-direction: column;
+          }
+          footer {
+              font-size: 12px;
+              padding: 10px;
+          }
+          .tp-map-section {
+              padding: 10px 12px 48px;
+          }
+          .tp-map-section h2 {
+              font-size: 18px;
+          }
+          .tp-map-section .tp-sub {
+              font-size: 13px;
+              margin-bottom: 16px;
+          }
+          .tp-map-wrap {
+              min-height: 240px;
+              border-radius: 10px;
+          }
+      }
+      @media (prefers-reduced-motion: reduce) {
+          .cta-row a.button, .card {
+              transition: none;
+          }
+      }
+      .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 14px;
+      }
+      .social-links a {
+          color: var(--text-faint);
+          display: inline-flex;
+          transition: color 0.15s ease;
+      }
+      .social-links a:hover {
+          color: var(--accent);
+      }
+      .social-links svg {
+          width: 22px;
+          height: 22px;
+      }
+  </style>
+</head>
+<body>
+<div class="logo-placeholder">
+  <a href="index.html">
+    <img src="resources/logo.png" alt="dekhtehai logo">
+  </a>
+</div>
+<nav>
+  <a href="index.html" aria-current="page">Home</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="blogs.html">Blogs</a>
+  <a href="deals.html">Deals</a>
+  <a href="book-trip.html">Book</a>
+</nav>
+<div class="hero">
+  <div class="centered-content">
+    <div class="text">
+      <h1>See the World. Then Go, For Less.</h1>
+      <p class="intro">Explore iconic landmarks, vibrant streets, and hidden gems through our photos — then set a free price alert on our <a href="deals.html" style="color: var(--accent);">Deals page</a> and we'll email you the moment flights to your next destination drop.</p>
+    </div>
+    <div class="image-placeholder">
+      <img src="resources/Home.jpeg" alt="Travel image of a global landmark - dekhtehai.com home" fetchpriority="high">
+    </div>
+    <div class="cta-row">
+      <a class="button" href="deals.html">Get free flight alerts →</a>
+    </div>
+  </div>
+</div>
+
+<!-- Cheap flights map: London origin, under £40 — correct size for desktop & mobile -->
+<section class="tp-map-section" aria-labelledby="tpMapHeading">
+  <h2 id="tpMapHeading">Cheap flights from London</h2>
+  <p class="tp-sub">Fares under £40 are live right now — pick a pin and book your next escape.</p>
+  <div class="tp-map-wrap" id="tpMapWrap"></div>
+</section>
+
+<div class="explore">
+  <h2>Explore dekhtehai</h2>
+  <div class="cards">
+    <a class="card" href="gallery.html">
+      <p class="card-title">Gallery</p>
+      <p>Travel photography from landmarks and hidden gems around the world.</p>
+      <span class="arrow">View gallery →</span>
+    </a>
+    <a class="card" href="blogs.html">
+      <p class="card-title">Blogs</p>
+      <p>Practical travel tips, including how to actually find cheap flights.</p>
+      <span class="arrow">Read blogs →</span>
+    </a>
+    <a class="card" href="deals.html">
+      <p class="card-title">Deals</p>
+      <p>Free price alerts — set your route, we email you when it drops.</p>
+      <span class="arrow">Set an alert →</span>
+    </a>
+  </div>
+</div>
+<footer>
+ <p class="social-links">
+    <a href="https://www.instagram.com/dekhte_hai_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="https://www.youtube.com/@dekhte_hai_" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.6 9.4.6 9.4.6s7.6 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.5v-7l6.3 3.5-6.3 3.5Z"/></svg>
+    </a>
+</p>
+    <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
+</footer>
+<script>
+  /* Load Travelpayouts map at the right pixel size for the device.
+     Fixed-width widgets often fail on mobile if width is too large;
+     we request a mobile-sized widget on small screens and a desktop one otherwise. */
+  (function () {
+    var wrap = document.getElementById("tpMapWrap");
+    if (!wrap) return;
+
+    var isMobile = window.innerWidth < 768;
+    var width = isMobile ? Math.min(Math.max(window.innerWidth - 24, 300), 420) : 1060;
+    var height = isMobile ? 320 : 420;
+    // Mobile: London-centred (partner mobile defaults). Desktop: Europe view.
+    var lat = isMobile ? "51.5073509" : "48.5";
+    var lng = isMobile ? "-0.1277583" : "10";
+    var zoom = isMobile ? "2" : "3";
+
+    var src =
+      "https://tpwgt.com/content?" +
+      "currency=gbp" +
+      "&trs=559440" +
+      "&shmarker=760976" +
+      "&lat=" + lat +
+      "&lng=" + lng +
+      "&powered_by=true" +
+      "&search_host=www.aviasales.com%2Fsearch" +
+      "&locale=en" +
+      "&origin=LON" +
+      "&value_min=0" +
+      "&value_max=40" +
+      "&round_trip=true" +
+      "&only_direct=false" +
+      "&radius=1" +
+      "&draggable=true" +
+      "&disable_zoom=false" +
+      "&show_logo=false" +
+      "&scrollwheel=false" +
+      "&primary=%233FABDB" +
+      "&secondary=%233FABDB" +
+      "&light=%23ffffff" +
+      "&width=" + width +
+      "&height=" + height +
+      "&zoom=" + zoom +
+      "&promo_id=4054" +
+      "&campaign_id=100";
+
+    var s = document.createElement("script");
+    s.async = true;
+    s.charset = "utf-8";
+    s.src = src;
+    wrap.appendChild(s);
+
+    // Keep any fixed boxes inside the wrap from overflowing
+    function forceFluid() {
+      var nodes = wrap.querySelectorAll("iframe, div, canvas");
+      for (var i = 0; i < nodes.length; i++) {
+        nodes[i].style.maxWidth = "100%";
+        nodes[i].style.width = "100%";
+        nodes[i].style.boxSizing = "border-box";
+      }
+    }
+    var tries = 0;
+    var timer = setInterval(function () {
+      forceFluid();
+      tries += 1;
+      if (tries > 25) clearInterval(timer);
+    }, 300);
+  })();
+</script>
+</body>
+</html>
+          letter-spacing: -0.01em;
+          line-height: 1.25;
+      }
+      p.intro {
+          color: var(--text-dim);
+          font-size: 15.5px;
+          line-height: 1.6;
+          max-width: 480px;
+          margin: 0 auto 30px;
+      }
+      .image-placeholder img {
+          max-width: 600px;
+          max-height: 600px;
+          width: auto;
+          height: auto;
+          display: block;
+          border-radius: 10px;
+          margin: 0 auto;
+      }
+      .cta-row {
+          margin-top: 26px;
+      }
+      .cta-row a.button {
+          display: inline-block;
+          background: var(--accent);
+          color: #000;
+          padding: 12px 24px;
+          border-radius: 6px;
+          text-decoration: none;
+          font-weight: bold;
+          font-size: 14px;
+          transition: background 0.15s ease;
+      }
+      .cta-row a.button:hover {
+          background: #fff;
+      }
+      /* --- Explore section --- */
+      .explore {
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 20px 20px 80px;
+      }
+      .explore h2 {
+          font-family: 'Sora', Arial, sans-serif;
+          font-size: 20px;
+          font-weight: 700;
+          margin: 0 0 24px;
+          text-align: center;
+      }
+      .cards {
+          display: flex;
+          gap: 18px;
+          text-align: left;
+      }
+      .card {
+          flex: 1;
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          padding: 20px;
+          text-decoration: none;
+          display: block;
+          transition: border-color 0.15s ease;
+      }
+      .card:hover {
+          border-color: var(--accent);
+      }
+      .card-title {
+          font-size: 15px;
+          font-weight: 700;
+          color: #fff;
+          margin: 0 0 6px;
+      }
+      .card p {
+          font-size: 13.5px;
+          color: var(--text-dim);
+          margin: 0;
+          line-height: 1.5;
+      }
+      .card .arrow {
+          color: var(--accent);
+          font-size: 13px;
+          font-weight: bold;
+          display: inline-block;
+          margin-top: 10px;
+      }
+      footer {
+          width: 100%;
+          text-align: center;
+          color: white;
+          font-size: 14px;
+          padding: 0 0 30px;
+      }
+      /* --- Travelpayouts cheap-flights map (under £40) --- */
+      .tp-map-section {
+          max-width: 1100px;
+          margin: 0 auto;
+          padding: 10px 20px 60px;
+      }
+      .tp-map-section h2 {
+          font-family: 'Sora', Arial, sans-serif;
+          font-size: 20px;
+          font-weight: 700;
+          margin: 0 0 8px;
+          text-align: center;
+      }
+      .tp-map-section .tp-sub {
+          color: var(--text-dim);
+          font-size: 14px;
+          max-width: 440px;
+          margin: 0 auto 22px;
+          line-height: 1.5;
+      }
+      .tp-map-wrap {
+          width: 100%;
+          max-width: 100%;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 1px solid var(--border);
+          background: var(--surface);
           /* Aspect ratio keeps the iframe-like widget from collapsing on mobile */
           min-height: 280px;
       }
