@@ -229,19 +229,16 @@
           border-radius: 12px;
           overflow: hidden;
           border: 1px solid var(--border);
-          background: var(--surface);
-          min-height: 280px;
+          background: #1a1a1a;
+          min-height: 320px;
+          position: relative;
       }
-      .tp-map-wrap iframe,
-      .tp-map-wrap > div,
-      .tp-map-wrap script + div {
-          max-width: 100% !important;
-      }
-      .tp-map-wrap [id^="tp-widget"],
-      .tp-map-wrap .tp-widget-wrapper,
-      .tp-map-wrap iframe {
+      /* Let the Travelpayouts custom element fill the box; do not force internal widths */
+      .tp-map-wrap tp-cascoon,
+      .tp-map-wrap [data-cascoon-id] {
+          display: block;
           width: 100% !important;
-          max-width: 100% !important;
+          min-height: 300px;
       }
       @media (max-width: 768px) {
           .hero {
@@ -287,8 +284,10 @@
               margin-bottom: 16px;
           }
           .tp-map-wrap {
-              min-height: 240px;
+              min-height: 300px;
               border-radius: 10px;
+              overflow-x: auto;
+              -webkit-overflow-scrolling: touch;
           }
       }
       @media (prefers-reduced-motion: reduce) {
@@ -383,17 +382,17 @@
     <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
 </footer>
 <script>
-  /* Load Travelpayouts map at the right pixel size for the device.
-     Fixed-width widgets often fail on mobile if width is too large;
-     we request a mobile-sized widget on small screens and a desktop one otherwise. */
+  /* Travelpayouts map — one embed, sized for the device.
+     Avoid rewriting the widget's internal DOM (that caused a blank box on mobile). */
   (function () {
     var wrap = document.getElementById("tpMapWrap");
     if (!wrap) return;
 
-    var isMobile = window.innerWidth < 768;
-    var width = isMobile ? Math.min(Math.max(window.innerWidth - 24, 300), 420) : 1060;
-    var height = isMobile ? 320 : 420;
-    // Mobile: London-centred (partner mobile defaults). Desktop: Europe view.
+    var w = window.innerWidth || 400;
+    var isMobile = w < 768;
+    // Integer pixel sizes only — fractional widths break some TP renders
+    var width = isMobile ? Math.max(320, Math.min(Math.floor(w - 24), 400)) : 1060;
+    var height = isMobile ? 340 : 420;
     var lat = isMobile ? "51.5073509" : "48.5";
     var lng = isMobile ? "-0.1277583" : "10";
     var zoom = isMobile ? "2" : "3";
@@ -432,22 +431,6 @@
     s.charset = "utf-8";
     s.src = src;
     wrap.appendChild(s);
-
-    // Keep any fixed boxes inside the wrap from overflowing
-    function forceFluid() {
-      var nodes = wrap.querySelectorAll("iframe, div, canvas");
-      for (var i = 0; i < nodes.length; i++) {
-        nodes[i].style.maxWidth = "100%";
-        nodes[i].style.width = "100%";
-        nodes[i].style.boxSizing = "border-box";
-      }
-    }
-    var tries = 0;
-    var timer = setInterval(function () {
-      forceFluid();
-      tries += 1;
-      if (tries > 25) clearInterval(timer);
-    }, 300);
   })();
 </script>
 </body>
