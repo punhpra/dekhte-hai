@@ -233,12 +233,14 @@
           min-height: 320px;
           position: relative;
       }
-      /* Let the Travelpayouts custom element fill the box; do not force internal widths */
-      .tp-map-wrap tp-cascoon,
-      .tp-map-wrap [data-cascoon-id] {
+      /* The widget now renders inside an iframe (see script at the
+         bottom) — let it fill the box exactly like the old custom
+         element did. */
+      .tp-map-wrap iframe {
           display: block;
-          width: 100% !important;
-          min-height: 300px;
+          width: 100%;
+          border: 0;
+          background: transparent;
       }
       @media (max-width: 768px) {
           .hero {
@@ -383,7 +385,17 @@
 </footer>
 <script>
   /* Travelpayouts map — one embed, sized for the device.
-     Avoid rewriting the widget's internal DOM (that caused a blank box on mobile). */
+     FIX: the widget's own script uses document.write() to draw the
+     map. Previously that <script> was inserted straight into the
+     live page after load, which mobile Chrome blocks (it disables
+     document.write() from scripts injected asynchronously into an
+     already-parsed page). Desktop browsers are more lenient, which is
+     why it worked there but not on phones.
+     Fix: run the widget script inside its own small iframe document
+     instead. Inside that iframe it executes during the iframe's own
+     initial HTML parse, so document.write() is allowed to run
+     normally on every device — same map, same sizing logic as
+     before, just a delivery method that mobile Chrome doesn't block. */
   (function () {
     var wrap = document.getElementById("tpMapWrap");
     if (!wrap) return;
@@ -426,11 +438,22 @@
       "&promo_id=4054" +
       "&campaign_id=100";
 
-    var s = document.createElement("script");
-    s.async = true;
-    s.charset = "utf-8";
-    s.src = src;
-    wrap.appendChild(s);
+    var iframe = document.createElement("iframe");
+    iframe.title = "Cheap flights from London map";
+    iframe.setAttribute("scrolling", "no");
+    iframe.style.width = "100%";
+    iframe.style.height = height + "px";
+    iframe.style.border = "0";
+    iframe.style.background = "transparent";
+
+    var doc =
+      "<!DOCTYPE html><html><head><meta charset='utf-8'>" +
+      "<meta name='viewport' content='width=device-width, initial-scale=1'>" +
+      "<style>html,body{margin:0;padding:0;background:transparent;overflow:hidden;}</style>" +
+      "</head><body><script src='" + src + "'><\/script></body></html>";
+
+    iframe.srcdoc = doc;
+    wrap.appendChild(iframe);
   })();
 </script>
 </body>
