@@ -393,7 +393,7 @@
      both cases — it only reliably renders at the size Travelpayouts
      issued the embed for (1500x500, same as the official snippet).
      Fix: always request the widget at its native 1500x500 size with
-     a single plain <script> (exactly like the official embed code,
+     a single plain script tag (exactly like the official embed code,
      no iframe), then scale the whole thing down visually with a CSS
      transform so it fits any screen width. The widget itself never
      sees a non-standard size, so it loads correctly everywhere. */
