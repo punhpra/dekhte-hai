@@ -350,7 +350,9 @@
   <h2 id="tpMapHeading">Cheap flights from London</h2>
   <p class="tp-sub">Pick a pin and book your next escape.</p>
   <div class="tp-map-wrap" id="tpMapWrap">
-    <div class="tp-map-inner" id="tpMapInner"></div>
+    <div class="tp-map-inner" id="tpMapInner">
+      <script async src="https://tpwgt.com/content?currency=gbp&trs=559440&shmarker=760976&lat=51.5073509&lng=-0.1277583&powered_by=true&search_host=www.aviasales.com%2Fsearch&locale=en&origin=LON&value_min=0&value_max=40&round_trip=true&only_direct=true&radius=1&draggable=true&disable_zoom=false&show_logo=false&scrollwheel=false&primary=%233FABDB&secondary=%233FABDB&light=%23ffffff&width=1500&height=500&zoom=3&promo_id=4054&campaign_id=100" charset="utf-8"></script>
+    </div>
   </div>
 </section>
 
@@ -386,17 +388,12 @@
     <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
 </footer>
 <script>
-  /* Travelpayouts map.
-     FIX: the previous attempts asked the widget to render at a small
-     custom mobile size (e.g. ~360x340) and/or loaded it inside a
-     sandboxed iframe. The widget's map tiles/pins failed to load in
-     both cases — it only reliably renders at the size Travelpayouts
-     issued the embed for (1500x500, same as the official snippet).
-     Fix: always request the widget at its native 1500x500 size with
-     a single plain script tag (exactly like the official embed code,
-     no iframe), then scale the whole thing down visually with a CSS
-     transform so it fits any screen width. The widget itself never
-     sees a non-standard size, so it loads correctly everywhere. */
+  /* The Travelpayouts widget above is pasted as the plain official
+     embed code at its native 1500x500 size — that's the size it
+     reliably renders at. This script only scales that fixed-size box
+     down visually to fit the real container width, so it looks right
+     on phones without ever asking the widget itself for a
+     non-standard size. */
   (function () {
     var wrap = document.getElementById("tpMapWrap");
     var inner = document.getElementById("tpMapInner");
@@ -411,46 +408,8 @@
       wrap.style.height = Math.round(NATIVE_H * scale) + "px";
     }
 
-    var src =
-      "https://tpwgt.com/content?" +
-      "currency=gbp" +
-      "&trs=559440" +
-      "&shmarker=760976" +
-      "&lat=48.5" +
-      "&lng=10" +
-      "&powered_by=true" +
-      "&search_host=www.aviasales.com%2Fsearch" +
-      "&locale=en" +
-      "&origin=LON" +
-      "&value_min=0" +
-      "&value_max=40" +
-      "&round_trip=true" +
-      "&only_direct=true" +
-      "&radius=1" +
-      "&draggable=true" +
-      "&disable_zoom=false" +
-      "&show_logo=false" +
-      "&scrollwheel=false" +
-      "&primary=%233FABDB" +
-      "&secondary=%233FABDB" +
-      "&light=%23ffffff" +
-      "&width=" + NATIVE_W +
-      "&height=" + NATIVE_H +
-      "&zoom=2" +
-      "&promo_id=4054" +
-      "&campaign_id=100";
-
-    var s = document.createElement("script");
-    s.async = true;
-    s.charset = "utf-8";
-    s.src = src;
-    inner.appendChild(s);
-
     layout();
 
-    // Re-run layout whenever the container's actual size changes —
-    // covers late webfont/image reflows and the widget's own content
-    // finishing load, not just window resizes.
     if (window.ResizeObserver) {
       new ResizeObserver(layout).observe(wrap);
     } else {
@@ -458,8 +417,6 @@
       window.addEventListener("orientationchange", layout);
     }
     window.addEventListener("load", layout);
-    // Belt-and-braces: the widget mounts asynchronously, so re-check
-    // a couple more times shortly after it's had time to render.
     setTimeout(layout, 500);
     setTimeout(layout, 1500);
   })();
