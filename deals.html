@@ -1274,7 +1274,7 @@
         }
     }
 
-    // ---------- Live deals (last 14 days only, capped, deduped) ----------
+    // ---------- Live deals (last 7 days only, capped, deduped) ----------
     function buildDealCard(deal) {
         const priceText = formatPrice(deal.price, deal.currency);
         const depart = formatDate(deal.departDate);
@@ -1309,7 +1309,7 @@
             const response = await fetch(APPS_SCRIPT_URL, {
                 method: "POST",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
-                body: JSON.stringify({ action: "listPublicDeals", limit: 40, days: 14 })
+                body: JSON.stringify({ action: "listPublicDeals", limit: 5, days: 7 })
             });
             const text = await response.text();
             let data;
@@ -1326,10 +1326,10 @@
             }
             if (data.deals.length === 0) {
                 empty.style.display = "block";
-                status.textContent = "No recent finds in the last 14 days.";
+                status.textContent = "No recent finds in the last 7 days.";
                 return;
             }
-            status.textContent = data.deals.length + " recent find" + (data.deals.length === 1 ? "" : "s") + " · last 14 days";
+            status.textContent = data.deals.length + " recent find" + (data.deals.length === 1 ? "" : "s") + " · last 7 days";
             grid.innerHTML = data.deals.map(buildDealCard).join("");
         } catch (err) {
             loading.style.display = "none";
