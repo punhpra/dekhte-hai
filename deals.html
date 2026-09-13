@@ -1,463 +1,1344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>dekhtehai.com — Travel Photos & Free Flight Price Alerts</title>
-  <link rel="icon" type="image/png" href="resources/favicon.png">
-  <meta name="description" content="dekhtehai.com — travel photography, hidden gems, and free flight price alerts that email you the moment fares drop on your route.">
-  <meta name="keywords" content="travel experience,travel alerts,cheap flights, flight deals, world landmarks, travel images, hidden gems, dekhtehai, immersive visuals,deals, flights, budget trips">
-  <meta name="author" content="dekhtehai">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://dekhtehai.com/index.html">
-  <meta property="og:title" content="dekhtehai.com — Travel Photos & Free Flight Price Alerts">
-  <meta property="og:description" content="Explore travel photography of global landmarks and hidden gems, and set free flight price alerts so you know the moment a fare drops.">
-  <meta property="og:image" content="https://dekhtehai.com/resources/Home.jpeg">
-  <meta property="og:url" content="https://dekhtehai.com/index.html">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="dekhtehai.com — Travel Photos & Free Flight Price Alerts">
-  <meta name="twitter:description" content="Explore travel photography of global landmarks and hidden gems, and set free flight price alerts so you know the moment a fare drops.">
-  <meta name="twitter:image" content="https://dekhtehai.com/resources/Home.jpeg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&display=swap" rel="stylesheet">
-  <!-- Organization/WebSite schema — the homepage is the right place for
-       this; it's what lets Google show a sitelinks searchbox / knowledge
-       panel entry for the site as a whole. -->
-  <script type="application/ld+json">
-  {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "dekhtehai",
-      "url": "https://dekhtehai.com/",
-      "description": "Travel photography of global landmarks and hidden gems, plus free flight price alerts.",
-      "publisher": {
-          "@type": "Organization",
-          "name": "dekhtehai",
-          "logo": { "@type": "ImageObject", "url": "https://dekhtehai.com/resources/logo.png" }
-      }
-  }
-  </script>
-  <style>
-      :root {
-          --bg: #0a0a0a;
-          --surface: #141414;
-          --border: #2a2a2a;
-          --text: #f2f2f0;
-          --text-dim: #b3b3b3;
-          --text-faint: #6f6f6b;
-          --accent: #FFDD00;
-      }
-      * { box-sizing: border-box; }
-      body {
-          background-color: var(--bg);
-          color: var(--text);
-          font-family: Arial, Helvetica, sans-serif;
-          margin: 0;
-          padding: 0;
-          text-align: center;
-          position: relative;
-      }
-      h1, .step-title, .card-title {
-          font-family: 'Sora', Arial, sans-serif;
-      }
-      .logo-placeholder {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          width: 100px;
-          height: 100px;
-      }
-      .logo-placeholder img {
-          max-width: 100%;
-          height: auto;
-      }
-      nav {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-      }
-      nav a {
-          color: var(--text);
-          margin: 0 15px;
-          text-decoration: none;
-          font-size: 14px;
-      }
-      nav a:hover {
-          text-decoration: underline;
-          color: var(--accent);
-      }
-      nav a[aria-current="page"] {
-          color: var(--accent);
-      }
-      .hero {
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 110px 20px 60px;
-      }
-      .centered-content {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-          max-width: 640px;
-      }
-      h1 {
-          font-size: 32px;
-          font-weight: 700;
-          margin: 0 0 14px;
-          letter-spacing: -0.01em;
-          line-height: 1.25;
-      }
-      p.intro {
-          color: var(--text-dim);
-          font-size: 15.5px;
-          line-height: 1.6;
-          max-width: 480px;
-          margin: 0 auto 30px;
-      }
-      .image-placeholder img {
-          max-width: 600px;
-          max-height: 600px;
-          width: auto;
-          height: auto;
-          display: block;
-          border-radius: 10px;
-          margin: 0 auto;
-      }
-      .cta-row {
-          margin-top: 26px;
-      }
-      .cta-row a.button {
-          display: inline-block;
-          background: var(--accent);
-          color: #000;
-          padding: 12px 24px;
-          border-radius: 6px;
-          text-decoration: none;
-          font-weight: bold;
-          font-size: 14px;
-          transition: background 0.15s ease;
-      }
-      .cta-row a.button:hover {
-          background: #fff;
-      }
-      /* --- Explore section --- */
-      .explore {
-          max-width: 900px;
-          margin: 0 auto;
-          padding: 20px 20px 80px;
-      }
-      .explore h2 {
-          font-family: 'Sora', Arial, sans-serif;
-          font-size: 20px;
-          font-weight: 700;
-          margin: 0 0 24px;
-          text-align: center;
-      }
-      .cards {
-          display: flex;
-          gap: 18px;
-          text-align: left;
-      }
-      .card {
-          flex: 1;
-          background: var(--surface);
-          border: 1px solid var(--border);
-          border-radius: 10px;
-          padding: 20px;
-          text-decoration: none;
-          display: block;
-          transition: border-color 0.15s ease;
-      }
-      .card:hover {
-          border-color: var(--accent);
-      }
-      .card-title {
-          font-size: 15px;
-          font-weight: 700;
-          color: #fff;
-          margin: 0 0 6px;
-      }
-      .card p {
-          font-size: 13.5px;
-          color: var(--text-dim);
-          margin: 0;
-          line-height: 1.5;
-      }
-      .card .arrow {
-          color: var(--accent);
-          font-size: 13px;
-          font-weight: bold;
-          display: inline-block;
-          margin-top: 10px;
-      }
-      footer {
-          width: 100%;
-          text-align: center;
-          color: white;
-          font-size: 14px;
-          padding: 0 0 30px;
-      }
-      /* --- Travelpayouts cheap-flights map (under £40) --- */
-      .tp-map-section {
-          max-width: 1100px;
-          margin: 0 auto;
-          padding: 10px 20px 60px;
-      }
-      .tp-map-section h2 {
-          font-family: 'Sora', Arial, sans-serif;
-          font-size: 20px;
-          font-weight: 700;
-          margin: 0 0 8px;
-          text-align: center;
-      }
-      .tp-map-section .tp-sub {
-          color: var(--text-dim);
-          font-size: 14px;
-          max-width: 440px;
-          margin: 0 auto 22px;
-          line-height: 1.5;
-      }
-      .tp-map-wrap {
-          width: 100%;
-          max-width: 100%;
-          border-radius: 12px;
-          overflow: hidden;
-          border: 1px solid var(--border);
-          background: #e8e8e8;
-          position: relative;
-      }
-      .tp-map-inner {
-          width: 100%;
-          line-height: 0;
-      }
-      /* On mobile we scale a full-width render down so TP map tiles still paint */
-      @media (max-width: 767px) {
-          .tp-map-wrap {
-              height: 280px;
-          }
-          .tp-map-inner {
-              width: 600px;
-              height: 400px;
-              transform-origin: top left;
-              /* scale set by JS to match viewport */
-          }
-      }
-      @media (min-width: 768px) {
-          .tp-map-wrap {
-              min-height: 420px;
-          }
-      }
-      @media (max-width: 768px) {
-          .hero {
-              padding: 90px 16px 40px;
-              min-height: auto;
-          }
-          .logo-placeholder {
-              top: 5px;
-              left: 5px;
-              width: 70px;
-              height: 70px;
-          }
-          nav {
-              top: 5px;
-              right: 5px;
-          }
-          nav a {
-              margin: 0 10px;
-              font-size: 14px;
-          }
-          h1 {
-              font-size: 24px;
-          }
-          .image-placeholder img {
-              max-width: 90%;
-              max-height: 300px;
-          }
-          .cards {
-              flex-direction: column;
-          }
-          footer {
-              font-size: 12px;
-              padding: 10px;
-          }
-          .tp-map-section {
-              padding: 10px 12px 48px;
-          }
-          .tp-map-section h2 {
-              font-size: 18px;
-          }
-          .tp-map-section .tp-sub {
-              font-size: 13px;
-              margin-bottom: 16px;
-          }
-          .tp-map-wrap {
-              border-radius: 10px;
-          }
-      }
-      @media (prefers-reduced-motion: reduce) {
-          .cta-row a.button, .card {
-              transition: none;
-          }
-      }
-      .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      margin-bottom: 14px;
-      }
-      .social-links a {
-          color: var(--text-faint);
-          display: inline-flex;
-          transition: color 0.15s ease;
-      }
-      .social-links a:hover {
-          color: var(--accent);
-      }
-      .social-links svg {
-          width: 22px;
-          height: 22px;
-      }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Flight Price Alerts | dekhtehai.com</title>
+    <meta name="description" content="Get emailed the moment your flight route drops in price. Set your route and target price, checked every couple of hours — free, no spam.">
+    <meta name="keywords" content="flight deals, cheap flights, flight price alerts, travel deals, dekhtehai">
+    <meta name="author" content="dekhtehai">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://dekhtehai.com/deals.html">
+    <meta property="og:title" content="Free Flight Price Alerts | dekhtehai.com">
+    <meta property="og:description" content="Set your route and target price, get emailed the moment we find a cheap flight.">
+    <meta property="og:image" content="https://dekhtehai.com/resources/logo.png">
+    <meta property="og:url" content="https://dekhtehai.com/deals.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Free Flight Price Alerts | dekhtehai.com">
+    <meta name="twitter:description" content="Set your route and target price, get emailed the moment we find a cheap flight.">
+    <meta name="twitter:image" content="https://dekhtehai.com/resources/logo.png">
+    <link rel="icon" type="image/png" href="resources/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Free Flight Price Alerts",
+        "description": "Get emailed the moment your flight route drops in price. Set your route and target price, checked every couple of hours — free, no spam.",
+        "url": "https://dekhtehai.com/deals.html",
+        "isPartOf": { "@type": "WebSite", "name": "dekhtehai", "url": "https://dekhtehai.com/" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How often do you check prices?",
+                "acceptedAnswer": { "@type": "Answer",
+                    "text": "We check most routes every couple of hours. You're only emailed when a genuinely lower price is confirmed — not on a fixed schedule, so an empty inbox just means nothing's changed." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is dekhtehai free to use?",
+                "acceptedAnswer": { "@type": "Answer",
+                    "text": "Yes, setting up and receiving alerts is free. Some booking links in our emails are affiliate links — if you book through one we may earn a small commission at no extra cost to you, which is what keeps the alerts running." }
+            },
+            {
+                "@type": "Question",
+                "name": "How many routes can I track?",
+                "acceptedAnswer": { "@type": "Answer",
+                    "text": "Each email address can have up to 2 active routes at a time on the free tier." }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I stop or change an alert?",
+                "acceptedAnswer": { "@type": "Answer",
+                    "text": "Every alert email includes a link to manage or delete that specific alert — no account or login needed." }
+            }
+        ]
+    }
+    </script>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: #2a2a2a;
+            --text: #f2f2f0;
+            --text-dim: #b3b3b3;
+            --text-faint: #6f6f6b;
+            --accent: #FFDD00;
+            --accent-dim: #B8A100;
+            --success: #4ade80;
+            --error: #ff6b6b;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            padding-top: 50px;
+            padding-bottom: 60px;
+        }
+        h1, .eyebrow, .step-title {
+            font-family: 'Sora', Arial, sans-serif;
+        }
+        .logo-placeholder {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px;
+            height: 100px;
+        }
+        .logo-placeholder img {
+            max-width: 100%;
+            height: auto;
+        }
+        nav {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        nav a {
+            color: var(--text);
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+            color: var(--accent);
+        }
+        nav a[aria-current="page"] {
+            color: var(--accent);
+        }
+        .breadcrumb {
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin: 0 0 14px;
+        }
+        .breadcrumb a {
+            color: var(--text-faint);
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+        h1 {
+            font-size: 30px;
+            font-weight: 700;
+            margin: 0 0 12px;
+            letter-spacing: -0.01em;
+        }
+        p.subtitle {
+            color: var(--text-dim);
+            font-size: 15px;
+            max-width: 440px;
+            margin: 0 auto 36px;
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+        .how-it-works {
+            max-width: 620px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+        .steps {
+            display: flex;
+            gap: 18px;
+            text-align: left;
+        }
+        .step {
+            flex: 1;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 16px 18px;
+        }
+        .step-number {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+            text-align: center;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #000;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 4px;
+        }
+        .step p {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin: 0;
+            line-height: 1.5;
+        }
+        .form-card {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 28px 24px 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        #dealForm {
+            width: 100%;
+            margin: 0 auto;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+            margin-top: 18px;
+        }
+        label:first-of-type { margin-top: 0; }
+        input, select {
+            width: 100%;
+            min-width: 0;
+            padding: 11px 12px;
+            background: #000;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+        input::placeholder { color: #666; }
+        .row {
+            display: flex;
+            gap: 12px;
+            min-width: 0;
+        }
+        .row > div { flex: 1; min-width: 0; }
+        .row > .currency-field { flex: 0 0 90px; min-width: 0; }
+        .row > .price-field { flex: 1; min-width: 0; }
+        .combobox {
+            position: relative;
+            min-width: 0;
+        }
+        .combobox input.selected-valid {
+            border-color: var(--success);
+        }
+        .combobox-results {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: #111;
+            border: 1px solid #444;
+            border-radius: 6px;
+            max-height: 220px;
+            overflow-y: auto;
+            z-index: 20;
+            display: none;
+            text-align: left;
+        }
+        .combobox-results.open { display: block; }
+        .combobox-option {
+            padding: 9px 12px;
+            font-size: 13px;
+            cursor: pointer;
+            border-bottom: 1px solid #222;
+        }
+        .combobox-option:last-child { border-bottom: none; }
+        .combobox-option:hover,
+        .combobox-option.active {
+            background: #222;
+        }
+        .combobox-option .code {
+            color: white;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+        .combobox-option .place {
+            color: #999;
+        }
+        .combobox-empty {
+            padding: 9px 12px;
+            font-size: 13px;
+            color: #777;
+        }
+        button {
+            width: 100%;
+            margin-top: 26px;
+            padding: 13px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            transition: background 0.15s ease;
+        }
+        button:hover:not(:disabled) {
+            background: #fff;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .trust-line {
+            margin: 10px 0 0;
+            font-size: 12px;
+            color: var(--text-faint);
+            text-align: center;
+        }
+        #formMessage {
+            margin-top: 14px;
+            font-size: 13px;
+            min-height: 18px;
+        }
+        #formMessage.error { color: var(--error); }
+        #formMessage.success { color: var(--success); }
+        .hint {
+            font-size: 12px;
+            color: #777;
+            margin: 4px 0 0;
+        }
+        #cheapHint {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 12px;
+            background: rgba(255, 221, 0, 0.06);
+            border: 1px solid rgba(255, 221, 0, 0.22);
+            border-radius: 6px;
+            color: var(--text-dim);
+            font-size: 12.5px;
+            line-height: 1.45;
+        }
+        #cheapHint.visible { display: block; }
+        #cheapHint strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        #cheapHint.muted {
+            background: transparent;
+            border-color: var(--border);
+            color: var(--text-faint);
+        }
+        .deal-info {
+            max-width: 460px;
+            margin: 32px auto 0;
+            padding: 16px 20px;
+            box-sizing: border-box;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        .deal-info p {
+            color: #888;
+            font-size: 12px;
+            line-height: 1.7;
+            margin: 0;
+        }
+        .deal-info strong {
+            color: #bbb;
+        }
+        input[type="date"] {
+            color-scheme: dark;
+        }
+        #dateFieldsRow {
+            display: none;
+        }
+        #dateFieldsRow.visible {
+            display: flex;
+        }
+        #dateFieldsRow .date-field {
+            display: none;
+            flex: 1;
+            min-width: 0;
+        }
+        #dateFieldsRow .date-field.visible {
+            display: block;
+        }
+        #dateModeHint {
+            margin-top: 4px;
+        }
+        .faq-section {
+            max-width: 460px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+            text-align: left;
+        }
+        .faq-section h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 14px;
+            text-align: center;
+        }
+        .faq details {
+            border-bottom: 1px solid var(--border);
+            padding: 13px 0;
+        }
+        .faq details:first-of-type {
+            border-top: 1px solid var(--border);
+        }
+        .faq summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+            font-size: 14.5px;
+            list-style: none;
+        }
+        .faq summary::-webkit-details-marker {
+            display: none;
+        }
+        .faq summary::before {
+            content: "+";
+            color: var(--accent);
+            display: inline-block;
+            width: 18px;
+            font-weight: bold;
+        }
+        .faq details[open] summary::before {
+            content: "–";
+        }
+        .faq p {
+            margin: 8px 0 0 18px;
+            color: #ccc;
+            font-size: 13.5px;
+            line-height: 1.6;
+        }
+        .live-deals-section {
+            max-width: 720px;
+            margin: 48px auto 0;
+            padding: 0 16px 12px;
+            text-align: left;
+        }
+        .live-deals-section h2 {
+            font-family: 'Sora', Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 4px;
+            text-align: center;
+        }
+        .live-deals-intro {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 13.5px;
+            margin: 0 0 6px;
+            line-height: 1.45;
+        }
+        .live-deals-status {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-faint);
+            margin: 0 0 16px;
+        }
+        .deals-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        .deal-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 12px;
+            width: 200px;
+            max-width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.15s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .deal-card:hover {
+            border-color: var(--accent);
+        }
+        .card-route {
+            font-family: 'Sora', Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 2px;
+            letter-spacing: -0.01em;
+        }
+        .card-price {
+            font-family: 'Sora', Arial, sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0 0 4px;
+            line-height: 1.15;
+        }
+        .card-dates {
+            font-size: 11px;
+            color: var(--text-dim);
+            margin: 0 0 1px;
+            line-height: 1.35;
+        }
+        .card-spotted {
+            font-size: 10.5px;
+            color: var(--text-faint);
+            margin: 0 0 8px;
+        }
+        .card-actions {
+            margin-top: auto;
+        }
+        .card-actions a {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 7px 10px;
+            border-radius: 5px;
+            font-size: 11.5px;
+            font-weight: bold;
+            text-decoration: none;
+            background: var(--accent);
+            color: #000;
+            transition: background 0.15s ease;
+            box-sizing: border-box;
+        }
+        .card-actions a:hover {
+            background: #fff;
+        }
+        .live-empty, .live-error, .live-loading {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 13.5px;
+            padding: 8px 0 4px;
+        }
+        .live-error { color: var(--error); }
+        footer {
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            margin-top: 44px;
+            padding-bottom: 24px;
+            box-sizing: border-box;
+        }
+        footer .footer-note {
+            max-width: 460px;
+            margin: 0 auto 14px;
+            color: var(--text-faint);
+            font-size: 12.5px;
+            padding: 0 24px;
+        }
+        footer a.coffee-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 13px;
+        }
+        footer a.coffee-link:hover {
+            text-decoration: underline;
+        }
+        footer p.coffee-line {
+            margin-bottom: 12px;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 14px;
+        }
+        .social-links a {
+            color: var(--text-faint);
+            display: inline-flex;
+            width: 22px;
+            height: 22px;
+            transition: color 0.15s ease;
+        }
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        .social-links svg {
+            width: 22px !important;
+            height: 22px !important;
+            display: block;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding-top: 90px;
+            }
+            .logo-placeholder {
+                top: 5px;
+                left: 5px;
+                width: 70px;
+                height: 70px;
+            }
+            nav {
+                top: 5px;
+                right: 5px;
+            }
+            nav a {
+                margin: 0 10px;
+                font-size: 14px;
+            }
+            .steps {
+                flex-direction: column;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            footer {
+                font-size: 12px;
+                padding: 10px;
+            }
+            .form-card {
+                padding: 20px 16px 18px;
+            }
+            .row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .row > .currency-field,
+            .row > .price-field,
+            .row > div,
+            #dateFieldsRow .date-field {
+                flex: 1 1 auto;
+                width: 100%;
+            }
+            #dateFieldsRow.visible {
+                flex-direction: column;
+            }
+            label {
+                margin-top: 14px;
+                margin-bottom: 4px;
+            }
+            .hint {
+                margin: 3px 0 0;
+            }
+            .live-deals-section {
+                margin-top: 36px;
+                padding: 0 12px 8px;
+            }
+            .deals-grid {
+                gap: 10px;
+            }
+            .deal-card {
+                width: 100%;
+                max-width: 280px;
+                padding: 10px 12px;
+            }
+            .card-price { font-size: 17px; }
+            .card-route { font-size: 13px; }
+            .card-dates { font-size: 11px; }
+            .card-spotted { font-size: 10.5px; margin-bottom: 8px; }
+            .card-actions a {
+                padding: 7px 10px;
+                font-size: 12px;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            button, .deal-card, .card-actions a {
+                transition: none;
+            }
+        }
+    </style>
 </head>
 <body>
 <div class="logo-placeholder">
-  <a href="index.html">
-    <img src="resources/logo.png" alt="dekhtehai logo">
-  </a>
+    <a href="index.html">
+        <img src="resources/logo.png" alt="dekhtehai logo">
+    </a>
 </div>
 <nav>
-  <a href="index.html" aria-current="page">Home</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="blogs.html">Blogs</a>
-  <a href="deals.html">Deals</a>
-  <a href="book-trip.html">Book</a>
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="blogs.html">Blogs</a>
+    <a href="deals.html" aria-current="page">Deals</a>
+    <a href="book-trip.html">Book</a>
 </nav>
-<div class="hero">
-  <div class="centered-content">
-    <div class="text">
-      <h1>See the World. Then Go, For Less.</h1>
-      <p class="intro">Explore iconic landmarks, vibrant streets, and hidden gems through our photos — then set a free price alert on our <a href="deals.html" style="color: var(--accent);">Deals page</a> and we'll email you the moment flights to your next destination drop.</p>
+<p class="breadcrumb"><a href="index.html">Home</a> / Deals</p>
+<h1>Free Flight Price Alerts</h1>
+<p class="subtitle">Tell us your route and, if you like, the price you're waiting for. We'll email you the moment we find a fare that matches.</p>
+<div class="how-it-works">
+    <div class="steps">
+        <div class="step">
+            <span class="step-number">1</span>
+            <p class="step-title">Set your route</p>
+            <p>Pick where you're flying from and to, plus a target price if you have one in mind.</p>
+        </div>
+        <div class="step">
+            <span class="step-number">2</span>
+            <p class="step-title">We watch it for you</p>
+            <p>Your route is checked every couple of hours — no need to keep a tab open.</p>
+        </div>
+        <div class="step">
+            <span class="step-number">3</span>
+            <p class="step-title">Get emailed a drop</p>
+            <p>We only email when a genuinely lower price is confirmed. Empty inbox, nothing's changed.</p>
+        </div>
     </div>
-    <div class="image-placeholder">
-      <img src="resources/Home.jpeg" alt="Travel image of a global landmark - dekhtehai.com home" fetchpriority="high">
-    </div>
-    <div class="cta-row">
-      <a class="button" href="deals.html">Get free flight alerts →</a>
-    </div>
-  </div>
 </div>
-
-<!-- Cheap flights map: London origin, under £40 — correct size for desktop & mobile -->
-<section class="tp-map-section" aria-labelledby="tpMapHeading">
-  <h2 id="tpMapHeading">Cheap flights from London</h2>
-  <p class="tp-sub">Pick a pin and book your next escape.</p>
-  <div class="tp-map-wrap" id="tpMapWrap">
-    <div class="tp-map-inner" id="tpMapInner"></div>
-  </div>
+<div class="form-card">
+    <form id="dealForm">
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="you@example.com" required>
+        <div class="row">
+            <div class="combobox">
+                <label for="originInput">From</label>
+                <input type="text" id="originInput" placeholder="Search city or airport" autocomplete="off" required>
+                <input type="hidden" id="originCode">
+                <div class="combobox-results" id="originResults"></div>
+            </div>
+            <div class="combobox">
+                <label for="destinationInput">To</label>
+                <input type="text" id="destinationInput" placeholder="Search city or airport" autocomplete="off" required>
+                <input type="hidden" id="destinationCode">
+                <div class="combobox-results" id="destinationResults"></div>
+            </div>
+        </div>
+        <p class="hint">Type a city or airport, then pick from the list. Big cities (London, NYC, Tokyo) offer an "All airports" option covering all of them.</p>
+        <div class="row">
+            <div class="currency-field">
+                <label for="currency">Currency</label>
+                <select id="currency">
+                    <option value="GBP" selected>GBP</option>
+                    <option value="EUR">EUR</option>
+                    <option value="INR">INR</option>
+                    <option value="USD">USD</option>
+                    <option value="AUD">AUD</option>
+                    <option value="CAD">CAD</option>
+                </select>
+            </div>
+            <div class="price-field">
+                <label for="minPrice">Alert below (optional)</label>
+                <input type="number" id="minPrice" placeholder="e.g. 250" min="1" step="1">
+            </div>
+        </div>
+        <p class="hint">Leave blank to get emailed about any drop, in your chosen currency.</p>
+        <p id="cheapHint" aria-live="polite"></p>
+        <label for="dateMode">Travel window</label>
+        <select id="dateMode">
+            <option value="anytime" selected>Anytime (next 6 months)</option>
+            <option value="specific">Specific dates</option>
+        </select>
+        <p class="hint" id="dateModeHint">We'll search any departure dates in the next 6 months.</p>
+        <div class="row" id="dateFieldsRow">
+            <div class="date-field" id="departField">
+                <label for="departDate">Depart date</label>
+                <input type="date" id="departDate">
+            </div>
+            <div class="date-field" id="returnField">
+                <label for="returnDate">Return date</label>
+                <input type="date" id="returnDate">
+            </div>
+        </div>
+        <button type="submit" id="submitBtn">Get price alerts</button>
+        <p class="trust-line">Free forever · No spam · Unsubscribe anytime</p>
+        <div id="formMessage"></div>
+    </form>
+</div>
+<div class="deal-info">
+    <p>We check your route every couple of hours and only email you when a genuinely lower price is confirmed — not a daily digest, so an empty inbox just means nothing's changed. Choose <strong>Anytime</strong> or specific depart/return dates. Covers <strong>round-trip, direct flights</strong> for stays of roughly <strong>2 days–4 weeks</strong>; one-way trips and flights with stopovers aren't covered yet, and hotel price alerts are on the way. Some links are affiliate links — booking through them may earn us a small commission at no extra cost to you. Each email address is currently limited to <strong>2 active routes</strong>.</p>
+</div>
+<div class="faq-section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+        <details>
+            <summary>How often do you check prices?</summary>
+            <p>We check most routes every couple of hours. You're only emailed when a genuinely lower price is confirmed — not on a fixed schedule, so an empty inbox just means nothing's changed.</p>
+        </details>
+        <details>
+            <summary>Is dekhtehai free to use?</summary>
+            <p>Yes, setting up and receiving alerts is free. Some booking links in our emails are affiliate links — if you book through one we may earn a small commission at no extra cost to you, which is what keeps the alerts running.</p>
+        </details>
+        <details>
+            <summary>How many routes can I track?</summary>
+            <p>Each email address can have up to 2 active routes at a time on the free tier.</p>
+        </details>
+        <details>
+            <summary>How do I stop or change an alert?</summary>
+            <p>Every alert email includes a link to manage or delete that specific alert — no account or login needed.</p>
+        </details>
+    </div>
+</div>
+<section class="live-deals-section" aria-labelledby="liveDealsHeading">
+    <h2 id="liveDealsHeading">Recently spotted deals</h2>
+    <p class="live-deals-intro">Real finds from our tracker. Set an alert for any of these routes and we’ll email you if the price drops further.</p>
+    <p class="live-deals-status" id="liveStatus">Loading recent deals…</p>
+    <div class="deals-grid" id="dealsGrid" aria-live="polite"></div>
+    <div class="live-loading" id="liveLoading">Fetching the latest finds…</div>
+    <div class="live-empty" id="liveEmpty" style="display:none;">
+        No recent deals in the last couple of weeks. Set an alert above and check back soon.
+    </div>
+    <div class="live-error" id="liveError" style="display:none;">
+        Couldn’t load deals right now. Please refresh the page or try again shortly.
+    </div>
 </section>
-
-<div class="explore">
-  <h2>Explore dekhtehai</h2>
-  <div class="cards">
-    <a class="card" href="gallery.html">
-      <p class="card-title">Gallery</p>
-      <p>Travel photography from landmarks and hidden gems around the world.</p>
-      <span class="arrow">View gallery →</span>
-    </a>
-    <a class="card" href="blogs.html">
-      <p class="card-title">Blogs</p>
-      <p>Practical travel tips, including how to actually find cheap flights.</p>
-      <span class="arrow">Read blogs →</span>
-    </a>
-    <a class="card" href="deals.html">
-      <p class="card-title">Deals</p>
-      <p>Free price alerts — set your route, we email you when it drops.</p>
-      <span class="arrow">Set an alert →</span>
-    </a>
-  </div>
-</div>
 <footer>
- <p class="social-links">
-    <a href="https://www.instagram.com/dekhte_hai_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-    </a>
-    <a href="https://www.youtube.com/@dekhte_hai_" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.6 9.4.6 9.4.6s7.6 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.5v-7l6.3 3.5-6.3 3.5Z"/></svg>
-    </a>
-</p>
+    <p class="social-links">
+        <a href="https://www.instagram.com/dekhte_hai_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@dekhte_hai_" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.6 9.4.6 9.4.6s7.6 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.5v-7l6.3 3.5-6.3 3.5Z"/></svg>
+        </a>
+    </p>
+    <p class="footer-note">dekhtehai.com may earn a small commission from some flight booking links, at no extra cost to you.</p>
+    <p class="coffee-line">
+        <a href="https://www.buymeacoffee.com/dekhtehai"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="coffee-link">
+            <img src="resources/bmc-logo-png.png"
+                 alt="Buy me a coffee"
+                 style="height: 24px; width: auto; vertical-align: middle;">
+        </a>
+    </p>
     <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
 </footer>
 <script>
-  /* Travelpayouts map widget.
-     Renders at a fixed 600x400 (reliable for TP map tiles on iOS),
-     then scales down on narrow screens so it fits without going blank. */
-  (function () {
-    var wrap = document.getElementById("tpMapWrap");
-    var inner = document.getElementById("tpMapInner");
-    if (!wrap || !inner) return;
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbypGnLkcWrALUiMyl5IN0F-nzK_sogIebP01UAvNeBPZNyTeoIv5TxKv5yNc7sEedL8/exec";
+    const CURRENCY_SYMBOLS = {
+        GBP: "£", EUR: "€", USD: "$", INR: "₹", AUD: "A$", CAD: "C$"
+    };
 
-    var RENDER_W = 600;
-    var RENDER_H = 400;
+    let AIRPORTS = [];
 
-    var src =
-      "https://tpwgt.com/content?" +
-      "currency=gbp" +
-      "&trs=559440" +
-      "&shmarker=760976" +
-      "&lat=48.5" +
-      "&lng=10" +
-      "&powered_by=true" +
-      "&search_host=www.aviasales.com%2Fsearch" +
-      "&locale=en" +
-      "&origin=LON" +
-      "&value_min=0" +
-      "&value_max=40" +
-      "&round_trip=true" +
-      "&only_direct=false" +
-      "&radius=1" +
-      "&draggable=true" +
-      "&disable_zoom=false" +
-      "&show_logo=false" +
-      "&scrollwheel=false" +
-      "&primary=%233FABDB" +
-      "&secondary=%233FABDB" +
-      "&light=%23ffffff" +
-      "&width=" + RENDER_W +
-      "&height=" + RENDER_H +
-      "&zoom=3" +
-      "&promo_id=4054" +
-      "&campaign_id=100";
+    Promise.all([
+        fetch("airports.json").then(r => {
+            if (!r.ok) throw new Error("airports.json " + r.status);
+            return r.json();
+        }),
+        fetch("metro_codes.json").then(r => r.ok ? r.json() : []).catch(() => [])
+    ])
+    .then(([airports, metros]) => {
+        AIRPORTS = (Array.isArray(metros) ? metros : [])
+            .concat(Array.isArray(airports) ? airports : []);
+        console.log("Airports loaded:", AIRPORTS.length);
+    })
+    .catch((err) => {
+        console.error(err);
+        document.getElementById("formMessage").className = "error";
+        document.getElementById("formMessage").textContent =
+            "Couldn't load the airport list. Please refresh the page.";
+    });
 
-    var s = document.createElement("script");
-    s.async = true;
-    s.charset = "utf-8";
-    s.src = src;
-    inner.appendChild(s);
-
-    function fit() {
-      var avail = wrap.clientWidth || window.innerWidth || RENDER_W;
-      if (avail < RENDER_W) {
-        var scale = avail / RENDER_W;
-        inner.style.transform = "scale(" + scale + ")";
-        wrap.style.height = Math.round(RENDER_H * scale) + "px";
-      } else {
-        inner.style.transform = "";
-        inner.style.width = "100%";
-        wrap.style.height = "";
-      }
+    function searchAirports(query) {
+        const q = query.trim().toLowerCase();
+        if (q.length < 2) return [];
+        const exactCode = [];
+        const exactCity = [];
+        const cityStarts = [];
+        const nameStarts = [];
+        const contains = [];
+        for (const a of AIRPORTS) {
+            if (!a || !a.code) continue;
+            const code = String(a.code).toLowerCase();
+            const city = String(a.city || "").toLowerCase();
+            const name = String(a.name || "").toLowerCase();
+            const isMetro = a.name === "All airports";
+            if (code === q) {
+                exactCode.push(a);
+            } else if (city === q) {
+                exactCity.push(a);
+            } else if (city.startsWith(q)) {
+                cityStarts.push(a);
+            } else if (name.startsWith(q) || (isMetro && city.startsWith(q))) {
+                nameStarts.push(a);
+            } else if (city.includes(q) || name.includes(q)) {
+                contains.push(a);
+            }
+        }
+        const rank = (list) =>
+            list.sort((a, b) => {
+                const am = a.name === "All airports" ? 0 : 1;
+                const bm = b.name === "All airports" ? 0 : 1;
+                if (am !== bm) return am - bm;
+                return String(a.city || "").localeCompare(String(b.city || ""));
+            });
+        return []
+            .concat(rank(exactCode))
+            .concat(rank(exactCity))
+            .concat(rank(cityStarts))
+            .concat(rank(nameStarts))
+            .concat(rank(contains))
+            .slice(0, 12);
     }
-    fit();
-    window.addEventListener("resize", fit);
-    // Re-fit after widget paints
-    setTimeout(fit, 800);
-    setTimeout(fit, 2000);
-  })();
+
+    function setupCombobox(inputId, hiddenId, resultsId) {
+        const input = document.getElementById(inputId);
+        const hidden = document.getElementById(hiddenId);
+        const results = document.getElementById(resultsId);
+        let activeIndex = -1;
+        let currentOptions = [];
+        function clearSelection() {
+            hidden.value = "";
+            input.classList.remove("selected-valid");
+            scheduleCheapCheck();
+        }
+        function render(options) {
+            currentOptions = options;
+            activeIndex = -1;
+            if (options.length === 0) {
+                results.innerHTML = '<div class="combobox-empty">No matches</div>';
+                results.classList.add("open");
+                return;
+            }
+            results.innerHTML = options.map((a, i) => `
+                <div class="combobox-option" data-index="${i}">
+                    <span class="code">${a.code}</span>
+                    <span class="place">${a.city ? a.city + ", " : ""}${a.country} — ${a.name}</span>
+                </div>
+            `).join("");
+            results.classList.add("open");
+            results.querySelectorAll(".combobox-option").forEach(el => {
+                el.addEventListener("mousedown", (e) => {
+                    e.preventDefault();
+                    selectOption(options[parseInt(el.dataset.index, 10)]);
+                });
+            });
+        }
+        function selectOption(airport) {
+            hidden.value = airport.code;
+            const label = airport.name === "All airports"
+                ? `${airport.city}, ${airport.country} — All airports (${airport.code})`
+                : `${airport.city ? airport.city + ", " : ""}${airport.country} (${airport.code})`;
+            input.value = label;
+            input.classList.add("selected-valid");
+            results.classList.remove("open");
+            scheduleCheapCheck();
+        }
+        input.addEventListener("input", () => {
+            clearSelection();
+            render(searchAirports(input.value));
+        });
+        input.addEventListener("focus", () => {
+            if (input.value.trim().length >= 2 && !hidden.value) {
+                render(searchAirports(input.value));
+            }
+        });
+        input.addEventListener("blur", () => {
+            setTimeout(() => results.classList.remove("open"), 100);
+        });
+        input.addEventListener("keydown", (e) => {
+            if (!results.classList.contains("open") || currentOptions.length === 0) return;
+            const optionEls = results.querySelectorAll(".combobox-option");
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                activeIndex = Math.min(activeIndex + 1, currentOptions.length - 1);
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                activeIndex = Math.max(activeIndex - 1, 0);
+            } else if (e.key === "Enter") {
+                if (activeIndex >= 0) {
+                    e.preventDefault();
+                    selectOption(currentOptions[activeIndex]);
+                }
+                return;
+            } else {
+                return;
+            }
+            optionEls.forEach((el, i) => el.classList.toggle("active", i === activeIndex));
+        });
+    }
+    setupCombobox("originInput", "originCode", "originResults");
+    setupCombobox("destinationInput", "destinationCode", "destinationResults");
+
+    (function initDateFields() {
+        const todayStr = new Date().toISOString().split("T")[0];
+        const departInput = document.getElementById("departDate");
+        const returnInput = document.getElementById("returnDate");
+        const dateMode = document.getElementById("dateMode");
+        const dateFieldsRow = document.getElementById("dateFieldsRow");
+        const departField = document.getElementById("departField");
+        const returnField = document.getElementById("returnField");
+        const dateModeHint = document.getElementById("dateModeHint");
+        departInput.min = todayStr;
+        returnInput.min = todayStr;
+        departInput.addEventListener("change", () => {
+            if (departInput.value) {
+                returnInput.min = departInput.value;
+            } else {
+                returnInput.min = todayStr;
+            }
+        });
+        const HINTS = {
+            anytime: "We'll search any departure dates in the next 6 months.",
+            specific: "Only fares for these exact depart and return dates will trigger an alert."
+        };
+        function applyDateMode() {
+            const mode = dateMode.value;
+            dateModeHint.textContent = HINTS[mode] || HINTS.anytime;
+            if (mode === "anytime") {
+                departInput.value = "";
+                returnInput.value = "";
+                returnInput.min = todayStr;
+                dateFieldsRow.classList.remove("visible");
+                departField.classList.remove("visible");
+                returnField.classList.remove("visible");
+                departInput.required = false;
+                returnInput.required = false;
+            } else {
+                dateFieldsRow.classList.add("visible");
+                departField.classList.add("visible");
+                returnField.classList.add("visible");
+                departInput.required = true;
+                returnInput.required = true;
+            }
+        }
+        dateMode.addEventListener("change", applyDateMode);
+        applyDateMode();
+    })();
+
+    const form = document.getElementById("dealForm");
+    const messageEl = document.getElementById("formMessage");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function showSuccess(message) {
+        messageEl.className = "success";
+        messageEl.textContent = message;
+        form.reset();
+        document.getElementById("originCode").value = "";
+        document.getElementById("destinationCode").value = "";
+        document.getElementById("originInput").classList.remove("selected-valid");
+        document.getElementById("destinationInput").classList.remove("selected-valid");
+        document.getElementById("returnDate").min = new Date().toISOString().split("T")[0];
+        const dateModeEl = document.getElementById("dateMode");
+        if (dateModeEl) {
+            dateModeEl.value = "anytime";
+            dateModeEl.dispatchEvent(new Event("change"));
+        }
+        hideCheapHint();
+        window.scrollTo({ left: 0, behavior: "auto" });
+        messageEl.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    }
+
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const originCode = document.getElementById("originCode").value;
+        const destinationCode = document.getElementById("destinationCode").value;
+        if (!originCode || !destinationCode) {
+            messageEl.className = "error";
+            messageEl.textContent = "Please pick an airport from the dropdown for both From and To.";
+            return;
+        }
+        if (originCode === destinationCode) {
+            messageEl.className = "error";
+            messageEl.textContent = "Origin and destination can't be the same.";
+            return;
+        }
+        const dateModeValue = document.getElementById("dateMode").value;
+        let departDateValue = document.getElementById("departDate").value;
+        let returnDateValue = document.getElementById("returnDate").value;
+        if (dateModeValue === "anytime") {
+            departDateValue = "";
+            returnDateValue = "";
+        } else {
+            if (!departDateValue || !returnDateValue) {
+                messageEl.className = "error";
+                messageEl.textContent = "Please pick both depart and return dates.";
+                return;
+            }
+            if (returnDateValue < departDateValue) {
+                messageEl.className = "error";
+                messageEl.textContent = "Return date can't be before depart date.";
+                return;
+            }
+        }
+        const minPriceValue = document.getElementById("minPrice").value.trim();
+        const payload = {
+            email: document.getElementById("email").value.trim(),
+            origin: originCode,
+            destination: destinationCode,
+            currency: document.getElementById("currency").value,
+            minPrice: minPriceValue === "" ? null : Number(minPriceValue),
+            departDate: departDateValue === "" ? null : departDateValue,
+            returnDate: returnDateValue === "" ? null : returnDateValue,
+            searchMode: dateModeValue === "specific" ? "specific" : "anytime"
+        };
+        if (submitBtn.dataset.busy === "1") return;
+        submitBtn.dataset.busy = "1";
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting...";
+        messageEl.className = "";
+        messageEl.textContent = "";
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(payload)
+            });
+            let result = null;
+            try {
+                const text = await response.text();
+                result = JSON.parse(text);
+            } catch (parseErr) {
+                result = null;
+            }
+            if (result && result.status === "success") {
+                showSuccess(result.message);
+            } else if (result && result.status === "error") {
+                messageEl.className = "error";
+                messageEl.textContent = result.message || "Something went wrong. Please try again.";
+            } else if (response.ok) {
+                showSuccess(
+                    "Request sent. Check your email for confirmation. " +
+                    "If you already have 2 routes on this email, the new one was not added — " +
+                    "use the manage link in an earlier email to remove one first."
+                );
+            } else {
+                messageEl.className = "error";
+                messageEl.textContent = "Something went wrong. Please try again.";
+            }
+        } catch (err) {
+            messageEl.className = "error";
+            messageEl.textContent = "Network error — please check your connection and try again.";
+        } finally {
+            submitBtn.dataset.busy = "0";
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Get price alerts";
+        }
+    });
+
+    (function prefillFromQuery() {
+        const params = new URLSearchParams(window.location.search);
+        const fromCode = (params.get("from") || "").trim().toUpperCase();
+        const toCode   = (params.get("to") || "").trim().toUpperCase();
+        if (!fromCode && !toCode) return;
+        const tryPrefill = () => {
+            if (!AIRPORTS || AIRPORTS.length === 0) {
+                setTimeout(tryPrefill, 200);
+                return;
+            }
+            function findAndSet(code, inputId, hiddenId) {
+                if (!code) return;
+                const match = AIRPORTS.find(a => String(a.code).toUpperCase() === code);
+                if (!match) return;
+                const input = document.getElementById(inputId);
+                const hidden = document.getElementById(hiddenId);
+                hidden.value = match.code;
+                const label = match.name === "All airports"
+                    ? `${match.city}, ${match.country} — All airports (${match.code})`
+                    : `${match.city ? match.city + ", " : ""}${match.country} (${match.code})`;
+                input.value = label;
+                input.classList.add("selected-valid");
+            }
+            findAndSet(fromCode, "originInput", "originCode");
+            findAndSet(toCode, "destinationInput", "destinationCode");
+            scheduleCheapCheck();
+        };
+        tryPrefill();
+    })();
+
+    function formatPrice(value, currency) {
+        const num = Number(value);
+        if (!isFinite(num)) return String(value);
+        const symbol = CURRENCY_SYMBOLS[currency] || (currency + " ");
+        if (num === Math.floor(num)) return symbol + num.toLocaleString("en-GB");
+        return symbol + num.toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function formatDate(ymd) {
+        if (!ymd) return null;
+        try {
+            const d = new Date(ymd + "T12:00:00");
+            if (isNaN(d.getTime())) return ymd;
+            return d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+        } catch (e) {
+            return ymd;
+        }
+    }
+    function timeAgo(iso) {
+        try {
+            const then = new Date(iso);
+            const now = new Date();
+            const sec = Math.floor((now - then) / 1000);
+            if (sec < 60) return "just now";
+            const min = Math.floor(sec / 60);
+            if (min < 60) return min + " min ago";
+            const hr = Math.floor(min / 60);
+            if (hr < 24) return hr + " hour" + (hr === 1 ? "" : "s") + " ago";
+            const days = Math.floor(hr / 24);
+            if (days === 1) return "yesterday";
+            if (days < 14) return days + " days ago";
+            return then.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+        } catch (e) {
+            return "";
+        }
+    }
+
+    // ---------- Is this cheap? (form only — does not add live cards) ----------
+    const cheapHintEl = document.getElementById("cheapHint");
+    let cheapTimer = null;
+    let cheapRequestId = 0;
+
+    function hideCheapHint() {
+        cheapHintEl.className = "";
+        cheapHintEl.textContent = "";
+        cheapHintEl.style.display = "none";
+    }
+
+    function showCheapHint(html, muted) {
+        cheapHintEl.className = muted ? "muted visible" : "visible";
+        cheapHintEl.innerHTML = html;
+        cheapHintEl.style.display = "block";
+    }
+
+    function scheduleCheapCheck() {
+        if (cheapTimer) clearTimeout(cheapTimer);
+        cheapTimer = setTimeout(loadCheapHint, 250);
+    }
+
+    document.getElementById("currency").addEventListener("change", scheduleCheapCheck);
+
+    async function loadCheapHint() {
+        const origin = document.getElementById("originCode").value;
+        const destination = document.getElementById("destinationCode").value;
+        const currency = document.getElementById("currency").value;
+
+        if (!origin || !destination || origin === destination) {
+            hideCheapHint();
+            return;
+        }
+
+        const requestId = ++cheapRequestId;
+        showCheapHint("Checking recent confirmed fares for this route…", true);
+
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({
+                    action: "getRouteBaseline",
+                    origin: origin,
+                    destination: destination,
+                    currency: currency
+                })
+            });
+            const text = await response.text();
+            if (requestId !== cheapRequestId) return;
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                hideCheapHint();
+                return;
+            }
+            if (!data || data.status !== "success") {
+                hideCheapHint();
+                return;
+            }
+            if (!data.found) {
+                showCheapHint(
+                    "No confirmed fare for this route yet. Set an alert and we’ll start watching it.",
+                    true
+                );
+                return;
+            }
+            const priceText = formatPrice(data.price, data.currency);
+            const depart = formatDate(data.departDate);
+            const spotted = data.spottedAt ? timeAgo(data.spottedAt) : "";
+            let extra = "";
+            if (depart) extra += " · outbound " + depart;
+            if (spotted) extra += " · spotted " + spotted;
+            const currencyNote = data.matchedCurrency === false
+                ? " <span style='color:#777'>(shown in " + data.currency + ")</span>"
+                : "";
+            showCheapHint(
+                "Lowest we’ve confirmed for " + origin + " → " + destination +
+                ": <strong>" + priceText + "</strong>" + extra + currencyNote +
+                ". Use that as a guide for your alert.",
+                false
+            );
+        } catch (err) {
+            if (requestId !== cheapRequestId) return;
+            hideCheapHint();
+        }
+    }
+
+    // ---------- Live deals (last 14 days only, capped, deduped) ----------
+    function buildDealCard(deal) {
+        const priceText = formatPrice(deal.price, deal.currency);
+        const depart = formatDate(deal.departDate);
+        const ret = formatDate(deal.returnDate);
+        let datesHtml = "";
+        if (depart && ret) {
+            datesHtml = `<p class="card-dates">Outbound ${depart}<br>Return ${ret}</p>`;
+        } else if (depart) {
+            datesHtml = `<p class="card-dates">Depart ${depart}</p>`;
+        }
+        const spotted = timeAgo(deal.spottedAt);
+        const alertUrl = `?from=${encodeURIComponent(deal.origin)}&to=${encodeURIComponent(deal.destination)}#dealForm`;
+        return `
+            <article class="deal-card">
+                <p class="card-route">${deal.origin} → ${deal.destination}</p>
+                <p class="card-price">${priceText}</p>
+                ${datesHtml}
+                <p class="card-spotted">Spotted ${spotted}</p>
+                <div class="card-actions">
+                    <a href="${alertUrl}">Set alert for this route</a>
+                </div>
+            </article>
+        `;
+    }
+    async function loadLiveDeals() {
+        const grid = document.getElementById("dealsGrid");
+        const loading = document.getElementById("liveLoading");
+        const empty = document.getElementById("liveEmpty");
+        const error = document.getElementById("liveError");
+        const status = document.getElementById("liveStatus");
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ action: "listPublicDeals", limit: 40, days: 14 })
+            });
+            const text = await response.text();
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (parseErr) {
+                throw new Error("Invalid response");
+            }
+            loading.style.display = "none";
+            if (!data || data.status !== "success" || !Array.isArray(data.deals)) {
+                error.style.display = "block";
+                status.textContent = "";
+                return;
+            }
+            if (data.deals.length === 0) {
+                empty.style.display = "block";
+                status.textContent = "No recent finds in the last 14 days.";
+                return;
+            }
+            status.textContent = data.deals.length + " recent find" + (data.deals.length === 1 ? "" : "s") + " · last 14 days";
+            grid.innerHTML = data.deals.map(buildDealCard).join("");
+        } catch (err) {
+            loading.style.display = "none";
+            error.style.display = "block";
+            status.textContent = "";
+            console.error(err);
+        }
+    }
+    loadLiveDeals();
 </script>
 </body>
 </html>
