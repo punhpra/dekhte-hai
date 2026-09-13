@@ -224,24 +224,18 @@
           line-height: 1.5;
       }
       .tp-map-wrap {
-          width: 100%;
-          max-width: 100%;
           border-radius: 12px;
           overflow: hidden;
           border: 1px solid var(--border);
           background: #1a1a1a;
-          position: relative;
+          display: inline-block;
+          max-width: 100%;
       }
-      /* The Travelpayouts widget only reliably renders at its native
-         1500x500 size, so we always request it at that size (like
-         the official embed code) and scale it down visually to fit
-         the container — see script at the bottom. transform-origin
-         top left keeps it pinned to the wrapper's top-left corner. */
-      .tp-map-inner {
-          width: 1500px;
-          height: 500px;
-          transform-origin: top left;
-      }
+      /* Two separate, pre-validated Travelpayouts embed sizes — one
+         for desktop, one for mobile — swapped via this breakpoint.
+         No JS scaling: each device loads the widget at a size
+         Travelpayouts itself renders correctly. */
+      .tp-map-mobile { display: none; }
       @media (max-width: 768px) {
           .hero {
               padding: 90px 16px 40px;
@@ -285,12 +279,8 @@
               font-size: 13px;
               margin-bottom: 16px;
           }
-          .tp-map-wrap {
-              min-height: 300px;
-              border-radius: 10px;
-              overflow-x: auto;
-              -webkit-overflow-scrolling: touch;
-          }
+          .tp-map-desktop { display: none; }
+          .tp-map-mobile { display: inline-block; }
       }
       @media (prefers-reduced-motion: reduce) {
           .cta-row a.button, .card {
@@ -349,10 +339,11 @@
 <section class="tp-map-section" aria-labelledby="tpMapHeading">
   <h2 id="tpMapHeading">Cheap flights from London</h2>
   <p class="tp-sub">Pick a pin and book your next escape.</p>
-  <div class="tp-map-wrap" id="tpMapWrap">
-    <div class="tp-map-inner" id="tpMapInner">
-      <script async src="https://tpwgt.com/content?currency=gbp&trs=559440&shmarker=760976&lat=51.5073509&lng=-0.1277583&powered_by=true&search_host=www.aviasales.com%2Fsearch&locale=en&origin=LON&value_min=0&value_max=40&round_trip=true&only_direct=true&radius=1&draggable=true&disable_zoom=false&show_logo=false&scrollwheel=false&primary=%233FABDB&secondary=%233FABDB&light=%23ffffff&width=1500&height=500&zoom=3&promo_id=4054&campaign_id=100" charset="utf-8"></script>
-    </div>
+  <div class="tp-map-wrap tp-map-desktop">
+    <script async src="https://tpwgt.com/content?currency=gbp&trs=559440&shmarker=760976&lat=51.5073509&lng=-0.1277583&powered_by=true&search_host=www.aviasales.com%2Fsearch&locale=en&origin=LON&value_min=0&value_max=40&round_trip=true&only_direct=true&radius=1&draggable=true&disable_zoom=false&show_logo=false&scrollwheel=false&primary=%233FABDB&secondary=%233FABDB&light=%23ffffff&width=800&height=500&zoom=3&promo_id=4054&campaign_id=100" charset="utf-8"></script>
+  </div>
+  <div class="tp-map-wrap tp-map-mobile">
+    <script async src="https://tpwgt.com/content?currency=gbp&trs=559440&shmarker=760976&lat=51.5073509&lng=-0.1277583&powered_by=true&search_host=www.aviasales.com%2Fsearch&locale=en&origin=LON&value_min=0&value_max=40&round_trip=true&only_direct=true&radius=1&draggable=true&disable_zoom=false&show_logo=false&scrollwheel=false&primary=%233FABDB&secondary=%233FABDB&light=%23ffffff&width=380&height=400&zoom=3&promo_id=4054&campaign_id=100" charset="utf-8"></script>
   </div>
 </section>
 
@@ -387,39 +378,5 @@
 </p>
     <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
 </footer>
-<script>
-  /* The Travelpayouts widget above is pasted as the plain official
-     embed code at its native 1500x500 size — that's the size it
-     reliably renders at. This script only scales that fixed-size box
-     down visually to fit the real container width, so it looks right
-     on phones without ever asking the widget itself for a
-     non-standard size. */
-  (function () {
-    var wrap = document.getElementById("tpMapWrap");
-    var inner = document.getElementById("tpMapInner");
-    if (!wrap || !inner) return;
-
-    var NATIVE_W = 1500;
-    var NATIVE_H = 500;
-
-    function layout() {
-      var scale = wrap.clientWidth / NATIVE_W;
-      inner.style.transform = "scale(" + scale + ")";
-      wrap.style.height = Math.round(NATIVE_H * scale) + "px";
-    }
-
-    layout();
-
-    if (window.ResizeObserver) {
-      new ResizeObserver(layout).observe(wrap);
-    } else {
-      window.addEventListener("resize", layout);
-      window.addEventListener("orientationchange", layout);
-    }
-    window.addEventListener("load", layout);
-    setTimeout(layout, 500);
-    setTimeout(layout, 1500);
-  })();
-</script>
 </body>
 </html>
