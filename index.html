@@ -10,7 +10,6 @@
   <meta name="author" content="dekhtehai">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://dekhtehai.com/index.html">
-
   <meta property="og:title" content="dekhtehai.com — Travel Photos & Free Flight Price Alerts">
   <meta property="og:description" content="Explore travel photography of global landmarks and hidden gems, and set free flight price alerts so you know the moment a fare drops.">
   <meta property="og:image" content="https://dekhtehai.com/resources/Home.jpeg">
@@ -20,11 +19,9 @@
   <meta name="twitter:title" content="dekhtehai.com — Travel Photos & Free Flight Price Alerts">
   <meta name="twitter:description" content="Explore travel photography of global landmarks and hidden gems, and set free flight price alerts so you know the moment a fare drops.">
   <meta name="twitter:image" content="https://dekhtehai.com/resources/Home.jpeg">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&display=swap" rel="stylesheet">
-
   <!-- Organization/WebSite schema — the homepage is the right place for
        this; it's what lets Google show a sitelinks searchbox / knowledge
        panel entry for the site as a whole. -->
@@ -42,7 +39,6 @@
       }
   }
   </script>
-
   <style>
       :root {
           --bg: #0a0a0a;
@@ -53,9 +49,7 @@
           --text-faint: #6f6f6b;
           --accent: #FFDD00;
       }
-
       * { box-sizing: border-box; }
-
       body {
           background-color: var(--bg);
           color: var(--text);
@@ -65,11 +59,9 @@
           text-align: center;
           position: relative;
       }
-
       h1, .step-title, .card-title {
           font-family: 'Sora', Arial, sans-serif;
       }
-
       .logo-placeholder {
           position: absolute;
           top: 10px;
@@ -99,7 +91,6 @@
       nav a[aria-current="page"] {
           color: var(--accent);
       }
-
       .hero {
           min-height: 100vh;
           display: flex;
@@ -107,7 +98,6 @@
           justify-content: center;
           padding: 110px 20px 60px;
       }
-
       .centered-content {
           display: flex;
           flex-direction: column;
@@ -116,7 +106,6 @@
           padding: 20px;
           max-width: 640px;
       }
-
       h1 {
           font-size: 32px;
           font-weight: 700;
@@ -124,7 +113,6 @@
           letter-spacing: -0.01em;
           line-height: 1.25;
       }
-
       p.intro {
           color: var(--text-dim);
           font-size: 15.5px;
@@ -132,7 +120,6 @@
           max-width: 480px;
           margin: 0 auto 30px;
       }
-
       .image-placeholder img {
           max-width: 600px;
           max-height: 600px;
@@ -142,7 +129,6 @@
           border-radius: 10px;
           margin: 0 auto;
       }
-
       .cta-row {
           margin-top: 26px;
       }
@@ -160,7 +146,6 @@
       .cta-row a.button:hover {
           background: #fff;
       }
-
       /* --- Explore section --- */
       .explore {
           max-width: 900px;
@@ -211,7 +196,6 @@
           display: inline-block;
           margin-top: 10px;
       }
-
       footer {
           width: 100%;
           text-align: center;
@@ -219,7 +203,48 @@
           font-size: 14px;
           padding: 0 0 30px;
       }
-
+      /* --- Travelpayouts cheap-flights map (under £40) --- */
+      .tp-map-section {
+          max-width: 1100px;
+          margin: 0 auto;
+          padding: 10px 20px 60px;
+      }
+      .tp-map-section h2 {
+          font-family: 'Sora', Arial, sans-serif;
+          font-size: 20px;
+          font-weight: 700;
+          margin: 0 0 8px;
+          text-align: center;
+      }
+      .tp-map-section .tp-sub {
+          color: var(--text-dim);
+          font-size: 14px;
+          max-width: 440px;
+          margin: 0 auto 22px;
+          line-height: 1.5;
+      }
+      .tp-map-wrap {
+          width: 100%;
+          max-width: 100%;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 1px solid var(--border);
+          background: var(--surface);
+          /* Aspect ratio keeps the iframe-like widget from collapsing on mobile */
+          min-height: 280px;
+      }
+      .tp-map-wrap iframe,
+      .tp-map-wrap > div,
+      .tp-map-wrap script + div {
+          max-width: 100% !important;
+      }
+      /* Widget injects its own fixed-width container; force fluid */
+      .tp-map-wrap [id^="tp-widget"],
+      .tp-map-wrap .tp-widget-wrapper,
+      .tp-map-wrap iframe {
+          width: 100% !important;
+          max-width: 100% !important;
+      }
       @media (max-width: 768px) {
           .hero {
               padding: 90px 16px 40px;
@@ -253,14 +278,26 @@
               font-size: 12px;
               padding: 10px;
           }
+          .tp-map-section {
+              padding: 10px 12px 48px;
+          }
+          .tp-map-section h2 {
+              font-size: 18px;
+          }
+          .tp-map-section .tp-sub {
+              font-size: 13px;
+              margin-bottom: 16px;
+          }
+          .tp-map-wrap {
+              min-height: 240px;
+              border-radius: 10px;
+          }
       }
-
       @media (prefers-reduced-motion: reduce) {
           .cta-row a.button, .card {
               transition: none;
           }
       }
-
       .social-links {
       display: flex;
       justify-content: center;
@@ -295,7 +332,6 @@
   <a href="deals.html">Deals</a>
   <a href="book-trip.html">Book</a>
 </nav>
-
 <div class="hero">
   <div class="centered-content">
     <div class="text">
@@ -310,6 +346,17 @@
     </div>
   </div>
 </div>
+
+<!-- Cheap flights map: London origin, under £40 only, responsive -->
+<section class="tp-map-section" aria-labelledby="tpMapHeading">
+  <h2 id="tpMapHeading">Cheap flights from London</h2>
+  <p class="tp-sub">Pick a pin and book your next escape.</p>
+  <div class="tp-map-wrap" id="tpMapWrap">
+    <script async
+      src="https://tpwgt.com/content?currency=gbp&trs=559440&shmarker=760976&lat=48.5&lng=10&powered_by=true&search_host=www.aviasales.com%2Fsearch&locale=en&origin=LON&value_min=0&value_max=40&round_trip=true&only_direct=false&radius=1&draggable=true&disable_zoom=false&show_logo=false&scrollwheel=false&primary=%233FABDB&secondary=%233FABDB&light=%23ffffff&width=1060&height=420&zoom=3&promo_id=4054&campaign_id=100"
+      charset="utf-8"></script>
+  </div>
+</section>
 
 <div class="explore">
   <h2>Explore dekhtehai</h2>
@@ -331,7 +378,6 @@
     </a>
   </div>
 </div>
-
 <footer>
  <p class="social-links">
     <a href="https://www.instagram.com/dekhte_hai_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
@@ -343,5 +389,31 @@
 </p> 
     <p>&copy; 2026 dekhtehai.com. All rights reserved.</p>
 </footer>
+<script>
+  /* Make the Travelpayouts widget fluid on mobile.
+     The script injects a fixed-width box; we re-apply 100% after it loads. */
+  (function () {
+    var wrap = document.getElementById("tpMapWrap");
+    if (!wrap) return;
+    function forceFluid() {
+      var nodes = wrap.querySelectorAll("iframe, div, canvas");
+      for (var i = 0; i < nodes.length; i++) {
+        nodes[i].style.maxWidth = "100%";
+        nodes[i].style.width = "100%";
+        if (nodes[i].tagName === "IFRAME") {
+          nodes[i].style.height = window.innerWidth < 768 ? "280px" : "420px";
+        }
+      }
+    }
+    // Widget loads async — poll briefly then stop
+    var tries = 0;
+    var timer = setInterval(function () {
+      forceFluid();
+      tries += 1;
+      if (tries > 20) clearInterval(timer);
+    }, 400);
+    window.addEventListener("resize", forceFluid);
+  })();
+</script>
 </body>
 </html>
